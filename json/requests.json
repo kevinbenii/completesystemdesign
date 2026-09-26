@@ -1,0 +1,40 @@
+[
+  {
+    "location": {
+      "address": "400 Pine Street",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29401",
+      "latitude": 32.7765,
+      "longitude": -79.9311
+    },
+    "status": "IN_PROGRESS",
+    "subject": "Need evacuation assistance",
+    "body": "Family of four needs transportation to the nearest available shelter.",
+    "requiredSkills": [
+      "EVACUATION",
+      "TRANSPORTATION"
+    ],
+    "requester": "victim1",
+    "assignedVolunteer": "volunteer1"
+  },
+  {
+    "location": {
+      "address": "500 King Street",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29403",
+      "latitude": 32.7890,
+      "longitude": -79.9370
+    },
+    "status": "OPEN",
+    "subject": "Food assistance needed",
+    "body": "Household needs emergency food supplies following the hurricane.",
+    "requiredSkills": [
+      "FOOD"
+    ],
+    "requester": "victim2",
+    "assignedVolunteer": null
+  }
+]
+

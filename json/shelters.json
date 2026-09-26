@@ -1,0 +1,47 @@
+[
+  {
+    "ShelterId": "S001",
+    "name": "Columbia Central Emergency Shelter",
+    "location": {
+      "address": "600 Assembly Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29201",
+      "latitude": 34.0007,
+      "longitude": -81.0348
+    },
+    "capacity": 100,
+    "currentOccupancy": 1,
+    "occupants": [
+      "victim1"
+    ],
+    "availableSkills": [
+      "FOOD",
+      "MEDICAL",
+      "SHELTER"
+    ],
+    "isOpen": true
+  },
+  {
+    "ShelterId": "S002",
+    "name": "Charleston Community Shelter",
+    "location": {
+      "address": "700 Meeting Street",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29403",
+      "latitude": 32.8000,
+      "longitude": -79.9400
+    },
+    "capacity": 75,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER",
+      "CHILDCARE"
+    ],
+    "isOpen": true
+  }
+]
+

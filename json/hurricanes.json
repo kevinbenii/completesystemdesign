@@ -1,0 +1,69 @@
+[
+  {
+    "location": {
+      "address": "Atlantic Ocean",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29401",
+      "latitude": 32.5000,
+      "longitude": -79.5000
+    },
+    "category": 3,
+    "windSpeed": 120.0,
+    "locationHistory": [
+      {
+        "address": "Atlantic Ocean",
+        "city": "Charleston",
+        "state": "SC",
+        "zipCode": "29401",
+        "latitude": 31.9000,
+        "longitude": -78.9000
+      },
+      {
+        "address": "Atlantic Ocean",
+        "city": "Charleston",
+        "state": "SC",
+        "zipCode": "29401",
+        "latitude": 32.2000,
+        "longitude": -79.2000
+      }
+    ],
+    "affectedVictims": [
+      "victim1"
+    ]
+  },
+  {
+    "location": {
+      "address": "Atlantic Ocean",
+      "city": "Myrtle Beach",
+      "state": "SC",
+      "zipCode": "29577",
+      "latitude": 33.6891,
+      "longitude": -78.8867
+    },
+    "category": 2,
+    "windSpeed": 105.0,
+    "locationHistory": [
+      {
+        "address": "Atlantic Ocean",
+        "city": "Myrtle Beach",
+        "state": "SC",
+        "zipCode": "29577",
+        "latitude": 33.1000,
+        "longitude": -78.3000
+      },
+      {
+        "address": "Atlantic Ocean",
+        "city": "Myrtle Beach",
+        "state": "SC",
+        "zipCode": "29577",
+        "latitude": 33.4000,
+        "longitude": -78.6000
+      }
+    ],
+    "affectedVictims": [
+      "victim2"
+    ]
+  }
+]
+

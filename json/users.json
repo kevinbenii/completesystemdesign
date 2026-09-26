@@ -1,0 +1,51 @@
+[
+  {
+    "username": "volunteer1",
+    "password": "password123",
+    "phoneNumber": "555-111-1111",
+    "location": {
+      "address": "100 Main Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29201",
+      "latitude": 34.0007,
+      "longitude": -81.0348
+    },
+    "skills": [
+      "FOOD",
+      "TRANSPORTATION"
+    ]
+  },
+  {
+    "username": "victim1",
+    "password": "password456",
+    "phoneNumber": "555-222-2222",
+    "location": {
+      "address": "200 Oak Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29205",
+      "latitude": 33.9900,
+      "longitude": -81.0200
+    },
+    "activeRequests": [
+      "Need evacuation assistance"
+    ],
+    "affectedByHurricane": "Hurricane Helena"
+  },
+  {
+    "username": "admin1",
+    "password": "adminPassword123",
+    "phoneNumber": "555-333-3333",
+    "location": {
+      "address": "300 State Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29201",
+      "latitude": 34.0020,
+      "longitude": -81.0300
+    },
+    "adminId": "ADMIN001"
+  }
+]
+
