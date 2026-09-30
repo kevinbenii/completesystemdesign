@@ -1,8 +1,8 @@
 ---
 name: Documentation
-about: Describe this issue template's purpose here.
+about: List what code needs documentation.
 title: ''
-labels: documentation
+labels: ''
 assignees: ''
 
 ---

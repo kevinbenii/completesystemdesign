@@ -1,8 +1,8 @@
 ---
 name: Refactor
-about: Describe this issue template's purpose here.
+about: What code needs refactoring?
 title: ''
-labels: ''
+labels: Refactor
 assignees: ''
 
 ---
