@@ -14,9 +14,9 @@ Think of it as **mission control for disaster relief**. Less panic, more coordin
 ## Code Design
 ![uml class diagram](docs/images/uml-class.png) [UML Class Diagram](docs/uml-class-diagram.pdf)
 
-![uml sequence diagram](docs/images/uml-sequence.png) [UML Sequence Diagram 1](docs/uml-sequence1.pdf)
+![uml sequence diagram](docs/images/uml-sequence.png) [UML Sequence Diagram 1](docs/uml-sequence-diagram1.pdf)
 
-![uml sequence diagram](docs/images/uml-sequence.png) [UML Sequence Diagram 2](docs/uml-sequence2.pdf)
+![uml sequence diagram](docs/images/uml-sequence.png) [UML Sequence Diagram 2](docs/uml-sequence-diagram2.pdf)
 
 ## Our Team
 
