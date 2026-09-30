@@ -18,6 +18,9 @@ Think of it as **mission control for disaster relief**. Less panic, more coordin
 
 ![uml sequence diagram](docs/images/uml-sequence.png) [UML Sequence Diagram 2](docs/uml-sequence-diagram2.pdf)
 
+## Project Board
+![scrum board](docs/images/scrum.png) [Project Board](https://github.com/users/kevinbenii/projects/2)
+
 ## Our Team
 
 | Team Members  | Role          |
