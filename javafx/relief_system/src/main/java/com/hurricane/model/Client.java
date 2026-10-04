@@ -1,0 +1,36 @@
+package com.model;
+
+import java.util.ArrayList;
+
+public class Client {
+	private Server server;
+	private User currentUser;
+
+	public Client() {
+		server = Server.getInstance(new FileDataManager("data.json"));
+	}
+
+	public boolean attemptLogin(String username, String password) {
+		return server.authenticateUser(username, password);
+	}
+
+	public void logout() {
+		currentUser = null;
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	public void submitRequest(ReliefRequest request) {
+		server.submitRequest(request);
+	}
+
+	public ArrayList<ReliefRequest> filterRequestsBySkill(Skill skill) {
+		return server.filterRequestsBySkill(skill);
+	}
+
+	public ArrayList<ReliefRequest> filterRequestsByLocation(Location location, double radius) {
+		return server.filterRequestsByLocation(location, radius);
+	}
+}
