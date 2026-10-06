@@ -1,4 +1,4 @@
-package com.model;
+package com.hurricane.model;
 
 public enum ReliefRequestStatus {
 	OPEN, IN_PROGRESS, RESOLVED, MODERATOR_REMOVED

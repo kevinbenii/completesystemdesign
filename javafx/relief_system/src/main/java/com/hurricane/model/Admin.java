@@ -1,4 +1,4 @@
-package com.model;
+package com.hurricane.model;
 
 public class Admin extends User {
 	private String adminId;

@@ -1,4 +1,4 @@
-package com.model;
+package com.hurricane.model;
 
 public abstract class DataManager implements DataLoader, DataWriter {
 	protected String filePath;

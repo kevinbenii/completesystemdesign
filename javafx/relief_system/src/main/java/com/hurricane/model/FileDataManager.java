@@ -1,4 +1,4 @@
-package com.model;
+package com.hurricane.model;
 
 import java.util.ArrayList;
 
