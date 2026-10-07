@@ -42,6 +42,18 @@ public class FileDataManager extends DataManager {
 		super(filePath);
 	}
 
+	/**
+	 * Finds the repo's json/ folder. Paths are relative to wherever the app was
+	 * started: running from the repo root (e.g. VS Code's Run button) needs "json",
+	 * while `mvn javafx:run` starts in javafx/relief_system and needs "../../json".
+	 * Use this instead of hardcoding a path, so every entry point loads the same data.
+	 */
+	public static String defaultDataFolder() {
+		if (Files.isDirectory(Paths.get("json")))
+			return "json";
+		return "../../json";
+	}
+
 	// ---------- loading ----------
 
 	// Reads users.json once; later calls return the same list

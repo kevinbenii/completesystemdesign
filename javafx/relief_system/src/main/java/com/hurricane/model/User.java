@@ -14,15 +14,17 @@ public abstract class User {
 	}
 
 	public boolean login(String username, String password) {
-		return true;
+		return this.username.equals(username) && this.password.equals(password);
 	}
 
 	public void register() {
 
 	}
 
-	// Getters for the basic account info, used when saving users to JSON.
+	// Getters for the basic account info, used for login and when saving users to JSON.
 	// The username is also how other records (requests, shelters, ...) refer to a user.
+	// Merge note: getUsername() and getPhoneNumber() were added on both main and
+	// my-experiement, which merged cleanly but compiled as duplicates; keep only one copy.
 	public String getUsername() {
 		return username;
 	}
