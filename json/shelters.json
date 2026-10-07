@@ -1,6 +1,6 @@
 [
   {
-    "ShelterId": "S001",
+    "shelterId": "S001",
     "name": "Columbia Central Emergency Shelter",
     "location": {
       "address": "600 Assembly Street",
@@ -23,7 +23,7 @@
     "isOpen": true
   },
   {
-    "ShelterId": "S002",
+    "shelterId": "S002",
     "name": "Charleston Community Shelter",
     "location": {
       "address": "700 Meeting Street",
