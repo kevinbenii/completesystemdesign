@@ -22,8 +22,45 @@ public class Server {
 		return instance;
 	}
 
-	public void registerUser(User user) {
-		userManager.registerUser(user);
+	public static Server getInstance() {
+		return getInstance(new FileDataManager("data.json"));
+	}
+
+	public boolean registerUser(User user) {
+		return userManager.registerUser(user);
+	}
+
+	public boolean createVictimAccount(String username, String password, String phoneNumber, Location location) {
+		if (!isValidAccount(username, password))
+			return false;
+		return registerUser(new Victim(username, password, phoneNumber, location));
+	}
+
+	public boolean createVolunteerAccount(String username, String password, String phoneNumber, Location location,
+			ArrayList<Skill> skills) {
+		if (!isValidAccount(username, password))
+			return false;
+		return registerUser(new Volunteer(username, password, phoneNumber, location, skills));
+	}
+
+	private boolean isValidAccount(String username, String password) {
+		return username != null && !username.isBlank() && password != null && !password.isBlank();
+	}
+
+	public boolean login(String username, String password) {
+		return authenticateUser(username, password);
+	}
+
+	public void logout() {
+		userManager.logout();
+	}
+
+	public User getCurrentUser() {
+		return userManager.getCurrentUser();
+	}
+
+	public boolean isLoggedIn() {
+		return getCurrentUser() != null;
 	}
 
 	public boolean authenticateUser(String username, String password) {

@@ -14,7 +14,15 @@ public abstract class User {
 	}
 
 	public boolean login(String username, String password) {
-		return true;
+		return this.username.equals(username) && this.password.equals(password);
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
 	public void register() {
