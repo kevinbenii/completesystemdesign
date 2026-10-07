@@ -21,6 +21,20 @@ public abstract class User {
 
 	}
 
+	// Getters for the basic account info, used when saving users to JSON.
+	// The username is also how other records (requests, shelters, ...) refer to a user.
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
 	public Location getLocation() {
 		return location;
 	}

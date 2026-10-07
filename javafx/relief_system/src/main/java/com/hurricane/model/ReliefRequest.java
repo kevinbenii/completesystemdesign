@@ -20,6 +20,41 @@ public class ReliefRequest {
 		this.status = ReliefRequestStatus.OPEN;
 	}
 
+	// Getters for every field, used by the UI to display a request and by the writer to save it
+	public Location getLocation() {
+		return location;
+	}
+
+	public ReliefRequestStatus getStatus() {
+		return status;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public ArrayList<Skill> getRequiredSkills() {
+		return requiredSkills;
+	}
+
+	public Victim getRequester() {
+		return requester;
+	}
+
+	// null until a volunteer takes the request
+	public Volunteer getAssignedVolunteer() {
+		return assignedVolunteer;
+	}
+
+	// Called by Volunteer.volunteerForRequest() and by the loader
+	public void setAssignedVolunteer(Volunteer volunteer) {
+		this.assignedVolunteer = volunteer;
+	}
+
 	public void display() {
 		System.out.println(subject);
 		System.out.println(body);

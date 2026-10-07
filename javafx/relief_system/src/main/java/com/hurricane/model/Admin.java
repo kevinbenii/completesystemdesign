@@ -8,6 +8,16 @@ public class Admin extends User {
 		this.adminId = username;
 	}
 
+	// The constructor defaults adminId to the username; the setter lets the
+	// loader restore a saved id like "ADMIN001"
+	public String getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+
 	public void deleteRequest(ReliefRequest request) {
 		request.setStatus(ReliefRequestStatus.MODERATOR_REMOVED);
 	}

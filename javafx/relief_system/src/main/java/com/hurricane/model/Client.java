@@ -7,7 +7,8 @@ public class Client {
 	private User currentUser;
 
 	public Client() {
-		server = Server.getInstance(new FileDataManager("data.json"));
+		// Relative to javafx/relief_system, where `mvn javafx:run` starts
+		server = Server.getInstance(new FileDataManager("../../json"));
 	}
 
 	public boolean attemptLogin(String username, String password) {

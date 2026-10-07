@@ -11,6 +11,20 @@ public class Victim extends User {
 		this.activeRequests = new ArrayList<ReliefRequest>();
 	}
 
+	// Requests this victim has made that are still OPEN or IN_PROGRESS
+	public ArrayList<ReliefRequest> getActiveRequests() {
+		return activeRequests;
+	}
+
+	// The storm affecting this victim (null if none); set by the loader from hurricanes.json
+	public Hurricane getAffectedByHurricane() {
+		return affectedByHurricane;
+	}
+
+	public void setAffectedByHurricane(Hurricane hurricane) {
+		this.affectedByHurricane = hurricane;
+	}
+
 	public ReliefRequest createRequest(String subject, String body, ArrayList<Skill> requiredSkills) {
 		ReliefRequest request = new ReliefRequest(location, subject, body, requiredSkills, this);
 		activeRequests.add(request);

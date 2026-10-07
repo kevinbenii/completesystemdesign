@@ -18,6 +18,28 @@ public class Hurricane {
 		locationHistory.add(location);
 	}
 
+	// Getters used by the writer to save a hurricane.
+	// locationHistory is the storm's track, oldest first; its last point is the current location.
+	public Location getLocation() {
+		return location;
+	}
+
+	public int getCategory() {
+		return category;
+	}
+
+	public double getWindSpeed() {
+		return windSpeed;
+	}
+
+	public ArrayList<Location> getLocationHistory() {
+		return locationHistory;
+	}
+
+	public ArrayList<Victim> getAffectedVictims() {
+		return affectedVictims;
+	}
+
 	public void updateData(Location newLocation, int category, double windSpeed) {
 		this.location = newLocation;
 		this.category = category;

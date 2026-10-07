@@ -10,11 +10,18 @@ public class Volunteer extends User {
 		this.skills = skills;
 	}
 
+	// The kinds of help this volunteer can give, e.g. FOOD or TRANSPORTATION
+	public ArrayList<Skill> getSkills() {
+		return skills;
+	}
+
 	public void addSkill(Skill skill) {
 		skills.add(skill);
 	}
 
+	// Takes the request: records this volunteer on it and marks it IN_PROGRESS
 	public void volunteerForRequest(ReliefRequest request) {
+		request.setAssignedVolunteer(this);
 		request.setStatus(ReliefRequestStatus.IN_PROGRESS);
 	}
 
