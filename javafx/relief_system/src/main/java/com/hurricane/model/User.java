@@ -1,12 +1,16 @@
 package com.hurricane.model;
 
+import java.util.UUID;
+
 public abstract class User {
+	protected UUID id;
 	protected String username;
 	protected String password;
 	protected String phoneNumber;
 	protected Location location;
 
 	public User(String username, String password, String phoneNumber, Location location) {
+		this.id = UUID.randomUUID();
 		this.username = username;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
@@ -19,6 +23,15 @@ public abstract class User {
 
 	public void register() {
 
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	// Loader uses this to restore a saved id
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	// Getters for the basic account info, used for login and when saving users to JSON.

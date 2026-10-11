@@ -1,8 +1,10 @@
 package com.hurricane.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Hurricane {
+	private UUID id;
 	private Location location;
 	private int category;
 	private double windSpeed;
@@ -10,12 +12,22 @@ public class Hurricane {
 	private ArrayList<Victim> affectedVictims;
 
 	public Hurricane(Location location, int category, double windSpeed) {
+		this.id = UUID.randomUUID();
 		this.location = location;
 		this.category = category;
 		this.windSpeed = windSpeed;
 		this.locationHistory = new ArrayList<Location>();
 		this.affectedVictims = new ArrayList<Victim>();
 		locationHistory.add(location);
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	// Loader uses this to restore a saved id
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	// Getters used by the writer to save a hurricane.

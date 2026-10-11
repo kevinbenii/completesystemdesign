@@ -13,6 +13,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import static com.hurricane.model.DataConstants.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -29,10 +33,6 @@ import org.json.simple.parser.ParseException;
  * shared; that way every manager links to the same User objects.
  */
 public class FileDataManager extends DataManager {
-	private static final String USERS_FILE = "users.json";
-	private static final String REQUESTS_FILE = "requests.json";
-	private static final String HURRICANES_FILE = "hurricanes.json";
-	private static final String SHELTERS_FILE = "shelters.json";
 
 	// Cached after the first loadUsers() so everyone shares the same User objects
 	private ArrayList<User> users;
@@ -63,7 +63,10 @@ public class FileDataManager extends DataManager {
 
 		users = new ArrayList<User>();
 		for (Object entry : readArray(USERS_FILE)) {
-			users.add(parseUser((JSONObject) entry));
+			JSONObject json = (JSONObject) entry;
+			User user = parseUser(json);
+			restoreId(json, user::setId);
+			users.add(user);
 		}
 		return users;
 	}
@@ -76,21 +79,21 @@ public class FileDataManager extends DataManager {
 		for (Object entry : readArray(REQUESTS_FILE)) {
 			JSONObject json = (JSONObject) entry;
 			// The file stores a username; swap it for the real Victim (null if not found)
-			Victim requester = asVictim(usersByName.get(json.get("requester")));
+			Victim requester = asVictim(usersByName.get(json.get(REQUESTER)));
 
 			ReliefRequest request = new ReliefRequest(
-					parseLocation((JSONObject) json.get("location")),
-					(String) json.get("subject"),
-					(String) json.get("body"),
-					parseSkills(getArray(json, "requiredSkills")),
+					parseLocation((JSONObject) json.get(LOCATION)),
+					(String) json.get(SUBJECT),
+					(String) json.get(BODY),
+					parseSkills(getArray(json, REQUIRED_SKILLS)),
 					requester);
 
 			// The constructor always sets OPEN, so restore the saved status
-			if (json.get("status") != null)
-				request.setStatus(ReliefRequestStatus.valueOf((String) json.get("status")));
+			if (json.get(STATUS) != null)
+				request.setStatus(ReliefRequestStatus.valueOf((String) json.get(STATUS)));
 
 			// assignedVolunteer is null in the file until someone takes the request
-			User volunteer = usersByName.get(json.get("assignedVolunteer"));
+			User volunteer = usersByName.get(json.get(ASSIGNED_VOLUNTEER));
 			if (volunteer instanceof Volunteer)
 				request.setAssignedVolunteer((Volunteer) volunteer);
 
@@ -98,6 +101,7 @@ public class FileDataManager extends DataManager {
 			if (requester != null && isActive(request) && !requester.getActiveRequests().contains(request))
 				requester.getActiveRequests().add(request);
 
+			restoreId(json, request::setId);
 			requests.add(request);
 		}
 		return requests;
@@ -110,23 +114,23 @@ public class FileDataManager extends DataManager {
 
 		for (Object entry : readArray(HURRICANES_FILE)) {
 			JSONObject json = (JSONObject) entry;
-			Location location = parseLocation((JSONObject) json.get("location"));
+			Location location = parseLocation((JSONObject) json.get(LOCATION));
 			Hurricane hurricane = new Hurricane(location,
-					((Number) json.get("category")).intValue(),
-					((Number) json.get("windSpeed")).doubleValue());
+					((Number) json.get(CATEGORY)).intValue(),
+					((Number) json.get(WIND_SPEED)).doubleValue());
 
 			// The constructor seeds the history with the current location; replace it
 			// with the stored track, keeping the current location as the last point.
 			ArrayList<Location> history = hurricane.getLocationHistory();
 			history.clear();
-			for (Object point : getArray(json, "locationHistory")) {
+			for (Object point : getArray(json, LOCATION_HISTORY)) {
 				history.add(parseLocation((JSONObject) point));
 			}
 			if (history.isEmpty() || !sameCoordinates(history.get(history.size() - 1), location))
 				history.add(location);
 
 			// Link both ways: hurricane -> victims and victim -> hurricane
-			for (Object name : getArray(json, "affectedVictims")) {
+			for (Object name : getArray(json, AFFECTED_VICTIMS)) {
 				Victim victim = asVictim(usersByName.get(name));
 				if (victim != null) {
 					hurricane.getAffectedVictims().add(victim);
@@ -134,6 +138,7 @@ public class FileDataManager extends DataManager {
 				}
 			}
 
+			restoreId(json, hurricane::setId);
 			hurricanes.add(hurricane);
 		}
 		return hurricanes;
@@ -147,24 +152,24 @@ public class FileDataManager extends DataManager {
 		for (Object entry : readArray(SHELTERS_FILE)) {
 			JSONObject json = (JSONObject) entry;
 			Shelter shelter = new Shelter(
-					(String) json.get("shelterId"),
-					(String) json.get("name"),
-					parseLocation((JSONObject) json.get("location")),
-					((Number) json.get("capacity")).intValue());
+					(String) json.get(SHELTER_ID),
+					(String) json.get(NAME),
+					parseLocation((JSONObject) json.get(LOCATION)),
+					((Number) json.get(CAPACITY)).intValue());
 
-			shelter.getAvailableSkills().addAll(parseSkills(getArray(json, "availableSkills")));
+			shelter.getAvailableSkills().addAll(parseSkills(getArray(json, AVAILABLE_SKILLS)));
 
 			// Re-check everyone in before applying the open flag, since checkIn()
 			// refuses closed shelters. currentOccupancy is rebuilt from the occupant
 			// list rather than trusted from the file, so the two can't disagree.
-			for (Object name : getArray(json, "occupants")) {
+			for (Object name : getArray(json, OCCUPANTS)) {
 				Victim victim = asVictim(usersByName.get(name));
 				if (victim != null)
 					shelter.checkIn(victim);
 			}
 
-			if (json.get("isOpen") != null)
-				shelter.setOpen((Boolean) json.get("isOpen"));
+			if (json.get(IS_OPEN) != null)
+				shelter.setOpen((Boolean) json.get(IS_OPEN));
 
 			shelters.add(shelter);
 		}
@@ -173,20 +178,20 @@ public class FileDataManager extends DataManager {
 
 	// Builds the right User subclass (Admin, Volunteer or Victim) from one JSON entry
 	private User parseUser(JSONObject json) {
-		String username = (String) json.get("username");
-		String password = (String) json.get("password");
-		String phoneNumber = (String) json.get("phoneNumber");
-		Location location = parseLocation((JSONObject) json.get("location"));
+		String username = (String) json.get(USERNAME);
+		String password = (String) json.get(PASSWORD);
+		String phoneNumber = (String) json.get(PHONE_NUMBER);
+		Location location = parseLocation((JSONObject) json.get(LOCATION));
 
 		switch (roleOf(json)) {
-		case "ADMIN":
+		case ROLE_ADMIN:
 			Admin admin = new Admin(username, password, phoneNumber, location);
 			// The Admin constructor defaults adminId to the username; keep the saved id instead
-			if (json.get("adminId") != null)
-				admin.setAdminId((String) json.get("adminId"));
+			if (json.get(ADMIN_ID) != null)
+				admin.setAdminId((String) json.get(ADMIN_ID));
 			return admin;
-		case "VOLUNTEER":
-			return new Volunteer(username, password, phoneNumber, location, parseSkills(getArray(json, "skills")));
+		case ROLE_VOLUNTEER:
+			return new Volunteer(username, password, phoneNumber, location, parseSkills(getArray(json, SKILLS)));
 		default:
 			return new Victim(username, password, phoneNumber, location);
 		}
@@ -194,13 +199,13 @@ public class FileDataManager extends DataManager {
 
 	// Older entries have no "role", so fall back to the fields that only one subclass has.
 	private String roleOf(JSONObject json) {
-		if (json.get("role") != null)
-			return ((String) json.get("role")).toUpperCase();
-		if (json.containsKey("adminId"))
-			return "ADMIN";
-		if (json.containsKey("skills"))
-			return "VOLUNTEER";
-		return "VICTIM";
+		if (json.get(ROLE) != null)
+			return ((String) json.get(ROLE)).toUpperCase();
+		if (json.containsKey(ADMIN_ID))
+			return ROLE_ADMIN;
+		if (json.containsKey(SKILLS))
+			return ROLE_VOLUNTEER;
+		return ROLE_VICTIM;
 	}
 
 	// Turns a {"address": ..., "latitude": ...} block into a Location
@@ -210,12 +215,12 @@ public class FileDataManager extends DataManager {
 
 		// json-simple returns whole numbers as Long and decimals as Double, so read both as Number
 		return new Location(
-				(String) json.get("address"),
-				(String) json.get("city"),
-				(String) json.get("state"),
-				(String) json.get("zipCode"),
-				((Number) json.get("latitude")).doubleValue(),
-				((Number) json.get("longitude")).doubleValue());
+				(String) json.get(ADDRESS),
+				(String) json.get(CITY),
+				(String) json.get(STATE),
+				(String) json.get(ZIP_CODE),
+				((Number) json.get(LATITUDE)).doubleValue(),
+				((Number) json.get(LONGITUDE)).doubleValue());
 	}
 
 	// Turns ["FOOD", "MEDICAL"] into Skill enum values; an unknown name throws
@@ -244,13 +249,14 @@ public class FileDataManager extends DataManager {
 		List<Object> out = new ArrayList<Object>();
 		for (ReliefRequest request : requests) {
 			Map<String, Object> json = new LinkedHashMap<String, Object>();
-			json.put("location", locationToJson(request.getLocation()));
-			json.put("status", request.getStatus().name());
-			json.put("subject", request.getSubject());
-			json.put("body", request.getBody());
-			json.put("requiredSkills", skillsToJson(request.getRequiredSkills()));
-			json.put("requester", usernameOf(request.getRequester()));
-			json.put("assignedVolunteer", usernameOf(request.getAssignedVolunteer()));
+			json.put(ID, request.getId().toString());
+			json.put(LOCATION, locationToJson(request.getLocation()));
+			json.put(STATUS, request.getStatus().name());
+			json.put(SUBJECT, request.getSubject());
+			json.put(BODY, request.getBody());
+			json.put(REQUIRED_SKILLS, skillsToJson(request.getRequiredSkills()));
+			json.put(REQUESTER, usernameOf(request.getRequester()));
+			json.put(ASSIGNED_VOLUNTEER, usernameOf(request.getAssignedVolunteer()));
 			out.add(json);
 		}
 		writeArray(REQUESTS_FILE, out);
@@ -270,11 +276,12 @@ public class FileDataManager extends DataManager {
 			}
 
 			Map<String, Object> json = new LinkedHashMap<String, Object>();
-			json.put("location", locationToJson(hurricane.getLocation()));
-			json.put("category", hurricane.getCategory());
-			json.put("windSpeed", hurricane.getWindSpeed());
-			json.put("locationHistory", history);
-			json.put("affectedVictims", victims);
+			json.put(ID, hurricane.getId().toString());
+			json.put(LOCATION, locationToJson(hurricane.getLocation()));
+			json.put(CATEGORY, hurricane.getCategory());
+			json.put(WIND_SPEED, hurricane.getWindSpeed());
+			json.put(LOCATION_HISTORY, history);
+			json.put(AFFECTED_VICTIMS, victims);
 			out.add(json);
 		}
 		writeArray(HURRICANES_FILE, out);
@@ -291,14 +298,14 @@ public class FileDataManager extends DataManager {
 			}
 
 			Map<String, Object> json = new LinkedHashMap<String, Object>();
-			json.put("shelterId", shelter.getShelterId());
-			json.put("name", shelter.getName());
-			json.put("location", locationToJson(shelter.getLocation()));
-			json.put("capacity", shelter.getCapacity());
-			json.put("currentOccupancy", shelter.getCurrentOccupancy());
-			json.put("occupants", occupants);
-			json.put("availableSkills", skillsToJson(shelter.getAvailableSkills()));
-			json.put("isOpen", shelter.isOpen());
+			json.put(SHELTER_ID, shelter.getShelterId());
+			json.put(NAME, shelter.getName());
+			json.put(LOCATION, locationToJson(shelter.getLocation()));
+			json.put(CAPACITY, shelter.getCapacity());
+			json.put(CURRENT_OCCUPANCY, shelter.getCurrentOccupancy());
+			json.put(OCCUPANTS, occupants);
+			json.put(AVAILABLE_SKILLS, skillsToJson(shelter.getAvailableSkills()));
+			json.put(IS_OPEN, shelter.isOpen());
 			out.add(json);
 		}
 		writeArray(SHELTERS_FILE, out);
@@ -307,18 +314,19 @@ public class FileDataManager extends DataManager {
 	// Shared fields first, then a "role" plus whatever is specific to that kind of user
 	private Map<String, Object> userToJson(User user) {
 		Map<String, Object> json = new LinkedHashMap<String, Object>();
-		json.put("username", user.getUsername());
+		json.put(ID, user.getId().toString());
+		json.put(USERNAME, user.getUsername());
 		// Plain text for now; hash passwords before this holds real accounts
-		json.put("password", user.getPassword());
-		json.put("phoneNumber", user.getPhoneNumber());
-		json.put("location", locationToJson(user.getLocation()));
+		json.put(PASSWORD, user.getPassword());
+		json.put(PHONE_NUMBER, user.getPhoneNumber());
+		json.put(LOCATION, locationToJson(user.getLocation()));
 
 		if (user instanceof Admin) {
-			json.put("role", "ADMIN");
-			json.put("adminId", ((Admin) user).getAdminId());
+			json.put(ROLE, ROLE_ADMIN);
+			json.put(ADMIN_ID, ((Admin) user).getAdminId());
 		} else if (user instanceof Volunteer) {
-			json.put("role", "VOLUNTEER");
-			json.put("skills", skillsToJson(((Volunteer) user).getSkills()));
+			json.put(ROLE, ROLE_VOLUNTEER);
+			json.put(SKILLS, skillsToJson(((Volunteer) user).getSkills()));
 		} else {
 			// The victim <-> hurricane link is stored on the hurricane (affectedVictims).
 			// activeRequests is saved by subject only so the file is easy to read;
@@ -327,8 +335,8 @@ public class FileDataManager extends DataManager {
 			for (ReliefRequest request : ((Victim) user).getActiveRequests()) {
 				subjects.add(request.getSubject());
 			}
-			json.put("role", "VICTIM");
-			json.put("activeRequests", subjects);
+			json.put(ROLE, ROLE_VICTIM);
+			json.put(ACTIVE_REQUESTS, subjects);
 		}
 		return json;
 	}
@@ -339,12 +347,12 @@ public class FileDataManager extends DataManager {
 			return null;
 
 		Map<String, Object> json = new LinkedHashMap<String, Object>();
-		json.put("address", location.getAddress());
-		json.put("city", location.getCity());
-		json.put("state", location.getState());
-		json.put("zipCode", location.getZipCode());
-		json.put("latitude", location.getLatitude());
-		json.put("longitude", location.getLongitude());
+		json.put(ADDRESS, location.getAddress());
+		json.put(CITY, location.getCity());
+		json.put(STATE, location.getState());
+		json.put(ZIP_CODE, location.getZipCode());
+		json.put(LATITUDE, location.getLatitude());
+		json.put(LONGITUDE, location.getLongitude());
 		return json;
 	}
 
@@ -386,6 +394,12 @@ public class FileDataManager extends DataManager {
 	// Location has no equals(), so compare the points by latitude/longitude
 	private static boolean sameCoordinates(Location a, Location b) {
 		return a.getLatitude() == b.getLatitude() && a.getLongitude() == b.getLongitude();
+	}
+
+	// Keeps the generated id if the entry has none yet
+	private static void restoreId(JSONObject json, Consumer<UUID> setter) {
+		if (json.get(ID) != null)
+			setter.accept(UUID.fromString((String) json.get(ID)));
 	}
 
 	// Returns the list under key, or an empty list if it's missing, so callers can loop safely

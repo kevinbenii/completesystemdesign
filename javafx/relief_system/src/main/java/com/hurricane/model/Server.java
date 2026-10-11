@@ -32,7 +32,10 @@ public class Server {
 	}
 
 	public boolean registerUser(User user) {
-		return userManager.registerUser(user);
+		boolean registered = userManager.registerUser(user);
+		if (registered)
+			userManager.saveUsers();
+		return registered;
 	}
 
 	public boolean createVictimAccount(String username, String password, String phoneNumber, Location location) {
@@ -78,14 +81,17 @@ public class Server {
 
 	public void submitRequest(ReliefRequest request) {
 		requestManager.submitRequest(request);
+		requestManager.saveRequests();
 	}
 
 	public void deleteRequest(ReliefRequest request) {
 		requestManager.deleteRequest(request);
+		requestManager.saveRequests();
 	}
 
 	public void markAsResolved(ReliefRequest request) {
 		requestManager.markAsResolved(request);
+		requestManager.saveRequests();
 	}
 
 	public ArrayList<ReliefRequest> filterRequestsBySkill(Skill skill) {
@@ -94,6 +100,11 @@ public class Server {
 
 	public ArrayList<ReliefRequest> filterRequestsByLocation(Location location, double radius) {
 		return requestManager.filterByLocation(location, radius);
+	}
+
+	public void addHurricane(Hurricane hurricane) {
+		hurricaneTracker.addHurricane(hurricane);
+		hurricaneTracker.saveHurricanes();
 	}
 
 	public ArrayList<Hurricane> filterHurricanesByLocation(Location location) {

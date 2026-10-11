@@ -1,8 +1,10 @@
 package com.hurricane.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ReliefRequest {
+	private UUID id;
 	private Location location;
 	private ReliefRequestStatus status;
 	private String subject;
@@ -12,12 +14,22 @@ public class ReliefRequest {
 	private Volunteer assignedVolunteer;
 
 	public ReliefRequest(Location location, String subject, String body, ArrayList<Skill> requiredSkills, Victim requester) {
+		this.id = UUID.randomUUID();
 		this.location = location;
 		this.subject = subject;
 		this.body = body;
 		this.requiredSkills = requiredSkills;
 		this.requester = requester;
 		this.status = ReliefRequestStatus.OPEN;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	// Loader uses this to restore a saved id
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	// Getters for every field, used by the UI to display a request and by the writer to save it

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class RequestManager {
 	private ArrayList<ReliefRequest> requests;
+	private DataManager dataManager;
 
 	public RequestManager(DataManager dataManager) {
+		this.dataManager = dataManager;
 		requests = dataManager.loadRequests();
 	}
 
@@ -37,5 +39,9 @@ public class RequestManager {
 				matches.add(request);
 		}
 		return matches;
+	}
+
+	public void saveRequests() {
+		dataManager.saveRequests(requests);
 	}
 }

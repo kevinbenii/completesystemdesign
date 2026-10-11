@@ -7,8 +7,10 @@ public class UserManager {
 	private ArrayList<Admin> admins;
 	private ArrayList<User> blacklist;
 	private User currentUser;
+	private DataManager dataManager;
 
 	public UserManager(DataManager dataManager) {
+		this.dataManager = dataManager;
 		users = dataManager.loadUsers();
 		admins = new ArrayList<Admin>();
 		blacklist = new ArrayList<User>();
@@ -67,5 +69,9 @@ public class UserManager {
 
 	public boolean isBlacklisted(User user) {
 		return blacklist.contains(user);
+	}
+
+	public void saveUsers() {
+		dataManager.saveUsers(users);
 	}
 }
