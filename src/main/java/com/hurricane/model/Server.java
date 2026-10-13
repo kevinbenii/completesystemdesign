@@ -74,8 +74,11 @@ public class Server {
 		return userManager.authenticateUser(username, password);
 	}
 
-	public void banUser(User user) {
-		userManager.banUser(user);
+	public boolean banUser(User user) {
+		boolean banned = userManager.banUser(user);
+		if (banned)
+			userManager.saveUsers();
+		return banned;
 	}
 
 	public void submitRequest(ReliefRequest request) {

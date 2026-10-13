@@ -31,6 +31,7 @@ public final class DataConstants {
 	public static final String ADMIN_ID = "adminId";
 	public static final String SKILLS = "skills";
 	public static final String ACTIVE_REQUESTS = "activeRequests";
+	public static final String BANNED = "banned";
 	public static final String ROLE_ADMIN = "ADMIN";
 	public static final String ROLE_VOLUNTEER = "VOLUNTEER";
 	public static final String ROLE_VICTIM = "VICTIM";

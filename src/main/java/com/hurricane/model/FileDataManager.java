@@ -66,6 +66,8 @@ public class FileDataManager extends DataManager {
 			JSONObject json = (JSONObject) entry;
 			User user = parseUser(json);
 			restoreId(json, user::setId);
+			// Older entries have no "banned" field, which means not banned
+			user.setBanned(Boolean.TRUE.equals(json.get(BANNED)));
 			users.add(user);
 		}
 		return users;
@@ -320,6 +322,7 @@ public class FileDataManager extends DataManager {
 		json.put(PASSWORD, user.getPassword());
 		json.put(PHONE_NUMBER, user.getPhoneNumber());
 		json.put(LOCATION, locationToJson(user.getLocation()));
+		json.put(BANNED, user.isBanned());
 
 		if (user instanceof Admin) {
 			json.put(ROLE, ROLE_ADMIN);

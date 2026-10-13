@@ -8,6 +8,7 @@ public abstract class User {
 	protected String password;
 	protected String phoneNumber;
 	protected Location location;
+	protected boolean banned;
 
 	public User(String username, String password, String phoneNumber, Location location) {
 		this.id = UUID.randomUUID();
@@ -56,5 +57,14 @@ public abstract class User {
 
 	public void updateLocation(Location newLocation) {
 		this.location = newLocation;
+	}
+
+	// Saved to users.json so a ban survives a restart; UserManager rebuilds its blacklist from this
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
 	}
 }

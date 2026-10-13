@@ -26,7 +26,8 @@ public class Admin extends User {
 		request.setStatus(ReliefRequestStatus.RESOLVED);
 	}
 
-	public void banUser(User user) {
-		// add the user to the blacklist
+	// The blacklist lives in UserManager, so go through the Server facade
+	public boolean banUser(User user) {
+		return Server.getInstance().banUser(user);
 	}
 }

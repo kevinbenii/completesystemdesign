@@ -16,6 +16,10 @@ public class UserManager {
 		blacklist = new ArrayList<User>();
 		if (users.isEmpty())
 			addSampleUsers();
+		for (User user : users) {
+			if (user.isBanned())
+				blacklist.add(user);
+		}
 	}
 
 	// Sample data from json/users.json to validate against until the DataLoader reads the file
@@ -63,8 +67,17 @@ public class UserManager {
 		return currentUser;
 	}
 
-	public void banUser(User user) {
-		blacklist.add(user);
+	// Only a logged-in admin can ban. A banned user who is logged in gets logged out.
+	// Returns false if the ban was refused; the caller saves users when it returns true.
+	public boolean banUser(User user) {
+		if (!(currentUser instanceof Admin) || user == null)
+			return false;
+		user.setBanned(true);
+		if (!blacklist.contains(user))
+			blacklist.add(user);
+		if (currentUser == user)
+			logout();
+		return true;
 	}
 
 	public boolean isBlacklisted(User user) {
