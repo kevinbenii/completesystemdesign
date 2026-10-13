@@ -1,5 +1,6 @@
 [
   {
+    "id": "ef1077a0-712a-4e8b-ab05-28c405d1f0ec",
     "username": "volunteer1",
     "password": "password123",
     "phoneNumber": "555-111-1111",
@@ -11,12 +12,14 @@
       "latitude": 34.0007,
       "longitude": -81.0348
     },
+    "role": "VOLUNTEER",
     "skills": [
       "FOOD",
       "TRANSPORTATION"
     ]
   },
   {
+    "id": "0d34451b-db3f-426c-8678-7beb08a7c346",
     "username": "victim1",
     "password": "password456",
     "phoneNumber": "555-222-2222",
@@ -25,15 +28,16 @@
       "city": "Columbia",
       "state": "SC",
       "zipCode": "29205",
-      "latitude": 33.9900,
-      "longitude": -81.0200
+      "latitude": 33.99,
+      "longitude": -81.02
     },
+    "role": "VICTIM",
     "activeRequests": [
       "Need evacuation assistance"
-    ],
-    "affectedByHurricane": "Hurricane Helena"
+    ]
   },
   {
+    "id": "2d4d9459-8bfa-47ff-a6e3-b78f86a0eec7",
     "username": "admin1",
     "password": "adminPassword123",
     "phoneNumber": "555-333-3333",
@@ -42,10 +46,26 @@
       "city": "Columbia",
       "state": "SC",
       "zipCode": "29201",
-      "latitude": 34.0020,
-      "longitude": -81.0300
+      "latitude": 34.002,
+      "longitude": -81.03
     },
+    "role": "ADMIN",
     "adminId": "ADMIN001"
+  },
+  {
+    "id": "22b3a999-95a8-4d43-a8a0-4e0ecb271ece",
+    "username": "user",
+    "password": "password",
+    "phoneNumber": "phone",
+    "location": {
+      "address": "address",
+      "city": "city",
+      "state": "state",
+      "zipCode": "zipCode",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "role": "VICTIM",
+    "activeRequests": []
   }
 ]
-
