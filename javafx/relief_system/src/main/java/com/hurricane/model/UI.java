@@ -1,5 +1,7 @@
 package com.hurricane.model;
 
+import java.util.ArrayList;
+
 public class UI {
 	private Server facade;
 
@@ -10,6 +12,7 @@ public class UI {
 	public void run() {
 		scenario1();
 		scenario2();
+		scenario3();
 	}
 
 	public void scenario1() {
@@ -51,6 +54,21 @@ public class UI {
 			return;
 		}
 		System.out.println("Logged in.");
+	}
+
+	// Lists the shelters, going through the facade like the other scenarios
+	public void scenario3() {
+		System.out.println();
+
+		ArrayList<Shelter> shelters = facade.getAllShelters();
+		if (shelters.isEmpty()) {
+			System.out.println("No shelters found.");
+			return;
+		}
+
+		for (Shelter shelter : shelters) {
+			System.out.println(shelter.getName() + " - " + shelter.getAvailableSpace() + " beds available");
+		}
 	}
 
 	public static void main(String[] args) {
