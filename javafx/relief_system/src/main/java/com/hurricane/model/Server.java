@@ -126,6 +126,11 @@ public class Server {
 		return shelterManager.findAvailableShelters(location, radius);
 	}
 
+	// Every shelter, so the UI can list them without touching ShelterManager
+	public ArrayList<Shelter> getAllShelters() {
+		return shelterManager.getAllShelters();
+	}
+
 	// Only saves if the move worked (shelter was open and had space)
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
 		boolean assigned = shelterManager.assignVictimToShelter(victim, shelter);
