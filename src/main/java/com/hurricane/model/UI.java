@@ -14,6 +14,7 @@ public class UI {
 		scenario2();
 		scenario3();
 		scenario4();
+		scenario5();
 	}
 
 	public void scenario1() {
@@ -32,7 +33,7 @@ public class UI {
 	public void scenario2() {
 		System.out.println();
 
-		//New name each run so signup never clashes
+		//New name each run
 		String username = "user" + System.currentTimeMillis();
 		String password = "password";
 		String phoneNumber = "phone";
@@ -58,7 +59,7 @@ public class UI {
 		System.out.println("Logged in.");
 	}
 
-	// Lists the shelters, going through the facade like the other scenarios
+	//List shelters
 	public void scenario3() {
 		System.out.println();
 
@@ -73,7 +74,7 @@ public class UI {
 		}
 	}
 
-	//Wrong password should be rejected
+	//Wrong password
 	public void scenario4() {
 		System.out.println();
 
@@ -86,6 +87,36 @@ public class UI {
 			return;
 		}
 		System.out.println("Login failed as expected.");
+	}
+
+	//Send a request
+	public void scenario5() {
+		System.out.println();
+
+		//Details
+		String username = "victim1";
+		String password = "password456";
+		String subject = "Need water";
+		String body = "Family of three is out of drinking water.";
+		ArrayList<Skill> requiredSkills = new ArrayList<Skill>();
+		requiredSkills.add(Skill.FOOD);
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return;
+		}
+
+		//Send
+		if (!facade.submitRequest(subject, body, requiredSkills)) {
+			System.out.println("Request failed.");
+			facade.logout();
+			return;
+		}
+
+		//Show total
+		System.out.println("Request submitted. Total requests: " + facade.getAllRequests().size());
+		facade.logout();
 	}
 
 	public static void main(String[] args) {
