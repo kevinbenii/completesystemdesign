@@ -13,6 +13,7 @@ public class UI {
 		scenario1();
 		scenario2();
 		scenario3();
+		scenario4();
 	}
 
 	public void scenario1() {
@@ -70,6 +71,21 @@ public class UI {
 		for (Shelter shelter : shelters) {
 			System.out.println(shelter.getName() + " - " + shelter.getAvailableSpace() + " beds available");
 		}
+	}
+
+	//Wrong password should be rejected
+	public void scenario4() {
+		System.out.println();
+
+		String username = "victim1";
+		String password = "wrongPassword";
+
+		if (facade.login(username, password)) {
+			System.out.println("Login should have failed.");
+			facade.logout();
+			return;
+		}
+		System.out.println("Login failed as expected.");
 	}
 
 	public static void main(String[] args) {
