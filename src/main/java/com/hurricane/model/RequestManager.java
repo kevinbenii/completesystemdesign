@@ -41,6 +41,11 @@ public class RequestManager {
 		return matches;
 	}
 
+	//Every request, so the UI can list them
+	public ArrayList<ReliefRequest> getAllRequests() {
+		return requests;
+	}
+
 	public void saveRequests() {
 		dataManager.saveRequests(requests);
 	}
