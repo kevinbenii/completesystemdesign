@@ -15,6 +15,7 @@ public class UI {
 		scenario3();
 		scenario4();
 		scenario5();
+		scenario6();
 	}
 
 	public void scenario1() {
@@ -117,6 +118,27 @@ public class UI {
 		//Show total
 		System.out.println("Request submitted. Total requests: " + facade.getAllRequests().size());
 		facade.logout();
+	}
+
+	//Hurricanes nearby
+	public void scenario6() {
+		System.out.println();
+
+		//Search area
+		Location location = new Location("address", "Charleston", "SC", "29401", 32.7765, -79.9311);
+		double radius = 100;
+
+		//Find
+		ArrayList<Hurricane> hurricanes = facade.filterHurricanesByLocation(location, radius);
+		if (hurricanes.isEmpty()) {
+			System.out.println("No hurricanes nearby.");
+			return;
+		}
+
+		//Show each
+		for (Hurricane hurricane : hurricanes) {
+			System.out.println("Category " + hurricane.getCategory() + " - " + hurricane.getWindSpeed() + " mph");
+		}
 	}
 
 	public static void main(String[] args) {
