@@ -9,7 +9,7 @@ public class Server {
 	private HurricaneTracker hurricaneTracker;
 	private ShelterManager shelterManager;
 
-	// Users load first so the other managers can link their records to the same User objects
+	//Load users first
 	private Server(DataManager dataManager) {
 		userManager = new UserManager(dataManager);
 		requestManager = new RequestManager(dataManager);
@@ -25,8 +25,7 @@ public class Server {
 		return instance;
 	}
 
-	// Uses the shared json/ folder. This used to pass "data.json", but FileDataManager
-	// expects a folder, so it silently loaded no users and UserManager fell back to its sample users.
+	//Use the json folder
 	public static Server getInstance() {
 		return getInstance(new FileDataManager(FileDataManager.defaultDataFolder()));
 	}
@@ -84,7 +83,7 @@ public class Server {
 		requestManager.saveRequests();
 	}
 
-	//Logged-in victim submits a request, saved right away
+	//Victim sends a request
 	public boolean submitRequest(String subject, String body, ArrayList<Skill> requiredSkills) {
 		if (!(getCurrentUser() instanceof Victim))
 			return false;
@@ -111,7 +110,7 @@ public class Server {
 		return requestManager.filterByLocation(location, radius);
 	}
 
-	//Every request, so the UI can list them without touching RequestManager
+	//All requests
 	public ArrayList<ReliefRequest> getAllRequests() {
 		return requestManager.getAllRequests();
 	}
@@ -121,17 +120,18 @@ public class Server {
 		hurricaneTracker.saveHurricanes();
 	}
 
-	public ArrayList<Hurricane> filterHurricanesByLocation(Location location) {
-		return hurricaneTracker.filterByLocation(location);
+	//Radius in miles
+	public ArrayList<Hurricane> filterHurricanesByLocation(Location location, double radius) {
+		return hurricaneTracker.filterByLocation(location, radius);
 	}
 
-	// Shelter changes are saved right away so occupancy survives a restart
+	//Save right away
 	public void addShelter(Shelter shelter) {
 		shelterManager.addShelter(shelter);
 		shelterManager.saveShelters();
 	}
 
-	// The shelter methods below just pass through to ShelterManager (radius is in miles)
+	//Radius in miles
 	public ArrayList<Shelter> filterSheltersByLocation(Location location, double radius) {
 		return shelterManager.filterByLocation(location, radius);
 	}
@@ -140,12 +140,12 @@ public class Server {
 		return shelterManager.findAvailableShelters(location, radius);
 	}
 
-	// Every shelter, so the UI can list them without touching ShelterManager
+	//All shelters
 	public ArrayList<Shelter> getAllShelters() {
 		return shelterManager.getAllShelters();
 	}
 
-	// Only saves if the move worked (shelter was open and had space)
+	//Save only if it worked
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
 		boolean assigned = shelterManager.assignVictimToShelter(victim, shelter);
 		if (assigned)
