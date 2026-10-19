@@ -15,7 +15,7 @@ public class HurricaneTracker {
 		hurricanes.add(hurricane);
 	}
 
-	//Hurricanes within radius miles
+	//Hurricanes nearby
 	public ArrayList<Hurricane> filterByLocation(Location location, double radius) {
 		ArrayList<Hurricane> matches = new ArrayList<Hurricane>();
 		for (Hurricane hurricane : hurricanes) {
