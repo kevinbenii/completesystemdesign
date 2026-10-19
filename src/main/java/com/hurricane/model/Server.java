@@ -84,6 +84,15 @@ public class Server {
 		requestManager.saveRequests();
 	}
 
+	//Logged-in victim submits a request, saved right away
+	public boolean submitRequest(String subject, String body, ArrayList<Skill> requiredSkills) {
+		if (!(getCurrentUser() instanceof Victim))
+			return false;
+		Victim victim = (Victim) getCurrentUser();
+		submitRequest(victim.createRequest(subject, body, requiredSkills));
+		return true;
+	}
+
 	public void deleteRequest(ReliefRequest request) {
 		requestManager.deleteRequest(request);
 		requestManager.saveRequests();
