@@ -72,8 +72,9 @@ public class ReliefRequest {
 		System.out.println(body);
 	}
 
+	//True if the request is within radius miles
 	public boolean isNear(Location targetLocation, double radius) {
-		return true;
+		return location.distanceTo(targetLocation) <= radius;
 	}
 
 	public boolean needsSkill(Skill skill) {
