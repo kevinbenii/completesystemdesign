@@ -102,6 +102,11 @@ public class Server {
 		return requestManager.filterByLocation(location, radius);
 	}
 
+	//Every request, so the UI can list them without touching RequestManager
+	public ArrayList<ReliefRequest> getAllRequests() {
+		return requestManager.getAllRequests();
+	}
+
 	public void addHurricane(Hurricane hurricane) {
 		hurricaneTracker.addHurricane(hurricane);
 		hurricaneTracker.saveHurricanes();
