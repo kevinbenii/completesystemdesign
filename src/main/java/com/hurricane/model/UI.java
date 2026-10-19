@@ -31,7 +31,8 @@ public class UI {
 	public void scenario2() {
 		System.out.println();
 
-		String username = "user";
+		//New name each run so signup never clashes
+		String username = "user" + System.currentTimeMillis();
 		String password = "password";
 		String phoneNumber = "phone";
 		String address = "address";
