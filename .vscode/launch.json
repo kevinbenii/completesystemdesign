@@ -7,7 +7,8 @@
       "request": "launch",
       "mainClass": "com.hurricane/com.hurricane.model.UI",
       "projectName": "relief_system",
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env"
     },
     {
       "type": "java",
@@ -15,7 +16,8 @@
       "request": "launch",
       "mainClass": "com.hurricane/com.hurricane.App",
       "projectName": "relief_system",
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
