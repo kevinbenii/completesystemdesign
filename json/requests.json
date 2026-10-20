@@ -1,5 +1,6 @@
 [
   {
+    "id": "0aca95a6-b509-479a-b740-4294e3d7015e",
     "location": {
       "address": "400 Pine Street",
       "city": "Charleston",
@@ -19,13 +20,14 @@
     "assignedVolunteer": "volunteer1"
   },
   {
+    "id": "06138b54-2e2f-47ae-9d6b-91be378b9c94",
     "location": {
       "address": "500 King Street",
       "city": "Charleston",
       "state": "SC",
       "zipCode": "29403",
-      "latitude": 32.7890,
-      "longitude": -79.9370
+      "latitude": 32.789,
+      "longitude": -79.937
     },
     "status": "OPEN",
     "subject": "Food assistance needed",
@@ -33,8 +35,26 @@
     "requiredSkills": [
       "FOOD"
     ],
-    "requester": "victim2",
+    "requester": null,
+    "assignedVolunteer": null
+  },
+  {
+    "id": "54226a15-71c2-4977-bfcc-01bd61f6e150",
+    "location": {
+      "address": "200 Oak Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29205",
+      "latitude": 33.99,
+      "longitude": -81.02
+    },
+    "status": "OPEN",
+    "subject": "Need water",
+    "body": "Family of three is out of drinking water.",
+    "requiredSkills": [
+      "FOOD"
+    ],
+    "requester": "victim1",
     "assignedVolunteer": null
   }
 ]
-

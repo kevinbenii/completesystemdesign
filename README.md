@@ -9,7 +9,7 @@ Think of it as **mission control for disaster relief**. Less panic, more coordin
 ![requirements Document](docs/images/document.png)
  [Requirements Document](docs/requirements.pdf)
 
-![requirements spreadsheet](docs/images/spreadsheet.png) [Requiremenst Spreadsheet](docs/spreadsheet.pdf)
+![requirements spreadsheet](docs/images/spreadsheet.png) [Requirements Spreadsheet](docs/spreadsheet.pdf)
 
 ## Code Design
 ![uml class diagram](docs/images/uml-class.png) [UML Class Diagram](docs/uml-class-diagram.pdf)
