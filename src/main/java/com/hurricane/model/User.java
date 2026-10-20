@@ -22,10 +22,6 @@ public abstract class User {
 		return this.username.equals(username) && this.password.equals(password);
 	}
 
-	public void register() {
-
-	}
-
 	public UUID getId() {
 		return id;
 	}
