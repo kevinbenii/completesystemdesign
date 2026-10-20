@@ -59,8 +59,14 @@ public class Hurricane {
 		locationHistory.add(newLocation);
 	}
 
+	// Last move as (change in longitude, change in latitude); (0, 0) if it hasn't moved
 	public Vector2 calculateDirection() {
-		return new Vector2(1, 0);
+		if (locationHistory.size() < 2)
+			return new Vector2(0, 0);
+		Location previous = locationHistory.get(locationHistory.size() - 2);
+		Location current = locationHistory.get(locationHistory.size() - 1);
+		return new Vector2(current.getLongitude() - previous.getLongitude(),
+				current.getLatitude() - previous.getLatitude());
 	}
 
 	public ArrayList<Location> getAffectedArea(double radius) {
