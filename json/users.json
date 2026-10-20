@@ -67,5 +67,21 @@
     },
     "role": "VICTIM",
     "activeRequests": []
+  },
+  {
+    "id": "031d577c-c821-4e25-80d5-90ff939527f2",
+    "username": "user1792501081922",
+    "password": "password",
+    "phoneNumber": "phone",
+    "location": {
+      "address": "address",
+      "city": "city",
+      "state": "state",
+      "zipCode": "zipCode",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "role": "VICTIM",
+    "activeRequests": []
   }
 ]

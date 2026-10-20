@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run UI",
+      "request": "launch",
+      "mainClass": "com.hurricane/com.hurricane.model.UI",
+      "projectName": "relief_system",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "java",
+      "name": "Run App",
+      "request": "launch",
+      "mainClass": "com.hurricane/com.hurricane.App",
+      "projectName": "relief_system",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
