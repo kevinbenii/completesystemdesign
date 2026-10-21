@@ -37,6 +37,24 @@
     ]
   },
   {
+    "id": "7629017e-46dd-4457-9652-b087867a2567",
+    "username": "victim2",
+    "password": "password789",
+    "phoneNumber": "555-444-4444",
+    "location": {
+      "address": "510 King Street",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29403",
+      "latitude": 32.7895,
+      "longitude": -79.9375
+    },
+    "role": "VICTIM",
+    "activeRequests": [
+      "Food assistance needed"
+    ]
+  },
+  {
     "id": "2d4d9459-8bfa-47ff-a6e3-b78f86a0eec7",
     "username": "admin1",
     "password": "adminPassword123",
