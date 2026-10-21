@@ -1,5 +1,7 @@
 package com.hurricane.model;
 
+import com.location.Address;
+
 public class Location {
 	private String address;
 	private String city;
@@ -60,5 +62,10 @@ public class Location {
 
 	public String getFullAddress() {
 		return address + ", " + city + ", " + state + " " + zipCode;
+	}
+
+	//Map tools need an Address
+	public Address toAddress() {
+		return new Address(address, city, state, zipCode);
 	}
 }
