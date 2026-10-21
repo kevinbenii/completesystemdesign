@@ -16,6 +16,7 @@ public class UI {
 		scenario4();
 		scenario5();
 		scenario6();
+		scenario7();
 	}
 
 	public void scenario1() {
@@ -139,6 +140,35 @@ public class UI {
 		for (Hurricane hurricane : hurricanes) {
 			System.out.println("Category " + hurricane.getCategory() + " - " + hurricane.getWindSpeed() + " mph");
 		}
+	}
+
+	//Closest shelter and directions
+	public void scenario7() {
+		System.out.println();
+
+		String username = "victim1";
+		String password = "password456";
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return;
+		}
+
+		//Find
+		Shelter shelter = facade.findClosestShelter();
+		if (shelter == null) {
+			System.out.println("No shelter found.");
+			facade.logout();
+			return;
+		}
+		System.out.println("Closest shelter: " + shelter.getName());
+
+		//Directions
+		for (String step : facade.getDirectionsToShelter(shelter)) {
+			System.out.println(step);
+		}
+		facade.logout();
 	}
 
 	public static void main(String[] args) {
