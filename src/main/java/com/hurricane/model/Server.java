@@ -2,6 +2,9 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
+import com.location.Address;
+import com.location.MapTools;
+
 public class Server {
 	private static Server instance;
 	private UserManager userManager;
@@ -146,6 +149,37 @@ public class Server {
 	//All shelters
 	public ArrayList<Shelter> getAllShelters() {
 		return shelterManager.getAllShelters();
+	}
+
+	//Closest shelter by driving time
+	public Shelter findClosestShelter() {
+		if (!isLoggedIn())
+			return null;
+		ArrayList<Shelter> shelters = getAllShelters();
+		Address[] addresses = new Address[shelters.size()];
+		for (int i = 0; i < shelters.size(); i++)
+			addresses[i] = shelters.get(i).getLocation().toAddress();
+		try {
+			Address closest = MapTools.getInstance().findClosestAddress(getCurrentUser().getLocation().toAddress(), addresses);
+			for (int i = 0; i < addresses.length; i++)
+				if (addresses[i] == closest)
+					return shelters.get(i);
+		} catch (Exception e) {
+			System.out.println("Could not reach the map service.");
+		}
+		return null;
+	}
+
+	//Driving steps to a shelter
+	public String[] getDirectionsToShelter(Shelter shelter) {
+		if (!isLoggedIn() || shelter == null)
+			return new String[0];
+		try {
+			return MapTools.getInstance().getDrivingDirections(getCurrentUser().getLocation().toAddress(), shelter.getLocation().toAddress());
+		} catch (Exception e) {
+			System.out.println("Could not reach the map service.");
+			return new String[0];
+		}
 	}
 
 	//Save only if it worked
