@@ -25,13 +25,12 @@ public class Hurricane {
 		return id;
 	}
 
-	// Loader uses this to restore a saved id
+	//Restore saved id
 	public void setId(UUID id) {
 		this.id = id;
 	}
 
-	// Getters used by the writer to save a hurricane.
-	// locationHistory is the storm's track, oldest first; its last point is the current location.
+	//Getters for saving
 	public Location getLocation() {
 		return location;
 	}
@@ -59,7 +58,7 @@ public class Hurricane {
 		locationHistory.add(newLocation);
 	}
 
-	// Last move as (change in longitude, change in latitude); (0, 0) if it hasn't moved
+	//Last move direction
 	public Vector2 calculateDirection() {
 		if (locationHistory.size() < 2)
 			return new Vector2(0, 0);
@@ -69,7 +68,13 @@ public class Hurricane {
 				current.getLatitude() - previous.getLatitude());
 	}
 
+	//Nearby track points
 	public ArrayList<Location> getAffectedArea(double radius) {
-		return new ArrayList<Location>();
+		ArrayList<Location> area = new ArrayList<Location>();
+		for (Location point : locationHistory) {
+			if (point.distanceTo(location) <= radius)
+				area.add(point);
+		}
+		return area;
 	}
 }
