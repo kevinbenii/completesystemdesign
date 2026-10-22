@@ -69,37 +69,5 @@
     },
     "role": "ADMIN",
     "adminId": "ADMIN001"
-  },
-  {
-    "id": "22b3a999-95a8-4d43-a8a0-4e0ecb271ece",
-    "username": "user",
-    "password": "password",
-    "phoneNumber": "phone",
-    "location": {
-      "address": "address",
-      "city": "city",
-      "state": "state",
-      "zipCode": "zipCode",
-      "latitude": 0.0,
-      "longitude": 0.0
-    },
-    "role": "VICTIM",
-    "activeRequests": []
-  },
-  {
-    "id": "031d577c-c821-4e25-80d5-90ff939527f2",
-    "username": "user1792501081922",
-    "password": "password",
-    "phoneNumber": "phone",
-    "location": {
-      "address": "address",
-      "city": "city",
-      "state": "state",
-      "zipCode": "zipCode",
-      "latitude": 0.0,
-      "longitude": 0.0
-    },
-    "role": "VICTIM",
-    "activeRequests": []
   }
 ]
