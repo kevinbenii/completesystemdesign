@@ -2,6 +2,7 @@ package com.hurricane.model;
 
 import java.util.UUID;
 
+/** System's user */
 public abstract class User {
 	protected UUID id;
 	protected String username;
@@ -10,6 +11,7 @@ public abstract class User {
 	protected Location location;
 	protected boolean banned;
 
+	/** Makes a user */
 	public User(String username, String password, String phoneNumber, Location location) {
 		this.id = UUID.randomUUID();
 		this.username = username;
@@ -18,48 +20,52 @@ public abstract class User {
 		this.location = location;
 	}
 
+	/** True if the login matches */
 	public boolean login(String username, String password) {
 		return this.username.equals(username) && this.password.equals(password);
 	}
 
+	/** Id */
 	public UUID getId() {
 		return id;
 	}
 
-	// Loader uses this to restore a saved id
+	/** Restores a saved id */
 	public void setId(UUID id) {
 		this.id = id;
 	}
 
-	// Getters for the basic account info, used for login and when saving users to JSON.
-	// The username is also how other records (requests, shelters, ...) refer to a user.
-	// Merge note: getUsername() and getPhoneNumber() were added on both main and
-	// my-experiement, which merged cleanly but compiled as duplicates; keep only one copy.
+	/** Username */
 	public String getUsername() {
 		return username;
 	}
 
+	/** Password */
 	public String getPassword() {
 		return password;
 	}
 
+	/** Phone number */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+	/** Location */
 	public Location getLocation() {
 		return location;
 	}
 
+	/** Moves the user */
 	public void updateLocation(Location newLocation) {
 		this.location = newLocation;
 	}
 
-	// Saved to users.json so a ban survives a restart; UserManager rebuilds its blacklist from this
+	/** True if banned */
 	public boolean isBanned() {
 		return banned;
 	}
 
+	/** Bans or unbans the user */
 	public void setBanned(boolean banned) {
 		this.banned = banned;
 	}
