@@ -178,7 +178,7 @@ public class FileDataManager extends DataManager {
 		return shelters;
 	}
 
-	// Builds the right User subclass (Admin, Volunteer or Victim) from one JSON entry
+	// Builds the right User subclass (Admin, Volunteer, ShelterStaff or Victim) from one JSON entry
 	private User parseUser(JSONObject json) {
 		String username = (String) json.get(USERNAME);
 		String password = (String) json.get(PASSWORD);
@@ -194,6 +194,8 @@ public class FileDataManager extends DataManager {
 			return admin;
 		case ROLE_VOLUNTEER:
 			return new Volunteer(username, password, phoneNumber, location, parseSkills(getArray(json, SKILLS)));
+		case ROLE_SHELTER_STAFF:
+			return new ShelterStaff(username, password, phoneNumber, location, (String) json.get(SHELTER_ID));
 		default:
 			return new Victim(username, password, phoneNumber, location);
 		}
@@ -207,6 +209,8 @@ public class FileDataManager extends DataManager {
 			return ROLE_ADMIN;
 		if (json.containsKey(SKILLS))
 			return ROLE_VOLUNTEER;
+		if (json.containsKey(SHELTER_ID))
+			return ROLE_SHELTER_STAFF;
 		return ROLE_VICTIM;
 	}
 
@@ -330,6 +334,9 @@ public class FileDataManager extends DataManager {
 		} else if (user instanceof Volunteer) {
 			json.put(ROLE, ROLE_VOLUNTEER);
 			json.put(SKILLS, skillsToJson(((Volunteer) user).getSkills()));
+		} else if (user instanceof ShelterStaff) {
+			json.put(ROLE, ROLE_SHELTER_STAFF);
+			json.put(SHELTER_ID, ((ShelterStaff) user).getShelterId());
 		} else {
 			// The victim <-> hurricane link is stored on the hurricane (affectedVictims).
 			// activeRequests is saved by subject only so the file is easy to read;
