@@ -2,7 +2,7 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
-/** A shelter for victims */
+/** Shelter for victims */
 public class Shelter {
 	private String shelterId;
 	private String name;
