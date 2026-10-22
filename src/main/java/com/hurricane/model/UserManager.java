@@ -2,7 +2,7 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
-/** Keeps track of all users */
+/** Tracks all users */
 public class UserManager {
 	private ArrayList<User> users;
 	private ArrayList<Admin> admins;
