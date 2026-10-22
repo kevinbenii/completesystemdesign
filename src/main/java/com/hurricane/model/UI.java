@@ -21,6 +21,7 @@ public class UI {
 		scenario6();
 		scenario7();
 		scenario8();
+		scenario9();
 	}
 
 	/** Logs in as victim1 */
@@ -217,6 +218,34 @@ public class UI {
 			System.out.println("Your " + facade.getCurrentUser().getRoleName()
 					+ " role does not have permission to complete relief requests. The request stays "
 					+ request.getStatus() + ".");
+		}
+		facade.logout();
+	}
+
+	/** Rosa's recommended requests */
+	public void scenario9() {
+		System.out.println();
+
+		String username = "rdelgado";
+		String password = "rosa123";
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return;
+		}
+
+		//Show requests
+		ArrayList<ReliefRequest> requests = facade.recommendRequests();
+		System.out.println("Open requests: " + requests.size());
+		for (ReliefRequest request : requests) {
+			String reason = facade.getRecommendationReason(request);
+			if (reason.isEmpty()) {
+				System.out.println("- " + request.getSubject());
+			} else {
+				System.out.println("* RECOMMENDED: " + request.getSubject());
+				System.out.println("  " + reason);
+			}
 		}
 		facade.logout();
 	}
