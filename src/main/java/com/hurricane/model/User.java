@@ -69,4 +69,14 @@ public abstract class User {
 	public void setBanned(boolean banned) {
 		this.banned = banned;
 	}
+
+	/** Role name, like volunteer or admin, used in messages */
+	public String getRoleName() {
+		return getClass().getSimpleName().toLowerCase();
+	}
+
+	/** True if this role may mark a relief request as Complete */
+	public boolean canCompleteRequests() {
+		return false;
+	}
 }

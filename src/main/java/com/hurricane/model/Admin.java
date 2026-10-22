@@ -30,4 +30,10 @@ public class Admin extends User {
 	public boolean banUser(User user) {
 		return Server.getInstance().banUser(user);
 	}
+
+	/** Admins are allowed to complete relief requests */
+	@Override
+	public boolean canCompleteRequests() {
+		return true;
+	}
 }
