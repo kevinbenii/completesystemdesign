@@ -26,3 +26,6 @@ target/
 /completesystemdesign/
 
 .env
+
+# Trip sheets from the app
+exports/
