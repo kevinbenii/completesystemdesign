@@ -108,6 +108,16 @@ public class Server {
 		requestManager.saveRequests();
 	}
 
+	// Only a role that is allowed to (like an admin) can complete a request; everyone else gets false
+	public boolean completeRequest(ReliefRequest request) {
+		User user = getCurrentUser();
+		if (user == null || !user.canCompleteRequests())
+			return false;
+		requestManager.completeRequest(request);
+		requestManager.saveRequests();
+		return true;
+	}
+
 	public ArrayList<ReliefRequest> filterRequestsBySkill(Skill skill) {
 		return requestManager.filterBySkill(skill);
 	}

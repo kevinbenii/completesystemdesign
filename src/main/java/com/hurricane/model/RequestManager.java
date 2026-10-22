@@ -23,6 +23,10 @@ public class RequestManager {
 		request.setStatus(ReliefRequestStatus.RESOLVED);
 	}
 
+	public void completeRequest(ReliefRequest request) {
+		request.setStatus(ReliefRequestStatus.COMPLETE);
+	}
+
 	public ArrayList<ReliefRequest> filterBySkill(Skill skill) {
 		ArrayList<ReliefRequest> matches = new ArrayList<ReliefRequest>();
 		for (ReliefRequest request : requests) {
