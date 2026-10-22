@@ -1,5 +1,9 @@
 package com.hurricane.model;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.location.Address;
@@ -108,7 +112,7 @@ public class Server {
 		requestManager.saveRequests();
 	}
 
-	// Only a role that is allowed to (like an admin) can complete a request; everyone else gets false
+	//Only allowed roles can complete
 	public boolean completeRequest(ReliefRequest request) {
 		User user = getCurrentUser();
 		if (user == null || !user.canCompleteRequests())
@@ -118,7 +122,7 @@ public class Server {
 		return true;
 	}
 
-	// A volunteer takes the request, which becomes ASSIGNED to them; anyone else gets false
+	//Volunteer takes a request
 	public boolean volunteerForRequest(ReliefRequest request) {
 		if (!(getCurrentUser() instanceof Volunteer))
 			return false;
@@ -253,6 +257,59 @@ public class Server {
 		} catch (Exception e) {
 			System.out.println("Could not reach the map service.");
 			return new String[0];
+		}
+	}
+
+	/** Writes the trip sheet */
+	public String exportTrip(ReliefRequest request, Shelter shelter) {
+		if (!isLoggedIn() || request == null || shelter == null)
+			return null;
+		Location start = getCurrentUser().getLocation();
+		Location pickup = request.getLocation();
+		Location dropoff = shelter.getLocation();
+		Victim requester = request.getRequester();
+
+		StringBuilder out = new StringBuilder();
+		out.append("RELIEF TRIP SHEET\n");
+		out.append("=================\n\n");
+		out.append("Request: ").append(request.getSubject()).append("\n");
+		out.append(request.getBody()).append("\n\n");
+
+		out.append("CONTACT\n");
+		if (requester != null) {
+			out.append("Name: ").append(requester.getUsername()).append("\n");
+			out.append("Phone: ").append(requester.getPhoneNumber()).append("\n");
+		}
+		out.append("Pickup address: ").append(pickup.getFullAddress()).append("\n\n");
+
+		out.append("SHELTER\n");
+		out.append(shelter.getName()).append("\n");
+		out.append(dropoff.getFullAddress()).append("\n\n");
+
+		out.append("DIRECTIONS: YOUR LOCATION TO PICKUP\n");
+		appendDirections(out, start, pickup);
+		out.append("\nDIRECTIONS: PICKUP TO SHELTER\n");
+		appendDirections(out, pickup, dropoff);
+
+		try {
+			Path file = Paths.get("exports", "trip.txt");
+			Files.createDirectories(file.getParent());
+			Files.writeString(file, out.toString());
+			return file.toString();
+		} catch (IOException e) {
+			System.out.println("Could not write the trip file.");
+			return null;
+		}
+	}
+
+	//Numbered steps
+	private void appendDirections(StringBuilder out, Location from, Location to) {
+		try {
+			String[] steps = MapTools.getInstance().getDrivingDirections(from.toAddress(), to.toAddress());
+			for (int i = 0; i < steps.length; i++)
+				out.append(i + 1).append(". ").append(steps[i]).append("\n");
+		} catch (Exception e) {
+			out.append("Directions not available.\n");
 		}
 	}
 
