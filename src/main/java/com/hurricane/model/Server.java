@@ -140,6 +140,61 @@ public class Server {
 		return requestManager.getAllRequests();
 	}
 
+	//Recommend radius in miles
+	private static final double RECOMMEND_RADIUS = 10;
+
+	/** Open requests, best first */
+	public ArrayList<ReliefRequest> recommendRequests() {
+		ArrayList<ReliefRequest> recommended = new ArrayList<ReliefRequest>();
+		ArrayList<ReliefRequest> others = new ArrayList<ReliefRequest>();
+		if (!(getCurrentUser() instanceof Volunteer))
+			return recommended;
+		for (ReliefRequest request : requestManager.getOpenRequests()) {
+			if (isRecommended(request))
+				recommended.add(request);
+			else
+				others.add(request);
+		}
+		sortByDistance(recommended);
+		sortByDistance(others);
+		recommended.addAll(others);
+		return recommended;
+	}
+
+	/** Why it is recommended */
+	public String getRecommendationReason(ReliefRequest request) {
+		if (!isRecommended(request))
+			return "";
+		Skill skill = matchingSkill(request);
+		return String.format("Recommended: %.1f miles away, needs %s (your specialty)", distanceTo(request), skill);
+	}
+
+	//Nearby and skill match
+	private boolean isRecommended(ReliefRequest request) {
+		return matchingSkill(request) != null && distanceTo(request) <= RECOMMEND_RADIUS;
+	}
+
+	//Matching skill
+	private Skill matchingSkill(ReliefRequest request) {
+		if (!(getCurrentUser() instanceof Volunteer))
+			return null;
+		for (Skill skill : ((Volunteer) getCurrentUser()).getSkills()) {
+			if (request.needsSkill(skill))
+				return skill;
+		}
+		return null;
+	}
+
+	//Miles to the request
+	private double distanceTo(ReliefRequest request) {
+		return getCurrentUser().getLocation().distanceTo(request.getLocation());
+	}
+
+	//Closest first
+	private void sortByDistance(ArrayList<ReliefRequest> list) {
+		list.sort((a, b) -> Double.compare(distanceTo(a), distanceTo(b)));
+	}
+
 	public void addHurricane(Hurricane hurricane) {
 		hurricaneTracker.addHurricane(hurricane);
 		hurricaneTracker.saveHurricanes();
