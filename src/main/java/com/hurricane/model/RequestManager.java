@@ -58,6 +58,16 @@ public class RequestManager {
 		return requests;
 	}
 
+	/** Requests still waiting for a volunteer */
+	public ArrayList<ReliefRequest> getOpenRequests() {
+		ArrayList<ReliefRequest> open = new ArrayList<ReliefRequest>();
+		for (ReliefRequest request : requests) {
+			if (request.getStatus() == ReliefRequestStatus.OPEN)
+				open.add(request);
+		}
+		return open;
+	}
+
 	/** Saves requests to JSON */
 	public void saveRequests() {
 		dataManager.saveRequests(requests);
