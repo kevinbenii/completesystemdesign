@@ -3,6 +3,7 @@ package com.hurricane.model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/** Victim help request */
 public class ReliefRequest {
 	private UUID id;
 	private Location location;
@@ -13,6 +14,7 @@ public class ReliefRequest {
 	private Victim requester;
 	private Volunteer assignedVolunteer;
 
+	/** Makes an open request */
 	public ReliefRequest(Location location, String subject, String body, ArrayList<Skill> requiredSkills, Victim requester) {
 		this.id = UUID.randomUUID();
 		this.location = location;
@@ -23,64 +25,73 @@ public class ReliefRequest {
 		this.status = ReliefRequestStatus.OPEN;
 	}
 
+	/** Id */
 	public UUID getId() {
 		return id;
 	}
 
-	// Loader uses this to restore a saved id
+	/** Restores a saved id */
 	public void setId(UUID id) {
 		this.id = id;
 	}
 
-	// Getters for every field, used by the UI to display a request and by the writer to save it
+	/** Location */
 	public Location getLocation() {
 		return location;
 	}
 
+	/** Status */
 	public ReliefRequestStatus getStatus() {
 		return status;
 	}
 
+	/** Subject */
 	public String getSubject() {
 		return subject;
 	}
 
+	/** Body */
 	public String getBody() {
 		return body;
 	}
 
+	/** Skills needed */
 	public ArrayList<Skill> getRequiredSkills() {
 		return requiredSkills;
 	}
 
+	/** Victim who asked */
 	public Victim getRequester() {
 		return requester;
 	}
 
-	// null until a volunteer takes the request
+	/** Assigned volunteer, or null */
 	public Volunteer getAssignedVolunteer() {
 		return assignedVolunteer;
 	}
 
-	// Called by Volunteer.volunteerForRequest() and by the loader
+	/** Sets the volunteer */
 	public void setAssignedVolunteer(Volunteer volunteer) {
 		this.assignedVolunteer = volunteer;
 	}
 
+	/** Prints the request */
 	public void display() {
 		System.out.println(subject);
 		System.out.println(body);
 	}
 
-	//True if the request is within radius miles
+	/** Within radius miles */
 	public boolean isNear(Location targetLocation, double radius) {
 		return location.distanceTo(targetLocation) <= radius;
 	}
 
+	/** True if it needs that skill */
 	public boolean needsSkill(Skill skill) {
 		return requiredSkills.contains(skill);
 	}
 
+	/** Sets the status */
 	public void setStatus(ReliefRequestStatus status) {
 		this.status = status;
 	}
