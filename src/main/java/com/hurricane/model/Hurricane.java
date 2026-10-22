@@ -3,6 +3,7 @@ package com.hurricane.model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/** A tracked hurricane */
 public class Hurricane {
 	private UUID id;
 	private Location location;
@@ -11,6 +12,7 @@ public class Hurricane {
 	private ArrayList<Location> locationHistory;
 	private ArrayList<Victim> affectedVictims;
 
+	/** Makes a hurricane */
 	public Hurricane(Location location, int category, double windSpeed) {
 		this.id = UUID.randomUUID();
 		this.location = location;
@@ -21,36 +23,42 @@ public class Hurricane {
 		locationHistory.add(location);
 	}
 
+	/** Id */
 	public UUID getId() {
 		return id;
 	}
 
-	//Restore saved id
+	/** Restores a saved id */
 	public void setId(UUID id) {
 		this.id = id;
 	}
 
-	//Getters for saving
+	/** Current location */
 	public Location getLocation() {
 		return location;
 	}
 
+	/** Category */
 	public int getCategory() {
 		return category;
 	}
 
+	/** Wind speed */
 	public double getWindSpeed() {
 		return windSpeed;
 	}
 
+	/** Storm track */
 	public ArrayList<Location> getLocationHistory() {
 		return locationHistory;
 	}
 
+	/** Affected victims */
 	public ArrayList<Victim> getAffectedVictims() {
 		return affectedVictims;
 	}
 
+	/** Moves the storm */
 	public void updateData(Location newLocation, int category, double windSpeed) {
 		this.location = newLocation;
 		this.category = category;
@@ -58,7 +66,7 @@ public class Hurricane {
 		locationHistory.add(newLocation);
 	}
 
-	//Last move direction
+	/** Last move direction */
 	public Vector2 calculateDirection() {
 		if (locationHistory.size() < 2)
 			return new Vector2(0, 0);
@@ -68,7 +76,7 @@ public class Hurricane {
 				current.getLatitude() - previous.getLatitude());
 	}
 
-	//Nearby track points
+	/** Nearby track points */
 	public ArrayList<Location> getAffectedArea(double radius) {
 		ArrayList<Location> area = new ArrayList<Location>();
 		for (Location point : locationHistory) {
