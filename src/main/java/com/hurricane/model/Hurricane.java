@@ -3,7 +3,7 @@ package com.hurricane.model;
 import java.util.ArrayList;
 import java.util.UUID;
 
-/** A tracked hurricane */
+/** Tracked hurricane */
 public class Hurricane {
 	private UUID id;
 	private Location location;
