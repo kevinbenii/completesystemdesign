@@ -2,10 +2,7 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
-/**
- * A physical shelter that victims can check into. Tracks how many people it
- * can hold, who is currently there, and which kinds of help (skills) it offers.
- */
+/** A shelter for victims */
 public class Shelter {
 	private String shelterId;
 	private String name;
@@ -13,11 +10,11 @@ public class Shelter {
 	private int capacity;
 	private int currentOccupancy;
 	private ArrayList<Victim> occupants;
-	// The kinds of help this shelter provides, e.g. FOOD or MEDICAL
+	//Help offered, e.g. FOOD
 	private ArrayList<Skill> availableSkills;
 	private boolean isOpen;
 
-	// New shelters start open and empty
+	/** Makes an open, empty shelter */
 	public Shelter(String shelterId, String name, Location location, int capacity) {
 		this.shelterId = shelterId;
 		this.name = name;
@@ -29,58 +26,62 @@ public class Shelter {
 		this.isOpen = true;
 	}
 
-	// Getters, used by the UI to display a shelter and by the writer to save it
+	/** Shelter id */
 	public String getShelterId() {
 		return shelterId;
 	}
 
+	/** Name */
 	public String getName() {
 		return name;
 	}
 
+	/** Location */
 	public Location getLocation() {
 		return location;
 	}
 
+	/** Total beds */
 	public int getCapacity() {
 		return capacity;
 	}
 
+	/** People inside */
 	public int getCurrentOccupancy() {
 		return currentOccupancy;
 	}
 
+	/** Victims inside */
 	public ArrayList<Victim> getOccupants() {
 		return occupants;
 	}
 
+	/** Help offered */
 	public ArrayList<Skill> getAvailableSkills() {
 		return availableSkills;
 	}
 
+	/** True if open */
 	public boolean isOpen() {
 		return isOpen;
 	}
 
-	// A closed shelter never has space, even if it has empty beds
+	/** True if open and not full */
 	public boolean hasSpace() {
 		return isOpen && currentOccupancy < capacity;
 	}
 
-	// Empty beds left (never negative)
+	/** Free beds */
 	public int getAvailableSpace() {
 		return Math.max(0, capacity - currentOccupancy);
 	}
 
-	// True if this shelter provides that kind of help
+	/** True if it offers that help */
 	public boolean offersSkill(Skill skill) {
 		return availableSkills.contains(skill);
 	}
 
-	/**
-	 * Adds the victim to this shelter. Returns false (and changes nothing) if the
-	 * shelter is closed, full, or the victim is already checked in here.
-	 */
+	/** Checks a victim in */
 	public boolean checkIn(Victim victim) {
 		if (!hasSpace() || occupants.contains(victim))
 			return false;
@@ -90,18 +91,18 @@ public class Shelter {
 		return true;
 	}
 
-	// Removes the victim if they are here; does nothing otherwise
+	/** Checks a victim out */
 	public void checkOut(Victim victim) {
 		if (occupants.remove(victim))
 			currentOccupancy--;
 	}
 
-	// True if the shelter is within radius miles of targetLocation
+	/** Within radius miles */
 	public boolean isNear(Location targetLocation, double radius) {
 		return location.distanceTo(targetLocation) <= radius;
 	}
 
-	// Closing a shelter doesn't remove the people inside; it only blocks new check-ins
+	/** Opens or closes the shelter */
 	public void setOpen(boolean isOpen) {
 		this.isOpen = isOpen;
 	}
