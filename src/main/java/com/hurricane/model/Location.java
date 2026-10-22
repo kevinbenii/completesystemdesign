@@ -2,6 +2,7 @@ package com.hurricane.model;
 
 import com.location.Address;
 
+/** Location */
 public class Location {
 	private String address;
 	private String city;
@@ -10,6 +11,7 @@ public class Location {
 	private double latitude;
 	private double longitude;
 
+	/** Makes a location */
 	public Location(String address, String city, String state, String zipCode, double latitude, double longitude) {
 		this.address = address;
 		this.city = city;
@@ -19,38 +21,39 @@ public class Location {
 		this.longitude = longitude;
 	}
 
-	// Getters for each address part, used when saving a Location to JSON
+	/** Street address */
 	public String getAddress() {
 		return address;
 	}
 
+	/** City */
 	public String getCity() {
 		return city;
 	}
 
+	/** State */
 	public String getState() {
 		return state;
 	}
 
+	/** Zip code */
 	public String getZipCode() {
 		return zipCode;
 	}
 
+	/** Latitude */
 	public double getLatitude() {
 		return latitude;
 	}
 
+	/** Longitude */
 	public double getLongitude() {
 		return longitude;
 	}
 
 	private static final double EARTH_RADIUS_MILES = 3958.8;
 
-	/**
-	 * Straight-line ("as the crow flies") distance in miles, using the haversine
-	 * formula, which accounts for the Earth being round. Not driving distance.
-	 * Used by Shelter.isNear() for radius searches.
-	 */
+	/** Distance in miles */
 	public double distanceTo(Location other) {
 		double dLat = Math.toRadians(other.latitude - latitude);
 		double dLon = Math.toRadians(other.longitude - longitude);
@@ -60,11 +63,12 @@ public class Location {
 		return 2 * EARTH_RADIUS_MILES * Math.asin(Math.sqrt(a));
 	}
 
+	/** Full address */
 	public String getFullAddress() {
 		return address + ", " + city + ", " + state + " " + zipCode;
 	}
 
-	//Map tools need an Address
+	/** Address for the map tools */
 	public Address toAddress() {
 		return new Address(address, city, state, zipCode);
 	}
