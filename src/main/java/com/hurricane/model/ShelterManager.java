@@ -2,31 +2,29 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
-/**
- * Holds every shelter in memory while the app runs and answers questions
- * like "which open shelters near me have space?". Loads its data from the
- * DataManager at startup and writes it back with saveShelters().
- */
+/** Tracks all shelters */
 public class ShelterManager {
 	private ArrayList<Shelter> shelters;
-	// Kept so saveShelters() knows where to write
+	//Where to save
 	private DataManager dataManager;
 
+	/** Loads the shelters */
 	public ShelterManager(DataManager dataManager) {
 		this.dataManager = dataManager;
 		shelters = dataManager.loadShelters();
 	}
 
-	// add/remove only change the in-memory list; call saveShelters() to persist
+	/** Adds a shelter */
 	public void addShelter(Shelter shelter) {
 		shelters.add(shelter);
 	}
 
+	/** Removes a shelter */
 	public void removeShelter(Shelter shelter) {
 		shelters.remove(shelter);
 	}
 
-	// Returns null if no shelter has that id
+	/** Finds a shelter by id, or null */
 	public Shelter getShelterById(String shelterId) {
 		for (Shelter shelter : shelters) {
 			if (shelter.getShelterId().equals(shelterId))
@@ -35,7 +33,7 @@ public class ShelterManager {
 		return null;
 	}
 
-	// All shelters within radius miles of location, open or not
+	/** Shelters within radius miles */
 	public ArrayList<Shelter> filterByLocation(Location location, double radius) {
 		ArrayList<Shelter> matches = new ArrayList<Shelter>();
 		for (Shelter shelter : shelters) {
@@ -45,7 +43,7 @@ public class ShelterManager {
 		return matches;
 	}
 
-	// All shelters that offer the given kind of help
+	/** Shelters that offer that help */
 	public ArrayList<Shelter> filterBySkill(Skill skill) {
 		ArrayList<Shelter> matches = new ArrayList<Shelter>();
 		for (Shelter shelter : shelters) {
@@ -55,7 +53,7 @@ public class ShelterManager {
 		return matches;
 	}
 
-	// Shelters near location that are open and not full, i.e. where someone could go right now
+	/** Open shelters with space nearby */
 	public ArrayList<Shelter> findAvailableShelters(Location location, double radius) {
 		ArrayList<Shelter> matches = new ArrayList<Shelter>();
 		for (Shelter shelter : filterByLocation(location, radius)) {
@@ -65,11 +63,7 @@ public class ShelterManager {
 		return matches;
 	}
 
-	/**
-	 * Moves the victim into the given shelter. A victim can only be in one
-	 * shelter at a time, so they are checked out of any other shelter first.
-	 * Returns false if the target shelter is closed or full.
-	 */
+	/** Moves a victim into a shelter */
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
 		if (!shelter.hasSpace())
 			return false;
@@ -81,11 +75,12 @@ public class ShelterManager {
 		return shelter.checkIn(victim);
 	}
 
+	/** All shelters */
 	public ArrayList<Shelter> getAllShelters() {
 		return shelters;
 	}
 
-	// Writes every shelter to storage (shelters.json for FileDataManager)
+	/** Saves shelters to JSON */
 	public void saveShelters() {
 		dataManager.saveShelters(shelters);
 	}
