@@ -2,13 +2,16 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
+/** Runs the driver scenarios through the Server facade */
 public class UI {
 	private Server facade;
 
+	/** Gets the shared Server facade */
 	UI() {
 		facade = Server.getInstance();
 	}
 
+	/** Runs every scenario in order */
 	public void run() {
 		scenario1();
 		scenario2();
@@ -19,6 +22,7 @@ public class UI {
 		scenario7();
 	}
 
+	/** Logs in as victim1 */
 	public void scenario1() {
 		System.out.println();
 
@@ -32,6 +36,7 @@ public class UI {
 		System.out.println("Logged in.");
 	}
 
+	/** Creates a new account and logs in with it */
 	public void scenario2() {
 		System.out.println();
 
@@ -61,7 +66,7 @@ public class UI {
 		System.out.println("Logged in.");
 	}
 
-	//List shelters
+	/** Lists every shelter and its free beds */
 	public void scenario3() {
 		System.out.println();
 
@@ -76,7 +81,7 @@ public class UI {
 		}
 	}
 
-	//Wrong password
+	/** Logs in with a wrong password and checks it fails */
 	public void scenario4() {
 		System.out.println();
 
@@ -91,7 +96,7 @@ public class UI {
 		System.out.println("Login failed as expected.");
 	}
 
-	//Send a request
+	/** Victim sends a relief request, which is saved */
 	public void scenario5() {
 		System.out.println();
 
@@ -121,7 +126,7 @@ public class UI {
 		facade.logout();
 	}
 
-	//Hurricanes nearby
+	/** Lists hurricanes within 100 miles of Charleston */
 	public void scenario6() {
 		System.out.println();
 
@@ -142,7 +147,7 @@ public class UI {
 		}
 	}
 
-	//Closest shelter and directions
+	/** Finds the closest shelter and prints driving directions */
 	public void scenario7() {
 		System.out.println();
 
@@ -171,6 +176,7 @@ public class UI {
 		facade.logout();
 	}
 
+	/** Starts the UI and runs the scenarios */
 	public static void main(String[] args) {
 		UI userInterface = new UI();
 		userInterface.run();
