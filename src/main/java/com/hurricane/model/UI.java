@@ -2,16 +2,16 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
-/** Runs the driver scenarios through the Server facade */
+/** Driver scenarios */
 public class UI {
 	private Server facade;
 
-	/** Gets the shared Server facade */
+	/** Gets the facade */
 	UI() {
 		facade = Server.getInstance();
 	}
 
-	/** Runs every scenario in order */
+	/** Runs all scenarios */
 	public void run() {
 		scenario1();
 		scenario2();
@@ -22,6 +22,7 @@ public class UI {
 		scenario7();
 		scenario8();
 		scenario9();
+		scenario10();
 	}
 
 	/** Logs in as victim1 */
@@ -38,7 +39,7 @@ public class UI {
 		System.out.println("Logged in.");
 	}
 
-	/** Creates a new account and logs in with it */
+	/** Sign up and log in */
 	public void scenario2() {
 		System.out.println();
 
@@ -68,7 +69,7 @@ public class UI {
 		System.out.println("Logged in.");
 	}
 
-	/** Lists every shelter and its free beds */
+	/** List shelters */
 	public void scenario3() {
 		System.out.println();
 
@@ -83,7 +84,7 @@ public class UI {
 		}
 	}
 
-	/** Logs in with a wrong password and checks it fails */
+	/** Wrong password */
 	public void scenario4() {
 		System.out.println();
 
@@ -98,7 +99,7 @@ public class UI {
 		System.out.println("Login failed as expected.");
 	}
 
-	/** Victim sends a relief request, which is saved */
+	/** Send a request */
 	public void scenario5() {
 		System.out.println();
 
@@ -128,7 +129,7 @@ public class UI {
 		facade.logout();
 	}
 
-	/** Lists hurricanes within 100 miles of Charleston */
+	/** Hurricanes nearby */
 	public void scenario6() {
 		System.out.println();
 
@@ -149,7 +150,7 @@ public class UI {
 		}
 	}
 
-	/** Finds the closest shelter and prints driving directions */
+	/** Closest shelter and directions */
 	public void scenario7() {
 		System.out.println();
 
@@ -178,7 +179,7 @@ public class UI {
 		facade.logout();
 	}
 
-	/** Volunteer takes an open request, then tries to complete it and is blocked */
+	/** Volunteer takes a request, cannot complete it */
 	public void scenario8() {
 		System.out.println();
 
@@ -250,7 +251,46 @@ public class UI {
 		facade.logout();
 	}
 
-	/** Starts the UI and runs the scenarios */
+	/** Rosa exports a trip sheet */
+	public void scenario10() {
+		System.out.println();
+
+		String username = "rdelgado";
+		String password = "rosa123";
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return;
+		}
+
+		//Top request
+		ArrayList<ReliefRequest> requests = facade.recommendRequests();
+		if (requests.isEmpty()) {
+			System.out.println("No open requests.");
+			facade.logout();
+			return;
+		}
+		ReliefRequest request = requests.get(0);
+
+		//Nearest shelter, until #58
+		Shelter shelter = null;
+		for (Shelter each : facade.getAllShelters()) {
+			if (shelter == null || each.getLocation().distanceTo(request.getLocation())
+					< shelter.getLocation().distanceTo(request.getLocation()))
+				shelter = each;
+		}
+
+		//Export
+		String file = facade.exportTrip(request, shelter);
+		if (file == null)
+			System.out.println("Could not export the trip.");
+		else
+			System.out.println("Trip sheet saved to " + file);
+		facade.logout();
+	}
+
+	/** Starts the UI */
 	public static void main(String[] args) {
 		UI userInterface = new UI();
 		userInterface.run();
