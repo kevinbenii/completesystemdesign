@@ -19,10 +19,10 @@ public class Volunteer extends User {
 		skills.add(skill);
 	}
 
-	// Takes the request: records this volunteer on it and marks it IN_PROGRESS
+	// Takes the request: records this volunteer on it and marks it ASSIGNED
 	public void volunteerForRequest(ReliefRequest request) {
 		request.setAssignedVolunteer(this);
-		request.setStatus(ReliefRequestStatus.IN_PROGRESS);
+		request.setStatus(ReliefRequestStatus.ASSIGNED);
 	}
 
 	public void completeRequest(ReliefRequest request) {
