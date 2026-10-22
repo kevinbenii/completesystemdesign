@@ -20,6 +20,7 @@ public class UI {
 		scenario5();
 		scenario6();
 		scenario7();
+		scenario8();
 	}
 
 	/** Logs in as victim1 */
@@ -172,6 +173,50 @@ public class UI {
 		//Directions
 		for (String step : facade.getDirectionsToShelter(shelter)) {
 			System.out.println(step);
+		}
+		facade.logout();
+	}
+
+	/** Volunteer takes an open request, then tries to complete it and is blocked */
+	public void scenario8() {
+		System.out.println();
+
+		String username = "volunteer1";
+		String password = "password123";
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return;
+		}
+
+		//Find an open request
+		ReliefRequest request = null;
+		for (ReliefRequest each : facade.getAllRequests()) {
+			if (each.getStatus() == ReliefRequestStatus.OPEN) {
+				request = each;
+				break;
+			}
+		}
+		if (request == null) {
+			System.out.println("No open requests.");
+			facade.logout();
+			return;
+		}
+
+		//Take it
+		if (!facade.volunteerForRequest(request)) {
+			System.out.println("Could not take the request.");
+			facade.logout();
+			return;
+		}
+		System.out.println("Request \"" + request.getSubject() + "\" is now " + request.getStatus() + ".");
+
+		//Try to complete it
+		if (!facade.completeRequest(request)) {
+			System.out.println("Your " + facade.getCurrentUser().getRoleName()
+					+ " role does not have permission to complete relief requests. The request stays "
+					+ request.getStatus() + ".");
 		}
 		facade.logout();
 	}
