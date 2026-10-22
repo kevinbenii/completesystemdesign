@@ -2,6 +2,7 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
+/** Tracks all users */
 public class UserManager {
 	private ArrayList<User> users;
 	private ArrayList<Admin> admins;
@@ -9,6 +10,7 @@ public class UserManager {
 	private User currentUser;
 	private DataManager dataManager;
 
+	/** Loads users and banned users */
 	public UserManager(DataManager dataManager) {
 		this.dataManager = dataManager;
 		users = dataManager.loadUsers();
@@ -22,10 +24,7 @@ public class UserManager {
 		}
 	}
 
-	// Sample data from json/users.json to validate against until the DataLoader reads the file
-	// Note: FileDataManager now loads users.json, so this only runs if that file is missing or
-	// empty. If these sample users show up, the data folder path is probably wrong
-	// (see FileDataManager.defaultDataFolder()). Safe to remove once everyone has merged.
+	/** Sample users if the file is empty */
 	private void addSampleUsers() {
 		ArrayList<Skill> skills = new ArrayList<Skill>();
 		skills.add(Skill.FOOD);
@@ -40,6 +39,7 @@ public class UserManager {
 		admins.add(admin);
 	}
 
+	/** Adds a new user */
 	public boolean registerUser(User user) {
 		for (User existing : users) {
 			if (existing.getUsername().equalsIgnoreCase(user.getUsername()))
@@ -49,6 +49,7 @@ public class UserManager {
 		return true;
 	}
 
+	/** Logs a user in */
 	public boolean authenticateUser(String username, String password) {
 		for (User user : users) {
 			if (user.login(username, password) && !isBlacklisted(user)) {
@@ -59,16 +60,17 @@ public class UserManager {
 		return false;
 	}
 
+	/** Logs out */
 	public void logout() {
 		currentUser = null;
 	}
 
+	/** Logged-in user */
 	public User getCurrentUser() {
 		return currentUser;
 	}
 
-	// Only a logged-in admin can ban. A banned user who is logged in gets logged out.
-	// Returns false if the ban was refused; the caller saves users when it returns true.
+	/** Admin bans a user */
 	public boolean banUser(User user) {
 		if (!(currentUser instanceof Admin) || user == null)
 			return false;
@@ -80,10 +82,12 @@ public class UserManager {
 		return true;
 	}
 
+	/** True if banned */
 	public boolean isBlacklisted(User user) {
 		return blacklist.contains(user);
 	}
 
+	/** Saves users to JSON */
 	public void saveUsers() {
 		dataManager.saveUsers(users);
 	}
