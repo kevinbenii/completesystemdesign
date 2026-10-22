@@ -118,6 +118,15 @@ public class Server {
 		return true;
 	}
 
+	// A volunteer takes the request, which becomes ASSIGNED to them; anyone else gets false
+	public boolean volunteerForRequest(ReliefRequest request) {
+		if (!(getCurrentUser() instanceof Volunteer))
+			return false;
+		((Volunteer) getCurrentUser()).volunteerForRequest(request);
+		requestManager.saveRequests();
+		return true;
+	}
+
 	public ArrayList<ReliefRequest> filterRequestsBySkill(Skill skill) {
 		return requestManager.filterBySkill(skill);
 	}
