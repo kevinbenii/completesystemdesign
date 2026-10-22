@@ -391,7 +391,8 @@ public class FileDataManager extends DataManager {
 
 	// Resolved and removed requests don't count as a victim's active requests
 	private static boolean isActive(ReliefRequest request) {
-		return request.getStatus() == ReliefRequestStatus.OPEN || request.getStatus() == ReliefRequestStatus.IN_PROGRESS;
+		return request.getStatus() == ReliefRequestStatus.OPEN || request.getStatus() == ReliefRequestStatus.ASSIGNED
+				|| request.getStatus() == ReliefRequestStatus.IN_PROGRESS;
 	}
 
 	// Location has no equals(), so compare the points by latitude/longitude
