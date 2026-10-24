@@ -174,6 +174,8 @@ public class FileDataManager extends DataManager {
 			shelter.setHasMedicalStaff(Boolean.TRUE.equals(json.get(HAS_MEDICAL_STAFF)));
 			if (json.get(PET_CAPACITY) != null)
 				shelter.setPetCapacity(((Number) json.get(PET_CAPACITY)).intValue());
+			for (Pet pet : parsePets(getArray(json, PETS)))
+				shelter.addPet(pet);
 
 			// Re-check everyone in before applying the open flag, since checkIn()
 			// refuses closed shelters. currentOccupancy is rebuilt from the occupant
@@ -361,6 +363,7 @@ public class FileDataManager extends DataManager {
 			json.put(ACCEPTS_DOGS, shelter.acceptsDogs());
 			json.put(HAS_MEDICAL_STAFF, shelter.hasMedicalStaff());
 			json.put(PET_CAPACITY, shelter.getPetCapacity());
+			json.put(PETS, petsToJson(shelter.getPets()));
 			out.add(json);
 		}
 		writeArray(SHELTERS_FILE, out);
