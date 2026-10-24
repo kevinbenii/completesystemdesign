@@ -388,6 +388,23 @@ public class Server {
 		}
 	}
 
+	/** Shelter manager checks a family and pets in */
+	public boolean checkInFamily(ReliefRequest request) {
+		Shelter shelter = getMyShelter();
+		if (shelter == null || request == null || request.getRequester() == null)
+			return false;
+		Victim victim = request.getRequester();
+		int people = Math.max(1, victim.getFamilyMembers().size());
+		if (!shelter.hasSpaceFor(people, request.getPets().size()))
+			return false;
+		if (!shelter.checkIn(victim))
+			return false;
+		for (Pet pet : request.getPets())
+			shelter.addPet(pet);
+		shelterManager.saveShelters();
+		return true;
+	}
+
 	//Save only if it worked
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
 		boolean assigned = shelterManager.assignVictimToShelter(victim, shelter);

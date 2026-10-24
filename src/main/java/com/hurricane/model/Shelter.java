@@ -108,18 +108,24 @@ public class Shelter {
 
 	/** Checks a victim in */
 	public boolean checkIn(Victim victim) {
-		if (!hasSpace() || occupants.contains(victim))
+		int people = groupSize(victim);
+		if (!isOpen || capacity - currentOccupancy < people || occupants.contains(victim))
 			return false;
 
 		occupants.add(victim);
-		currentOccupancy++;
+		currentOccupancy += people;
 		return true;
 	}
 
 	/** Checks a victim out */
 	public void checkOut(Victim victim) {
 		if (occupants.remove(victim))
-			currentOccupancy--;
+			currentOccupancy -= groupSize(victim);
+	}
+
+	//Victim plus family, at least 1
+	private int groupSize(Victim victim) {
+		return Math.max(1, victim.getFamilyMembers().size());
 	}
 
 	/** Within radius miles */
