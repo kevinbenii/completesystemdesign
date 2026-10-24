@@ -50,6 +50,19 @@ public class Server {
 		return registerUser(new Victim(username, password, phoneNumber, location));
 	}
 
+	/** Victim account with family and pets, saved together */
+	public boolean createFamilyAccount(String username, String password, String phoneNumber, Location location,
+			ArrayList<FamilyMember> family, ArrayList<Pet> pets) {
+		if (!isValidAccount(username, password))
+			return false;
+		Victim victim = new Victim(username, password, phoneNumber, location);
+		for (FamilyMember member : family)
+			victim.addFamilyMember(member);
+		for (Pet pet : pets)
+			victim.addPet(pet);
+		return registerUser(victim);
+	}
+
 	public boolean createVolunteerAccount(String username, String password, String phoneNumber, Location location,
 			ArrayList<Skill> skills) {
 		if (!isValidAccount(username, password))
@@ -100,6 +113,21 @@ public class Server {
 		Victim victim = (Victim) getCurrentUser();
 		submitRequest(victim.createRequest(subject, body, requiredSkills));
 		return true;
+	}
+
+	/** Logged-in victim sends a family request, returns it or null */
+	public ReliefRequest submitFamilyRequest(String subject, String body, ArrayList<Skill> requiredSkills,
+			String medicalNote) {
+		if (!(getCurrentUser() instanceof Victim))
+			return null;
+		Victim victim = (Victim) getCurrentUser();
+		ReliefRequest request = victim.createRequest(subject, body, requiredSkills);
+		request.setPeopleCount(Math.max(1, victim.getFamilyMembers().size()));
+		request.setMedical(medicalNote != null && !medicalNote.isEmpty(), medicalNote == null ? "" : medicalNote);
+		for (Pet pet : victim.getPets())
+			request.addPet(pet);
+		submitRequest(request);
+		return request;
 	}
 
 	public void deleteRequest(ReliefRequest request) {
