@@ -229,6 +229,13 @@ public class Server {
 		return shelterManager.getAllShelters();
 	}
 
+	//The shelter a logged in shelter manager runs, or null for anyone else
+	public Shelter getMyShelter() {
+		if (!(getCurrentUser() instanceof ShelterStaff))
+			return null;
+		return shelterManager.getShelterById(((ShelterStaff) getCurrentUser()).getShelterId());
+	}
+
 	//Closest shelter by driving time
 	public Shelter findClosestShelter() {
 		if (!isLoggedIn())
