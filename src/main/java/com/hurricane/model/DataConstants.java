@@ -32,6 +32,11 @@ public final class DataConstants {
 	public static final String SKILLS = "skills";
 	public static final String ACTIVE_REQUESTS = "activeRequests";
 	public static final String BANNED = "banned";
+	public static final String FAMILY_MEMBERS = "familyMembers";
+	public static final String AGE = "age";
+	public static final String MEDICAL_NOTE = "medicalNote";
+	public static final String PETS = "pets";
+	public static final String TYPE = "type";
 	public static final String ROLE_ADMIN = "ADMIN";
 	public static final String ROLE_VOLUNTEER = "VOLUNTEER";
 	public static final String ROLE_VICTIM = "VICTIM";
@@ -43,6 +48,8 @@ public final class DataConstants {
 	public static final String BODY = "body";
 	public static final String REQUIRED_SKILLS = "requiredSkills";
 	public static final String REQUESTER = "requester";
+	public static final String PEOPLE_COUNT = "peopleCount";
+	public static final String NEEDS_MEDICAL = "needsMedical";
 	public static final String ASSIGNED_VOLUNTEER = "assignedVolunteer";
 
 	// Hurricanes

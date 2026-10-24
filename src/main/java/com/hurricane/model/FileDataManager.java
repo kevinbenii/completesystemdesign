@@ -197,7 +197,12 @@ public class FileDataManager extends DataManager {
 		case ROLE_SHELTER_STAFF:
 			return new ShelterStaff(username, password, phoneNumber, location, (String) json.get(SHELTER_ID));
 		default:
-			return new Victim(username, password, phoneNumber, location);
+			Victim victim = new Victim(username, password, phoneNumber, location);
+			for (FamilyMember member : parseFamily(getArray(json, FAMILY_MEMBERS)))
+				victim.addFamilyMember(member);
+			for (Pet pet : parsePets(getArray(json, PETS)))
+				victim.addPet(pet);
+			return victim;
 		}
 	}
 
@@ -236,6 +241,29 @@ public class FileDataManager extends DataManager {
 			skills.add(Skill.valueOf((String) name));
 		}
 		return skills;
+	}
+
+	// Turns [{"name": ..., "age": ..., "medicalNote": ...}] into FamilyMembers
+	private ArrayList<FamilyMember> parseFamily(JSONArray json) {
+		ArrayList<FamilyMember> family = new ArrayList<FamilyMember>();
+		for (Object entry : json) {
+			JSONObject member = (JSONObject) entry;
+			String note = (String) member.get(MEDICAL_NOTE);
+			family.add(new FamilyMember((String) member.get(NAME),
+					((Number) member.get(AGE)).intValue(),
+					note == null ? "" : note));
+		}
+		return family;
+	}
+
+	// Turns [{"name": ..., "type": ...}] into Pets
+	private ArrayList<Pet> parsePets(JSONArray json) {
+		ArrayList<Pet> pets = new ArrayList<Pet>();
+		for (Object entry : json) {
+			JSONObject pet = (JSONObject) entry;
+			pets.add(new Pet((String) pet.get(NAME), (String) pet.get(TYPE)));
+		}
+		return pets;
 	}
 
 	// ---------- saving ----------
@@ -347,6 +375,8 @@ public class FileDataManager extends DataManager {
 			}
 			json.put(ROLE, ROLE_VICTIM);
 			json.put(ACTIVE_REQUESTS, subjects);
+			json.put(FAMILY_MEMBERS, familyToJson(((Victim) user).getFamilyMembers()));
+			json.put(PETS, petsToJson(((Victim) user).getPets()));
 		}
 		return json;
 	}
@@ -373,6 +403,31 @@ public class FileDataManager extends DataManager {
 			names.add(skill.name());
 		}
 		return names;
+	}
+
+	// The reverse of parseFamily()
+	private List<Object> familyToJson(List<FamilyMember> family) {
+		List<Object> out = new ArrayList<Object>();
+		for (FamilyMember member : family) {
+			Map<String, Object> json = new LinkedHashMap<String, Object>();
+			json.put(NAME, member.getName());
+			json.put(AGE, member.getAge());
+			json.put(MEDICAL_NOTE, member.getMedicalNote());
+			out.add(json);
+		}
+		return out;
+	}
+
+	// The reverse of parsePets()
+	private List<Object> petsToJson(List<Pet> pets) {
+		List<Object> out = new ArrayList<Object>();
+		for (Pet pet : pets) {
+			Map<String, Object> json = new LinkedHashMap<String, Object>();
+			json.put(NAME, pet.getName());
+			json.put(TYPE, pet.getType());
+			out.add(json);
+		}
+		return out;
 	}
 
 	// ---------- helpers ----------

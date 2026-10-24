@@ -16,6 +16,7 @@ public class ReliefRequest {
 	private int peopleCount;
 	private boolean needsMedical;
 	private String medicalNote;
+	private ArrayList<Pet> pets;
 
 	/** Makes an open request */
 	public ReliefRequest(Location location, String subject, String body, ArrayList<Skill> requiredSkills, Victim requester) {
@@ -28,6 +29,7 @@ public class ReliefRequest {
 		this.status = ReliefRequestStatus.OPEN;
 		this.peopleCount = 1;
 		this.medicalNote = "";
+		this.pets = new ArrayList<Pet>();
 	}
 
 	/** Id */
@@ -124,5 +126,15 @@ public class ReliefRequest {
 	public void setMedical(boolean needsMedical, String medicalNote) {
 		this.needsMedical = needsMedical;
 		this.medicalNote = medicalNote;
+	}
+
+	// Pets coming along with the group
+	public ArrayList<Pet> getPets() {
+		return pets;
+	}
+
+	// Adds a pet to the request
+	public void addPet(Pet pet) {
+		pets.add(pet);
 	}
 }
