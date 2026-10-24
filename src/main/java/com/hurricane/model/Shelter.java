@@ -17,6 +17,8 @@ public class Shelter {
 	private boolean hasMedicalStaff;
 	//How many pets it has room for
 	private int petCapacity;
+	//Pets staying here
+	private ArrayList<Pet> pets;
 
 	/** Makes an open, empty shelter */
 	public Shelter(String shelterId, String name, Location location, int capacity) {
@@ -31,6 +33,7 @@ public class Shelter {
 		this.acceptsDogs = false;
 		this.hasMedicalStaff = false;
 		this.petCapacity = 0;
+		this.pets = new ArrayList<Pet>();
 	}
 
 	/** Shelter id */
@@ -81,6 +84,21 @@ public class Shelter {
 	/** Free beds */
 	public int getAvailableSpace() {
 		return Math.max(0, capacity - currentOccupancy);
+	}
+
+	/** True if open and there is room for that many people and pets */
+	public boolean hasSpaceFor(int people, int petCount) {
+		return isOpen && capacity - currentOccupancy >= people && petCapacity - pets.size() >= petCount;
+	}
+
+	/** Pets staying here */
+	public ArrayList<Pet> getPets() {
+		return pets;
+	}
+
+	/** Records a pet staying here */
+	public void addPet(Pet pet) {
+		pets.add(pet);
 	}
 
 	/** True if it offers that help */
