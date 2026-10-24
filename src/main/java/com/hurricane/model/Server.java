@@ -255,6 +255,58 @@ public class Server {
 		return null;
 	}
 
+	/** True if the shelter fits the request */
+	public boolean isSuitable(Shelter shelter, ReliefRequest request) {
+		if (hasDog(request) && !shelter.acceptsDogs())
+			return false;
+		if (request.needsMedical() && !shelter.hasMedicalStaff())
+			return false;
+		return shelter.hasSpaceFor(request.getPeopleCount(), request.getPets().size());
+	}
+
+	/** Closest suitable shelter by driving */
+	public Shelter findSuitableShelter(ReliefRequest request) {
+		ArrayList<Shelter> suitable = new ArrayList<Shelter>();
+		for (Shelter shelter : getAllShelters()) {
+			if (isSuitable(shelter, request))
+				suitable.add(shelter);
+		}
+		if (suitable.isEmpty())
+			return null;
+
+		Address[] addresses = new Address[suitable.size()];
+		for (int i = 0; i < suitable.size(); i++)
+			addresses[i] = suitable.get(i).getLocation().toAddress();
+		try {
+			Address closest = MapTools.getInstance().findClosestAddress(request.getLocation().toAddress(), addresses);
+			for (int i = 0; i < addresses.length; i++)
+				if (addresses[i] == closest)
+					return suitable.get(i);
+		} catch (Exception e) {
+			System.out.println("Could not reach the map service, using straight-line distance.");
+		}
+		return nearestByMiles(suitable, request.getLocation());
+	}
+
+	//Any dog in the request
+	private boolean hasDog(ReliefRequest request) {
+		for (Pet pet : request.getPets()) {
+			if (pet.getType().equalsIgnoreCase("dog"))
+				return true;
+		}
+		return false;
+	}
+
+	//Backup when the map is down
+	private Shelter nearestByMiles(ArrayList<Shelter> shelters, Location from) {
+		Shelter nearest = null;
+		for (Shelter shelter : shelters) {
+			if (nearest == null || shelter.getLocation().distanceTo(from) < nearest.getLocation().distanceTo(from))
+				nearest = shelter;
+		}
+		return nearest;
+	}
+
 	//Driving steps to a shelter
 	public String[] getDirectionsToShelter(Shelter shelter) {
 		if (!isLoggedIn() || shelter == null)
