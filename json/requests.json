@@ -37,5 +37,24 @@
     ],
     "requester": "victim2",
     "assignedVolunteer": null
+  },
+  {
+    "id": "54226a15-71c2-4977-bfcc-01bd61f6e150",
+    "location": {
+      "address": "200 Oak Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29205",
+      "latitude": 33.99,
+      "longitude": -81.02
+    },
+    "status": "OPEN",
+    "subject": "Need water",
+    "body": "Family of three is out of drinking water.",
+    "requiredSkills": [
+      "FOOD"
+    ],
+    "requester": "victim1",
+    "assignedVolunteer": null
   }
 ]
