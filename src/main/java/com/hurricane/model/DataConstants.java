@@ -66,4 +66,7 @@ public final class DataConstants {
 	public static final String OCCUPANTS = "occupants";
 	public static final String AVAILABLE_SKILLS = "availableSkills";
 	public static final String IS_OPEN = "isOpen";
+	public static final String ACCEPTS_DOGS = "acceptsDogs";
+	public static final String HAS_MEDICAL_STAFF = "hasMedicalStaff";
+	public static final String PET_CAPACITY = "petCapacity";
 }

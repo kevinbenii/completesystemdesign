@@ -13,6 +13,10 @@ public class Shelter {
 	//Help offered, e.g. FOOD
 	private ArrayList<Skill> availableSkills;
 	private boolean isOpen;
+	private boolean acceptsDogs;
+	private boolean hasMedicalStaff;
+	//How many pets it has room for
+	private int petCapacity;
 
 	/** Makes an open, empty shelter */
 	public Shelter(String shelterId, String name, Location location, int capacity) {
@@ -24,6 +28,9 @@ public class Shelter {
 		this.occupants = new ArrayList<Victim>();
 		this.availableSkills = new ArrayList<Skill>();
 		this.isOpen = true;
+		this.acceptsDogs = false;
+		this.hasMedicalStaff = false;
+		this.petCapacity = 0;
 	}
 
 	/** Shelter id */
@@ -105,5 +112,32 @@ public class Shelter {
 	/** Opens or closes the shelter */
 	public void setOpen(boolean isOpen) {
 		this.isOpen = isOpen;
+	}
+
+	// True if dogs are allowed
+	public boolean acceptsDogs() {
+		return acceptsDogs;
+	}
+
+	public void setAcceptsDogs(boolean acceptsDogs) {
+		this.acceptsDogs = acceptsDogs;
+	}
+
+	// True if medical staff work here
+	public boolean hasMedicalStaff() {
+		return hasMedicalStaff;
+	}
+
+	public void setHasMedicalStaff(boolean hasMedicalStaff) {
+		this.hasMedicalStaff = hasMedicalStaff;
+	}
+
+	// How many pets it has room for
+	public int getPetCapacity() {
+		return petCapacity;
+	}
+
+	public void setPetCapacity(int petCapacity) {
+		this.petCapacity = petCapacity;
 	}
 }

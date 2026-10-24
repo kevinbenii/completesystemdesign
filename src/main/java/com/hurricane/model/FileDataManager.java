@@ -169,6 +169,12 @@ public class FileDataManager extends DataManager {
 
 			shelter.getAvailableSkills().addAll(parseSkills(getArray(json, AVAILABLE_SKILLS)));
 
+			// Older shelters have none of these, so they stay no dogs, no medical staff, no pet room
+			shelter.setAcceptsDogs(Boolean.TRUE.equals(json.get(ACCEPTS_DOGS)));
+			shelter.setHasMedicalStaff(Boolean.TRUE.equals(json.get(HAS_MEDICAL_STAFF)));
+			if (json.get(PET_CAPACITY) != null)
+				shelter.setPetCapacity(((Number) json.get(PET_CAPACITY)).intValue());
+
 			// Re-check everyone in before applying the open flag, since checkIn()
 			// refuses closed shelters. currentOccupancy is rebuilt from the occupant
 			// list rather than trusted from the file, so the two can't disagree.
@@ -352,6 +358,9 @@ public class FileDataManager extends DataManager {
 			json.put(OCCUPANTS, occupants);
 			json.put(AVAILABLE_SKILLS, skillsToJson(shelter.getAvailableSkills()));
 			json.put(IS_OPEN, shelter.isOpen());
+			json.put(ACCEPTS_DOGS, shelter.acceptsDogs());
+			json.put(HAS_MEDICAL_STAFF, shelter.hasMedicalStaff());
+			json.put(PET_CAPACITY, shelter.getPetCapacity());
 			out.add(json);
 		}
 		writeArray(SHELTERS_FILE, out);
