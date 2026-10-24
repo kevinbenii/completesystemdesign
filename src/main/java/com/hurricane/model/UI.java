@@ -23,6 +23,7 @@ public class UI {
 		scenario8();
 		scenario9();
 		scenario10();
+		scenario11();
 	}
 
 	/** Logs in as victim1 */
@@ -272,13 +273,8 @@ public class UI {
 		}
 		ReliefRequest request = requests.get(0);
 
-		//Nearest shelter, until #58
-		Shelter shelter = null;
-		for (Shelter each : facade.getAllShelters()) {
-			if (shelter == null || each.getLocation().distanceTo(request.getLocation())
-					< shelter.getLocation().distanceTo(request.getLocation()))
-				shelter = each;
-		}
+		//Suitable shelter
+		Shelter shelter = facade.findSuitableShelter(request);
 
 		//Export
 		String file = facade.exportTrip(request, shelter);
@@ -286,6 +282,60 @@ public class UI {
 			System.out.println("Could not export the trip.");
 		else
 			System.out.println("Trip sheet saved to " + file);
+		facade.logout();
+	}
+
+	/** Rosa finds a shelter and takes the request */
+	public void scenario11() {
+		System.out.println();
+
+		String username = "rdelgado";
+		String password = "rosa123";
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return;
+		}
+
+		//Top request
+		ArrayList<ReliefRequest> requests = facade.recommendRequests();
+		if (requests.isEmpty()) {
+			System.out.println("No open requests.");
+			facade.logout();
+			return;
+		}
+		ReliefRequest request = requests.get(0);
+		System.out.println("Finding a shelter for: " + request.getSubject());
+		System.out.println("Needs: " + request.getPeopleCount() + " people, " + request.getPets().size()
+				+ " pet(s), medical staff: " + (request.needsMedical() ? "yes" : "no"));
+
+		//Check every shelter
+		for (Shelter shelter : facade.getAllShelters()) {
+			System.out.printf("%-40s dogs: %-3s medical: %-3s space: %-3s %s%n", shelter.getName(),
+					shelter.acceptsDogs() ? "yes" : "no", shelter.hasMedicalStaff() ? "yes" : "no",
+					shelter.hasSpaceFor(request.getPeopleCount(), request.getPets().size()) ? "yes" : "no",
+					facade.isSuitable(shelter, request) ? "<- suitable" : "");
+		}
+
+		//Pick one
+		Shelter shelter = facade.findSuitableShelter(request);
+		if (shelter == null) {
+			System.out.println("No suitable shelter.");
+			facade.logout();
+			return;
+		}
+		System.out.println("Closest suitable shelter: " + shelter.getName() + ", "
+				+ shelter.getLocation().getFullAddress());
+
+		//Take it
+		if (!facade.volunteerForRequest(request)) {
+			System.out.println("Could not take the request.");
+			facade.logout();
+			return;
+		}
+		System.out.println("Request is now " + request.getStatus() + ", handled by "
+				+ request.getAssignedVolunteer().getUsername() + ".");
 		facade.logout();
 	}
 
