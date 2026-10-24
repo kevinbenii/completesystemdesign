@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Victim extends User {
 	private ArrayList<ReliefRequest> activeRequests;
 	private Hurricane affectedByHurricane;
+	private ArrayList<FamilyMember> familyMembers;
 
 	public Victim(String username, String password, String phoneNumber, Location location) {
 		super(username, password, phoneNumber, location);
 		this.activeRequests = new ArrayList<ReliefRequest>();
+		this.familyMembers = new ArrayList<FamilyMember>();
 	}
 
 	// Requests this victim has made that are still OPEN or IN_PROGRESS
@@ -23,6 +25,16 @@ public class Victim extends User {
 
 	public void setAffectedByHurricane(Hurricane hurricane) {
 		this.affectedByHurricane = hurricane;
+	}
+
+	/** Everyone in the household, including the victim */
+	public ArrayList<FamilyMember> getFamilyMembers() {
+		return familyMembers;
+	}
+
+	/** Adds someone to the household */
+	public void addFamilyMember(FamilyMember member) {
+		familyMembers.add(member);
 	}
 
 	public ReliefRequest createRequest(String subject, String body, ArrayList<Skill> requiredSkills) {
