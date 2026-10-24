@@ -339,6 +339,88 @@ public class UI {
 		facade.logout();
 	}
 
+	/** Portia's Carter family scenario */
+	public void carterScenario() {
+		ReliefRequest request = michaelAsksForHelp();
+		if (request == null)
+			return;
+	}
+
+	/** Michael signs up and sends a request */
+	private ReliefRequest michaelAsksForHelp() {
+		System.out.println();
+		System.out.println("=== Michael Carter creates an account and asks for help ===");
+
+		//Family details
+		String username = "mcarter";
+		String password = "carter123";
+		String phoneNumber = "843-555-0142";
+		Location home = new Location("1 Vendue Range", "Charleston", "SC", "29401", 32.7781, -79.9250);
+		ArrayList<FamilyMember> family = new ArrayList<FamilyMember>();
+		family.add(new FamilyMember("Michael Carter", 42, ""));
+		family.add(new FamilyMember("Laura Carter", 40, ""));
+		family.add(new FamilyMember("Sophie Carter", 9, "Asthma"));
+		ArrayList<Pet> pets = new ArrayList<Pet>();
+		pets.add(new Pet("Buddy", "dog"));
+
+		//Sign up
+		if (!facade.createFamilyAccount(username, password, phoneNumber, home, family, pets)) {
+			System.out.println("Account creation failed. Reset the JSON files and try again.");
+			return null;
+		}
+		System.out.println("Account created for Michael Carter (" + username + ").");
+
+		//Log in
+		if (!facade.login(username, password)) {
+			System.out.println("Login failed.");
+			return null;
+		}
+
+		//Send the request
+		ArrayList<Skill> needs = new ArrayList<Skill>();
+		needs.add(Skill.TRANSPORTATION);
+		needs.add(Skill.MEDICAL);
+		ReliefRequest request = facade.submitFamilyRequest("Carter family needs a ride to a shelter",
+				"Power is out and floodwater is rising. We cannot use our car.", needs,
+				"Sophie Carter (9) has worsening asthma and needs a shelter with medical staff");
+		facade.logout();
+		if (request == null) {
+			System.out.println("Request failed.");
+			return null;
+		}
+		System.out.println("Relief request submitted:");
+		printRequest(request);
+		return request;
+	}
+
+	/** Prints a request's details */
+	private void printRequest(ReliefRequest request) {
+		Victim requester = request.getRequester();
+		int adults = 0;
+		int children = 0;
+		System.out.println("  " + request.getSubject());
+		System.out.println("  " + request.getBody());
+		if (requester != null) {
+			for (FamilyMember member : requester.getFamilyMembers()) {
+				System.out.println("  - " + member.getName() + ", age " + member.getAge());
+				if (member.getAge() < 18)
+					children++;
+				else
+					adults++;
+			}
+		}
+		for (Pet pet : request.getPets())
+			System.out.println("  - " + pet.getName() + " (" + pet.getType() + ")");
+		System.out.println("  Needs transport for: " + adults + " adults, " + children + " child, "
+				+ request.getPets().size() + " dog");
+		if (request.needsMedical())
+			System.out.println("  Medical: " + request.getMedicalNote());
+		if (requester != null)
+			System.out.println("  Contact: " + requester.getPhoneNumber());
+		System.out.println("  Location: " + request.getLocation().getFullAddress());
+		System.out.println("  Status: " + request.getStatus());
+	}
+
 	/** Starts the UI */
 	public static void main(String[] args) {
 		UI userInterface = new UI();
