@@ -6,11 +6,13 @@ public class Victim extends User {
 	private ArrayList<ReliefRequest> activeRequests;
 	private Hurricane affectedByHurricane;
 	private ArrayList<FamilyMember> familyMembers;
+	private ArrayList<Pet> pets;
 
 	public Victim(String username, String password, String phoneNumber, Location location) {
 		super(username, password, phoneNumber, location);
 		this.activeRequests = new ArrayList<ReliefRequest>();
 		this.familyMembers = new ArrayList<FamilyMember>();
+		this.pets = new ArrayList<Pet>();
 	}
 
 	// Requests this victim has made that are still OPEN or IN_PROGRESS
@@ -35,6 +37,16 @@ public class Victim extends User {
 	/** Adds someone to the household */
 	public void addFamilyMember(FamilyMember member) {
 		familyMembers.add(member);
+	}
+
+	// The household's pets
+	public ArrayList<Pet> getPets() {
+		return pets;
+	}
+
+	// Adds a pet to the household
+	public void addPet(Pet pet) {
+		pets.add(pet);
 	}
 
 	public ReliefRequest createRequest(String subject, String body, ArrayList<Skill> requiredSkills) {

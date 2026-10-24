@@ -13,6 +13,9 @@ public class ReliefRequest {
 	private ArrayList<Skill> requiredSkills;
 	private Victim requester;
 	private Volunteer assignedVolunteer;
+	private int peopleCount;
+	private boolean needsMedical;
+	private String medicalNote;
 
 	/** Makes an open request */
 	public ReliefRequest(Location location, String subject, String body, ArrayList<Skill> requiredSkills, Victim requester) {
@@ -23,6 +26,8 @@ public class ReliefRequest {
 		this.requiredSkills = requiredSkills;
 		this.requester = requester;
 		this.status = ReliefRequestStatus.OPEN;
+		this.peopleCount = 1;
+		this.medicalNote = "";
 	}
 
 	/** Id */
@@ -94,5 +99,30 @@ public class ReliefRequest {
 	/** Sets the status */
 	public void setStatus(ReliefRequestStatus status) {
 		this.status = status;
+	}
+
+	// How many people need help
+	public int getPeopleCount() {
+		return peopleCount;
+	}
+
+	public void setPeopleCount(int peopleCount) {
+		this.peopleCount = peopleCount;
+	}
+
+	// True if someone in the group needs medical care
+	public boolean needsMedical() {
+		return needsMedical;
+	}
+
+	// Describes the medical need; empty if none
+	public String getMedicalNote() {
+		return medicalNote;
+	}
+
+	// Records a medical need on the request
+	public void setMedical(boolean needsMedical, String medicalNote) {
+		this.needsMedical = needsMedical;
+		this.medicalNote = medicalNote;
 	}
 }
