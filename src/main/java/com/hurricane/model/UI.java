@@ -347,6 +347,69 @@ public class UI {
 		Shelter shelter = rosaHelps(request);
 		if (shelter == null)
 			return;
+		felixChecksIn(request);
+	}
+
+	/** Felix checks the family in and completes the request */
+	private void felixChecksIn(ReliefRequest request) {
+		System.out.println();
+		System.out.println("=== Felix, the shelter manager, logs in ===");
+
+		//Log in
+		if (!facade.login("felix", "felix123")) {
+			System.out.println("Login failed.");
+			return;
+		}
+		Shelter shelter = facade.getMyShelter();
+		if (shelter == null) {
+			System.out.println("No shelter found for Felix.");
+			facade.logout();
+			return;
+		}
+
+		//Before
+		printShelter(shelter);
+
+		//Check in
+		System.out.println();
+		System.out.println("=== Felix checks in the Carter family and Buddy ===");
+		if (!facade.checkInFamily(request)) {
+			System.out.println("Check-in failed.");
+			facade.logout();
+			return;
+		}
+		System.out.println("Checked in 3 people and 1 pet.");
+		printShelter(shelter);
+
+		//Complete
+		System.out.println();
+		System.out.println("=== Felix marks the request Complete ===");
+		if (facade.completeRequest(request))
+			System.out.println("Status: " + request.getStatus());
+		else
+			System.out.println("Could not complete the request.");
+		facade.logout();
+	}
+
+	/** Prints a shelter for its manager */
+	private void printShelter(Shelter shelter) {
+		System.out.println(shelter.getName());
+		System.out.println("  Location: " + shelter.getLocation().getFullAddress());
+		System.out.println("  Capacity: " + shelter.getCapacity());
+		System.out.println("  Occupancy: " + shelter.getCurrentOccupancy());
+		System.out.println("  Available spaces: " + shelter.getAvailableSpace());
+		System.out.println("  Occupants:");
+		for (Victim victim : shelter.getOccupants()) {
+			if (victim.getFamilyMembers().isEmpty()) {
+				System.out.println("  - " + victim.getUsername());
+			} else {
+				for (FamilyMember member : victim.getFamilyMembers())
+					System.out.println("  - " + member.getName() + ", age " + member.getAge());
+			}
+		}
+		System.out.println("  Pets:");
+		for (Pet pet : shelter.getPets())
+			System.out.println("  - " + pet.getName() + " (" + pet.getType() + ")");
 	}
 
 	/** Rosa finds, takes and plans the trip */
