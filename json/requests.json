@@ -17,7 +17,11 @@
       "TRANSPORTATION"
     ],
     "requester": "victim1",
-    "assignedVolunteer": "volunteer1"
+    "assignedVolunteer": "volunteer1",
+    "peopleCount": 1,
+    "needsMedical": false,
+    "medicalNote": "",
+    "pets": []
   },
   {
     "id": "06138b54-2e2f-47ae-9d6b-91be378b9c94",
@@ -36,25 +40,126 @@
       "FOOD"
     ],
     "requester": "victim2",
-    "assignedVolunteer": null
+    "assignedVolunteer": null,
+    "peopleCount": 1,
+    "needsMedical": false,
+    "medicalNote": "",
+    "pets": []
   },
   {
-    "id": "54226a15-71c2-4977-bfcc-01bd61f6e150",
+    "id": "4cf11bf9-af9a-4ead-a229-d2c2ca7be8dc",
     "location": {
-      "address": "200 Oak Street",
-      "city": "Columbia",
+      "address": "645 Coleman Boulevard",
+      "city": "Mount Pleasant",
       "state": "SC",
-      "zipCode": "29205",
-      "latitude": 33.99,
-      "longitude": -81.02
+      "zipCode": "29464",
+      "latitude": 32.7942,
+      "longitude": -79.8626
     },
     "status": "OPEN",
-    "subject": "Need water",
-    "body": "Family of three is out of drinking water.",
+    "subject": "Medical supplies needed",
+    "body": "A neighbor is out of oxygen tank refills and needs medical help.",
+    "requiredSkills": [
+      "MEDICAL"
+    ],
+    "requester": "dthompson",
+    "assignedVolunteer": null,
+    "peopleCount": 1,
+    "needsMedical": true,
+    "medicalNote": "A neighbor is out of oxygen tank refills and needs medical help.",
+    "pets": []
+  },
+  {
+    "id": "dcb7d098-a6e8-464a-a3c2-acc20dcb7bf2",
+    "location": {
+      "address": "200 W Carolina Avenue",
+      "city": "Summerville",
+      "state": "SC",
+      "zipCode": "29483",
+      "latitude": 33.0185,
+      "longitude": -80.1756
+    },
+    "status": "OPEN",
+    "subject": "Need a ride to a shelter",
+    "body": "Two adults with no car need a ride out of the flood zone.",
+    "requiredSkills": [
+      "TRANSPORTATION"
+    ],
+    "requester": "bnguyen",
+    "assignedVolunteer": null,
+    "peopleCount": 2,
+    "needsMedical": false,
+    "medicalNote": "",
+    "pets": []
+  },
+  {
+    "id": "4963e2b6-dfdf-491b-8924-1cf5db132619",
+    "location": {
+      "address": "1800 Savannah Highway",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29407",
+      "latitude": 32.7686,
+      "longitude": -80.0072
+    },
+    "status": "OPEN",
+    "subject": "Home flooded, need shelter",
+    "body": "Ground floor is flooded and the family needs somewhere to stay.",
+    "requiredSkills": [
+      "SHELTER"
+    ],
+    "requester": "mpatel",
+    "assignedVolunteer": null,
+    "peopleCount": 4,
+    "needsMedical": false,
+    "medicalNote": "",
+    "pets": []
+  },
+  {
+    "id": "b9246259-3f13-4522-97b4-cfea516a7203",
+    "location": {
+      "address": "5000 Rivers Avenue",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8817,
+      "longitude": -80.007
+    },
+    "status": "OPEN",
+    "subject": "Food and baby formula",
+    "body": "Out of food and baby formula after losing power for two days.",
     "requiredSkills": [
       "FOOD"
     ],
-    "requester": "victim1",
-    "assignedVolunteer": null
+    "requester": "agarcia",
+    "assignedVolunteer": null,
+    "peopleCount": 3,
+    "needsMedical": false,
+    "medicalNote": "",
+    "pets": []
+  },
+  {
+    "id": "dd7cca6d-30ee-4c9a-8385-d6eecb13bbb8",
+    "location": {
+      "address": "1100 Folly Road",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29412",
+      "latitude": 32.737,
+      "longitude": -79.964
+    },
+    "status": "OPEN",
+    "subject": "Food and a place to stay",
+    "body": "Roof damage, no power, needs food and a dry place to sleep.",
+    "requiredSkills": [
+      "FOOD",
+      "SHELTER"
+    ],
+    "requester": "tjohnson",
+    "assignedVolunteer": null,
+    "peopleCount": 2,
+    "needsMedical": false,
+    "medicalNote": "",
+    "pets": []
   }
 ]
