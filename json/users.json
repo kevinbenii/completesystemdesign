@@ -12,6 +12,7 @@
       "latitude": 34.0007,
       "longitude": -81.0348
     },
+    "banned": false,
     "role": "VOLUNTEER",
     "skills": [
       "FOOD",
@@ -31,10 +32,14 @@
       "latitude": 33.99,
       "longitude": -81.02
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
-      "Need evacuation assistance"
-    ]
+      "Need evacuation assistance",
+      "Need water"
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "7629017e-46dd-4457-9652-b087867a2567",
@@ -49,10 +54,13 @@
       "latitude": 32.7895,
       "longitude": -79.9375
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
       "Food assistance needed"
-    ]
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "2d4d9459-8bfa-47ff-a6e3-b78f86a0eec7",
@@ -67,12 +75,13 @@
       "latitude": 34.002,
       "longitude": -81.03
     },
+    "banned": false,
     "role": "ADMIN",
     "adminId": "ADMIN001"
   },
   {
-    "id": "22b3a999-95a8-4d43-a8a0-4e0ecb271ece",
-    "username": "user",
+    "id": "96f44d3d-fdfd-4110-a59c-94f8d8a87ef8",
+    "username": "user1792817454778",
     "password": "password",
     "phoneNumber": "phone",
     "location": {
@@ -82,24 +91,183 @@
       "zipCode": "zipCode",
       "latitude": 0.0,
       "longitude": 0.0
+    },
+    "banned": false,
+    "role": "VICTIM",
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
+  },
+  {
+    "id": "714ef2a4-da6f-431a-bd52-474c92d8221a",
+    "username": "dthompson",
+    "password": "password1",
+    "phoneNumber": "843-555-0111",
+    "location": {
+      "address": "645 Coleman Boulevard",
+      "city": "Mount Pleasant",
+      "state": "SC",
+      "zipCode": "29464",
+      "latitude": 32.7942,
+      "longitude": -79.8626
+    },
+    "role": "VICTIM",
+    "activeRequests": [
+      "Medical supplies needed"
+    ]
+  },
+  {
+    "id": "f448a299-6cf6-4b2a-9a0f-0a87cd950e30",
+    "username": "bnguyen",
+    "password": "password1",
+    "phoneNumber": "843-555-0122",
+    "location": {
+      "address": "200 W Carolina Avenue",
+      "city": "Summerville",
+      "state": "SC",
+      "zipCode": "29483",
+      "latitude": 33.0185,
+      "longitude": -80.1756
+    },
+    "role": "VICTIM",
+    "activeRequests": [
+      "Need a ride to a shelter"
+    ]
+  },
+  {
+    "id": "eec2db56-f3a6-43e2-bdcf-5dc580a62de4",
+    "username": "mpatel",
+    "password": "password1",
+    "phoneNumber": "843-555-0133",
+    "location": {
+      "address": "1800 Savannah Highway",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29407",
+      "latitude": 32.7686,
+      "longitude": -80.0072
+    },
+    "role": "VICTIM",
+    "activeRequests": [
+      "Home flooded, need shelter"
+    ]
+  },
+  {
+    "id": "4d80005d-1778-4110-b532-2470e8abaafc",
+    "username": "agarcia",
+    "password": "password1",
+    "phoneNumber": "843-555-0144",
+    "location": {
+      "address": "5000 Rivers Avenue",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8817,
+      "longitude": -80.007
+    },
+    "role": "VICTIM",
+    "activeRequests": [
+      "Food and baby formula"
+    ]
+  },
+  {
+    "id": "ea8db7f1-30ec-446c-8801-811657974014",
+    "username": "tjohnson",
+    "password": "password1",
+    "phoneNumber": "843-555-0155",
+    "location": {
+      "address": "1100 Folly Road",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29412",
+      "latitude": 32.737,
+      "longitude": -79.964
+    },
+    "role": "VICTIM",
+    "activeRequests": [
+      "Food and a place to stay"
+    ]
+  },
+  {
+    "id": "7e7dee7c-5034-4098-8ab2-1cdfe65ca430",
+    "username": "ehwang",
+    "password": "password1",
+    "phoneNumber": "843-555-0166",
+    "location": {
+      "address": "2500 Mall Drive",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8728,
+      "longitude": -80.0071
     },
     "role": "VICTIM",
     "activeRequests": []
   },
   {
-    "id": "031d577c-c821-4e25-80d5-90ff939527f2",
-    "username": "user1792501081922",
-    "password": "password",
-    "phoneNumber": "phone",
+    "id": "c38b334e-2623-455e-b4b9-7a5316398605",
+    "username": "rbrooks",
+    "password": "password1",
+    "phoneNumber": "843-555-0177",
     "location": {
-      "address": "address",
-      "city": "city",
-      "state": "state",
-      "zipCode": "zipCode",
-      "latitude": 0.0,
-      "longitude": 0.0
+      "address": "2500 Mall Drive",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8728,
+      "longitude": -80.0071
     },
     "role": "VICTIM",
     "activeRequests": []
+  },
+  {
+    "id": "d96467f9-ad32-4a12-8cc1-cfcec00474c1",
+    "username": "lcole",
+    "password": "password1",
+    "phoneNumber": "843-555-0188",
+    "location": {
+      "address": "2500 Mall Drive",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8728,
+      "longitude": -80.0071
+    },
+    "role": "VICTIM",
+    "activeRequests": []
+  },
+  {
+    "id": "b1c2c89a-6a15-4a29-b798-b1a2b97aab1f",
+    "username": "rdelgado",
+    "password": "rosa123",
+    "phoneNumber": "843-555-0166",
+    "location": {
+      "address": "2222 Rivers Avenue",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29405",
+      "latitude": 32.8546,
+      "longitude": -79.9748
+    },
+    "role": "VOLUNTEER",
+    "skills": [
+      "TRANSPORTATION"
+    ]
+  },
+  {
+    "id": "6e567e53-9ec9-40c6-9c5f-9dea4d38ab8d",
+    "username": "felix",
+    "password": "felix123",
+    "phoneNumber": "843-555-0190",
+    "location": {
+      "address": "2500 Mall Drive",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8728,
+      "longitude": -80.0071
+    },
+    "role": "SHELTER_STAFF",
+    "shelterId": "S006"
   }
 ]
