@@ -344,6 +344,88 @@ public class UI {
 		ReliefRequest request = michaelAsksForHelp();
 		if (request == null)
 			return;
+		Shelter shelter = rosaHelps(request);
+		if (shelter == null)
+			return;
+	}
+
+	/** Rosa finds, takes and plans the trip */
+	private Shelter rosaHelps(ReliefRequest request) {
+		System.out.println();
+		System.out.println("=== Rosa Delgado logs in and sees open requests ===");
+
+		//Log in
+		if (!facade.login("rdelgado", "rosa123")) {
+			System.out.println("Login failed.");
+			return null;
+		}
+
+		//Open requests
+		ArrayList<ReliefRequest> requests = facade.recommendRequests();
+		System.out.println("Open requests: " + requests.size());
+		for (ReliefRequest each : requests) {
+			String reason = facade.getRecommendationReason(each);
+			if (reason.isEmpty()) {
+				System.out.println("- " + each.getSubject());
+			} else {
+				System.out.println("* RECOMMENDED: " + each.getSubject());
+				System.out.println("  " + reason);
+			}
+		}
+
+		//Open the Carter request
+		System.out.println();
+		System.out.println("=== Rosa opens the Carter request ===");
+		printRequest(request);
+
+		//Search shelters
+		System.out.println();
+		System.out.println("=== Rosa searches the " + facade.getAllShelters().size() + " shelters ===");
+		int people = request.getPeopleCount();
+		int pets = request.getPets().size();
+		for (Shelter each : facade.getAllShelters()) {
+			System.out.printf("%-40s dogs: %-3s medical: %-3s space: %-3s %s%n", each.getName(),
+					each.acceptsDogs() ? "yes" : "no", each.hasMedicalStaff() ? "yes" : "no",
+					each.hasSpaceFor(people, pets) ? "yes" : "no",
+					facade.isSuitable(each, request) ? "<- suitable" : "");
+		}
+		Shelter shelter = facade.findSuitableShelter(request);
+		if (shelter == null) {
+			System.out.println("No suitable shelter.");
+			facade.logout();
+			return null;
+		}
+		System.out.println("Closest suitable shelter by driving: " + shelter.getName() + ", "
+				+ shelter.getLocation().getFullAddress());
+
+		//Take the request
+		System.out.println();
+		System.out.println("=== Rosa assigns the request to herself ===");
+		if (!facade.volunteerForRequest(request)) {
+			System.out.println("Could not take the request.");
+			facade.logout();
+			return null;
+		}
+		System.out.println("Status: " + request.getStatus() + ", handled by "
+				+ request.getAssignedVolunteer().getUsername());
+
+		//Export the trip
+		System.out.println();
+		System.out.println("=== Rosa exports the trip information ===");
+		String file = facade.exportTrip(request, shelter);
+		System.out.println(file == null ? "Could not export the trip." : "Trip sheet saved to " + file);
+
+		//Try to complete
+		System.out.println();
+		System.out.println("=== Rosa tries to mark the request Complete ===");
+		if (!facade.completeRequest(request)) {
+			System.out.println("Sorry, your " + facade.getCurrentUser().getRoleName()
+					+ " role does not have permission to complete relief requests.");
+			System.out.println("Status: " + request.getStatus() + ", still assigned to "
+					+ request.getAssignedVolunteer().getUsername());
+		}
+		facade.logout();
+		return shelter;
 	}
 
 	/** Michael signs up and sends a request */
