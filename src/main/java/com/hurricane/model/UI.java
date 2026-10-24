@@ -11,8 +11,18 @@ public class UI {
 		facade = Server.getInstance();
 	}
 
-	/** Runs all scenarios */
+	/** Runs the Carter scenario, or shows saved data after a restart */
 	public void run() {
+		if (facade.login("mcarter", "carter123")) {
+			facade.logout();
+			showSavedState();
+		} else {
+			carterScenario();
+		}
+	}
+
+	/** Older practice scenarios */
+	public void runPracticeScenarios() {
 		scenario1();
 		scenario2();
 		scenario3();
@@ -348,6 +358,49 @@ public class UI {
 		if (shelter == null)
 			return;
 		felixChecksIn(request);
+		printWhereSaved();
+	}
+
+	/** Where each change is saved */
+	private void printWhereSaved() {
+		System.out.println();
+		System.out.println("=== Where the changes are saved ===");
+		System.out.println("json/users.json     - Michael's new account, family members and Buddy");
+		System.out.println("json/requests.json  - the relief request, Rosa's assignment and the COMPLETE status");
+		System.out.println("json/shelters.json  - the check-in (occupants, occupancy) and Buddy as a pet");
+		System.out.println("exports/trip.txt    - Rosa's printable trip sheet");
+		System.out.println("Run again to see the data reloaded after a restart.");
+	}
+
+	/** Saved Carter data after a restart */
+	private void showSavedState() {
+		System.out.println();
+		System.out.println("=== After restart: Carter data loaded from the JSON files ===");
+
+		//Request
+		ReliefRequest request = null;
+		for (ReliefRequest each : facade.getAllRequests()) {
+			if (each.getRequester() != null && each.getRequester().getUsername().equals("mcarter"))
+				request = each;
+		}
+		if (request == null) {
+			System.out.println("No Carter request found.");
+			return;
+		}
+		printRequest(request);
+		if (request.getAssignedVolunteer() != null)
+			System.out.println("  Assigned to: " + request.getAssignedVolunteer().getUsername());
+
+		//Shelter
+		System.out.println();
+		if (facade.login("felix", "felix123")) {
+			Shelter shelter = facade.getMyShelter();
+			if (shelter != null)
+				printShelter(shelter);
+			facade.logout();
+		}
+		System.out.println();
+		System.out.println("Reset the JSON files to run the scenario again.");
 	}
 
 	/** Felix checks the family in and completes the request */
