@@ -20,7 +20,11 @@
       "MEDICAL",
       "SHELTER"
     ],
-    "isOpen": true
+    "isOpen": true,
+    "acceptsDogs": true,
+    "hasMedicalStaff": true,
+    "petCapacity": 10,
+    "pets": []
   },
   {
     "shelterId": "S002",
@@ -30,8 +34,8 @@
       "city": "Charleston",
       "state": "SC",
       "zipCode": "29403",
-      "latitude": 32.8000,
-      "longitude": -79.9400
+      "latitude": 32.8,
+      "longitude": -79.94
     },
     "capacity": 75,
     "currentOccupancy": 0,
@@ -39,9 +43,219 @@
     "availableSkills": [
       "FOOD",
       "SHELTER",
+      "CHILDCARE",
+      "MEDICAL"
+    ],
+    "isOpen": true,
+    "acceptsDogs": false,
+    "hasMedicalStaff": true,
+    "petCapacity": 0,
+    "pets": []
+  },
+  {
+    "shelterId": "S003",
+    "name": "Mount Pleasant Community Shelter",
+    "location": {
+      "address": "645 Coleman Boulevard",
+      "city": "Mount Pleasant",
+      "state": "SC",
+      "zipCode": "29464",
+      "latitude": 32.7942,
+      "longitude": -79.8626
+    },
+    "capacity": 50,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER"
+    ],
+    "isOpen": true,
+    "acceptsDogs": true,
+    "hasMedicalStaff": false,
+    "petCapacity": 6,
+    "pets": []
+  },
+  {
+    "shelterId": "S004",
+    "name": "West Ashley Relief Shelter",
+    "location": {
+      "address": "1800 Savannah Highway",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29407",
+      "latitude": 32.7686,
+      "longitude": -80.0072
+    },
+    "capacity": 60,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER"
+    ],
+    "isOpen": true,
+    "acceptsDogs": false,
+    "hasMedicalStaff": false,
+    "petCapacity": 0,
+    "pets": []
+  },
+  {
+    "shelterId": "S005",
+    "name": "Daniel Island Community Shelter",
+    "location": {
+      "address": "130 Seven Farms Drive",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29492",
+      "latitude": 32.861,
+      "longitude": -79.909
+    },
+    "capacity": 40,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER",
+      "MEDICAL"
+    ],
+    "isOpen": true,
+    "acceptsDogs": true,
+    "hasMedicalStaff": true,
+    "petCapacity": 1,
+    "pets": [
+      {
+        "name": "Rex",
+        "type": "dog"
+      }
+    ]
+  },
+  {
+    "shelterId": "S006",
+    "name": "North Charleston Relief Center",
+    "location": {
+      "address": "2500 Mall Drive",
+      "city": "North Charleston",
+      "state": "SC",
+      "zipCode": "29406",
+      "latitude": 32.8728,
+      "longitude": -80.0071
+    },
+    "capacity": 60,
+    "currentOccupancy": 3,
+    "occupants": [
+      "ehwang",
+      "rbrooks",
+      "lcole"
+    ],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER",
+      "MEDICAL",
       "CHILDCARE"
     ],
-    "isOpen": true
+    "isOpen": true,
+    "acceptsDogs": true,
+    "hasMedicalStaff": true,
+    "petCapacity": 10,
+    "pets": []
+  },
+  {
+    "shelterId": "S007",
+    "name": "Johns Island Community Shelter",
+    "location": {
+      "address": "3604 Maybank Highway",
+      "city": "Johns Island",
+      "state": "SC",
+      "zipCode": "29455",
+      "latitude": 32.7157,
+      "longitude": -80.069
+    },
+    "capacity": 40,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER",
+      "MEDICAL"
+    ],
+    "isOpen": true,
+    "acceptsDogs": false,
+    "hasMedicalStaff": true,
+    "petCapacity": 0,
+    "pets": []
+  },
+  {
+    "shelterId": "S008",
+    "name": "Goose Creek Emergency Shelter",
+    "location": {
+      "address": "519 N Goose Creek Boulevard",
+      "city": "Goose Creek",
+      "state": "SC",
+      "zipCode": "29445",
+      "latitude": 32.981,
+      "longitude": -80.0326
+    },
+    "capacity": 80,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER",
+      "MEDICAL"
+    ],
+    "isOpen": false,
+    "acceptsDogs": true,
+    "hasMedicalStaff": true,
+    "petCapacity": 10,
+    "pets": []
+  },
+  {
+    "shelterId": "S009",
+    "name": "Summerville Community Shelter",
+    "location": {
+      "address": "200 S Main Street",
+      "city": "Summerville",
+      "state": "SC",
+      "zipCode": "29483",
+      "latitude": 33.0185,
+      "longitude": -80.1756
+    },
+    "capacity": 50,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER"
+    ],
+    "isOpen": true,
+    "acceptsDogs": true,
+    "hasMedicalStaff": false,
+    "petCapacity": 5,
+    "pets": []
+  },
+  {
+    "shelterId": "S010",
+    "name": "Hanahan Community Shelter",
+    "location": {
+      "address": "1255 Yeamans Hall Road",
+      "city": "Hanahan",
+      "state": "SC",
+      "zipCode": "29410",
+      "latitude": 32.919,
+      "longitude": -80.027
+    },
+    "capacity": 30,
+    "currentOccupancy": 0,
+    "occupants": [],
+    "availableSkills": [
+      "FOOD",
+      "SHELTER"
+    ],
+    "isOpen": true,
+    "acceptsDogs": false,
+    "hasMedicalStaff": false,
+    "petCapacity": 0,
+    "pets": []
   }
 ]
-
