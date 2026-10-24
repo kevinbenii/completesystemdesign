@@ -216,9 +216,8 @@ public class UI {
 
 		//Try to complete it
 		if (!facade.completeRequest(request)) {
-			System.out.println("Your " + facade.getCurrentUser().getRoleName()
-					+ " role does not have permission to complete relief requests. The request stays "
-					+ request.getStatus() + ".");
+			System.out.println("Sorry, your " + facade.getCurrentUser().getRoleName()
+					+ " role does not have permission to complete relief requests. The request stays assigned to you.");
 		}
 		facade.logout();
 	}
