@@ -94,6 +94,14 @@ public class FileDataManager extends DataManager {
 			if (json.get(STATUS) != null)
 				request.setStatus(ReliefRequestStatus.valueOf((String) json.get(STATUS)));
 
+			// Older requests have none of these, so keep the defaults (1 person, no medical, no pets)
+			if (json.get(PEOPLE_COUNT) != null)
+				request.setPeopleCount(((Number) json.get(PEOPLE_COUNT)).intValue());
+			if (Boolean.TRUE.equals(json.get(NEEDS_MEDICAL)))
+				request.setMedical(true, (String) json.get(MEDICAL_NOTE));
+			for (Pet pet : parsePets(getArray(json, PETS)))
+				request.addPet(pet);
+
 			// assignedVolunteer is null in the file until someone takes the request
 			User volunteer = usersByName.get(json.get(ASSIGNED_VOLUNTEER));
 			if (volunteer instanceof Volunteer)
@@ -291,6 +299,10 @@ public class FileDataManager extends DataManager {
 			json.put(REQUIRED_SKILLS, skillsToJson(request.getRequiredSkills()));
 			json.put(REQUESTER, usernameOf(request.getRequester()));
 			json.put(ASSIGNED_VOLUNTEER, usernameOf(request.getAssignedVolunteer()));
+			json.put(PEOPLE_COUNT, request.getPeopleCount());
+			json.put(NEEDS_MEDICAL, request.needsMedical());
+			json.put(MEDICAL_NOTE, request.getMedicalNote());
+			json.put(PETS, petsToJson(request.getPets()));
 			out.add(json);
 		}
 		writeArray(REQUESTS_FILE, out);
