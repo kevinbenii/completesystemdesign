@@ -334,9 +334,25 @@ public class Server {
 		out.append("Request: ").append(request.getSubject()).append("\n");
 		out.append(request.getBody()).append("\n\n");
 
+		out.append("FAMILY\n");
+		if (requester != null) {
+			for (FamilyMember member : requester.getFamilyMembers())
+				out.append("- ").append(member.getName()).append(", age ").append(member.getAge()).append("\n");
+		}
+		for (Pet pet : request.getPets())
+			out.append("- ").append(pet.getName()).append(" (").append(pet.getType()).append(")\n");
+		out.append("People to move: ").append(request.getPeopleCount()).append("\n\n");
+
+		if (request.needsMedical()) {
+			out.append("MEDICAL NOTE\n");
+			out.append(request.getMedicalNote()).append("\n\n");
+		}
+
 		out.append("CONTACT\n");
 		if (requester != null) {
-			out.append("Name: ").append(requester.getUsername()).append("\n");
+			String name = requester.getFamilyMembers().isEmpty() ? requester.getUsername()
+					: requester.getFamilyMembers().get(0).getName() + " (" + requester.getUsername() + ")";
+			out.append("Name: ").append(name).append("\n");
 			out.append("Phone: ").append(requester.getPhoneNumber()).append("\n");
 		}
 		out.append("Pickup address: ").append(pickup.getFullAddress()).append("\n\n");
