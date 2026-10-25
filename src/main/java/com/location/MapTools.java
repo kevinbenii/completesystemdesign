@@ -38,6 +38,7 @@ public class MapTools {
         objectMapper = new ObjectMapper();
     }
 
+    /** Shared map tools */
     public static MapTools getInstance() {
         if(mapTools == null){
             mapTools = new MapTools();

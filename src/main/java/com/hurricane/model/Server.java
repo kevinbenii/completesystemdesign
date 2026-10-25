@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.location.Address;
 import com.location.MapTools;
 
+/** Facade the UI talks to */
 public class Server {
 	private static Server instance;
 	private UserManager userManager;
@@ -24,6 +25,7 @@ public class Server {
 		shelterManager = new ShelterManager(dataManager);
 	}
 
+	/** Shared server using that data */
 	public static Server getInstance(DataManager dataManager) {
 		if (instance == null) {
 			instance = new Server(dataManager);
@@ -32,11 +34,12 @@ public class Server {
 		return instance;
 	}
 
-	//Use the json folder
+	/** Shared server using the json folder */
 	public static Server getInstance() {
 		return getInstance(new FileDataManager(FileDataManager.defaultDataFolder()));
 	}
 
+	/** Adds a user and saves */
 	public boolean registerUser(User user) {
 		boolean registered = userManager.registerUser(user);
 		if (registered)
@@ -44,6 +47,7 @@ public class Server {
 		return registered;
 	}
 
+	/** Makes a victim account */
 	public boolean createVictimAccount(String username, String password, String phoneNumber, Location location) {
 		if (!isValidAccount(username, password))
 			return false;
@@ -63,6 +67,7 @@ public class Server {
 		return registerUser(victim);
 	}
 
+	/** Makes a volunteer account */
 	public boolean createVolunteerAccount(String username, String password, String phoneNumber, Location location,
 			ArrayList<Skill> skills) {
 		if (!isValidAccount(username, password))
@@ -74,26 +79,32 @@ public class Server {
 		return username != null && !username.isBlank() && password != null && !password.isBlank();
 	}
 
+	/** Logs in */
 	public boolean login(String username, String password) {
 		return authenticateUser(username, password);
 	}
 
+	/** Logs out */
 	public void logout() {
 		userManager.logout();
 	}
 
+	/** Logged in user */
 	public User getCurrentUser() {
 		return userManager.getCurrentUser();
 	}
 
+	/** True if someone is logged in */
 	public boolean isLoggedIn() {
 		return getCurrentUser() != null;
 	}
 
+	/** Checks a login */
 	public boolean authenticateUser(String username, String password) {
 		return userManager.authenticateUser(username, password);
 	}
 
+	/** Bans a user and saves */
 	public boolean banUser(User user) {
 		boolean banned = userManager.banUser(user);
 		if (banned)
@@ -101,12 +112,13 @@ public class Server {
 		return banned;
 	}
 
+	/** Adds a request and saves */
 	public void submitRequest(ReliefRequest request) {
 		requestManager.submitRequest(request);
 		requestManager.saveRequests();
 	}
 
-	//Victim sends a request
+	/** Logged in victim sends a request */
 	public boolean submitRequest(String subject, String body, ArrayList<Skill> requiredSkills) {
 		if (!(getCurrentUser() instanceof Victim))
 			return false;
@@ -130,17 +142,19 @@ public class Server {
 		return request;
 	}
 
+	/** Deletes a request and saves */
 	public void deleteRequest(ReliefRequest request) {
 		requestManager.deleteRequest(request);
 		requestManager.saveRequests();
 	}
 
+	/** Marks a request resolved and saves */
 	public void markAsResolved(ReliefRequest request) {
 		requestManager.markAsResolved(request);
 		requestManager.saveRequests();
 	}
 
-	//Only allowed roles can complete
+	/** Completes a request if the role allows it */
 	public boolean completeRequest(ReliefRequest request) {
 		User user = getCurrentUser();
 		if (user == null || !user.canCompleteRequests())
@@ -150,7 +164,7 @@ public class Server {
 		return true;
 	}
 
-	//Volunteer takes a request
+	/** Logged in volunteer takes a request */
 	public boolean volunteerForRequest(ReliefRequest request) {
 		if (!(getCurrentUser() instanceof Volunteer))
 			return false;
@@ -159,15 +173,17 @@ public class Server {
 		return true;
 	}
 
+	/** Requests that need a skill */
 	public ArrayList<ReliefRequest> filterRequestsBySkill(Skill skill) {
 		return requestManager.filterBySkill(skill);
 	}
 
+	/** Requests within radius miles */
 	public ArrayList<ReliefRequest> filterRequestsByLocation(Location location, double radius) {
 		return requestManager.filterByLocation(location, radius);
 	}
 
-	//All requests
+	/** All requests */
 	public ArrayList<ReliefRequest> getAllRequests() {
 		return requestManager.getAllRequests();
 	}
@@ -227,44 +243,46 @@ public class Server {
 		list.sort((a, b) -> Double.compare(distanceTo(a), distanceTo(b)));
 	}
 
+	/** Adds a hurricane and saves */
 	public void addHurricane(Hurricane hurricane) {
 		hurricaneTracker.addHurricane(hurricane);
 		hurricaneTracker.saveHurricanes();
 	}
 
-	//Radius in miles
+	/** Hurricanes within radius miles */
 	public ArrayList<Hurricane> filterHurricanesByLocation(Location location, double radius) {
 		return hurricaneTracker.filterByLocation(location, radius);
 	}
 
-	//Save right away
+	/** Adds a shelter and saves */
 	public void addShelter(Shelter shelter) {
 		shelterManager.addShelter(shelter);
 		shelterManager.saveShelters();
 	}
 
-	//Radius in miles
+	/** Shelters within radius miles */
 	public ArrayList<Shelter> filterSheltersByLocation(Location location, double radius) {
 		return shelterManager.filterByLocation(location, radius);
 	}
 
+	/** Open shelters with space within radius miles */
 	public ArrayList<Shelter> findAvailableShelters(Location location, double radius) {
 		return shelterManager.findAvailableShelters(location, radius);
 	}
 
-	//All shelters
+	/** All shelters */
 	public ArrayList<Shelter> getAllShelters() {
 		return shelterManager.getAllShelters();
 	}
 
-	//The shelter a logged in shelter manager runs, or null for anyone else
+	/** Shelter the logged in manager runs */
 	public Shelter getMyShelter() {
 		if (!(getCurrentUser() instanceof ShelterStaff))
 			return null;
 		return shelterManager.getShelterById(((ShelterStaff) getCurrentUser()).getShelterId());
 	}
 
-	//Closest shelter by driving time
+	/** Closest shelter by driving */
 	public Shelter findClosestShelter() {
 		if (!isLoggedIn())
 			return null;
@@ -335,7 +353,7 @@ public class Server {
 		return nearest;
 	}
 
-	//Driving steps to a shelter
+	/** Driving directions to a shelter */
 	public String[] getDirectionsToShelter(Shelter shelter) {
 		if (!isLoggedIn() || shelter == null)
 			return new String[0];
@@ -433,7 +451,7 @@ public class Server {
 		return true;
 	}
 
-	//Save only if it worked
+	/** Puts a victim in a shelter and saves */
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
 		boolean assigned = shelterManager.assignVictimToShelter(victim, shelter);
 		if (assigned)
