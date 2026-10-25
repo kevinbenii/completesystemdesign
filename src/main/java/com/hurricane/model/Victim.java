@@ -61,6 +61,6 @@ public class Victim extends User {
 
 	/** Status of a request */
 	public ReliefRequestStatus viewRequestStatus(ReliefRequest request) {
-		return ReliefRequestStatus.OPEN;
+		return request.getStatus();
 	}
 }
