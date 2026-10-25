@@ -102,6 +102,8 @@ public class FileDataManager extends DataManager {
 			for (Pet pet : parsePets(getArray(json, PETS)))
 				request.addPet(pet);
 
+			request.setDestinationShelterId((String) json.get(DESTINATION_SHELTER_ID));
+
 			// assignedVolunteer is null in the file until someone takes the request
 			User volunteer = usersByName.get(json.get(ASSIGNED_VOLUNTEER));
 			if (volunteer instanceof Volunteer)
@@ -308,6 +310,7 @@ public class FileDataManager extends DataManager {
 			json.put(REQUIRED_SKILLS, skillsToJson(request.getRequiredSkills()));
 			json.put(REQUESTER, usernameOf(request.getRequester()));
 			json.put(ASSIGNED_VOLUNTEER, usernameOf(request.getAssignedVolunteer()));
+			json.put(DESTINATION_SHELTER_ID, request.getDestinationShelterId());
 			json.put(PEOPLE_COUNT, request.getPeopleCount());
 			json.put(NEEDS_MEDICAL, request.needsMedical());
 			json.put(MEDICAL_NOTE, request.getMedicalNote());

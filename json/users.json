@@ -80,25 +80,6 @@
     "adminId": "ADMIN001"
   },
   {
-    "id": "96f44d3d-fdfd-4110-a59c-94f8d8a87ef8",
-    "username": "user1792817454778",
-    "password": "password",
-    "phoneNumber": "phone",
-    "location": {
-      "address": "address",
-      "city": "city",
-      "state": "state",
-      "zipCode": "zipCode",
-      "latitude": 0.0,
-      "longitude": 0.0
-    },
-    "banned": false,
-    "role": "VICTIM",
-    "activeRequests": [],
-    "familyMembers": [],
-    "pets": []
-  },
-  {
     "id": "714ef2a4-da6f-431a-bd52-474c92d8221a",
     "username": "dthompson",
     "password": "password1",

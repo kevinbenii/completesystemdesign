@@ -51,6 +51,7 @@ public final class DataConstants {
 	public static final String PEOPLE_COUNT = "peopleCount";
 	public static final String NEEDS_MEDICAL = "needsMedical";
 	public static final String ASSIGNED_VOLUNTEER = "assignedVolunteer";
+	public static final String DESTINATION_SHELTER_ID = "destinationShelterId";
 
 	// Hurricanes
 	public static final String CATEGORY = "category";

@@ -390,6 +390,8 @@ public class UI {
 		printRequest(request);
 		if (request.getAssignedVolunteer() != null)
 			System.out.println("  Assigned to: " + request.getAssignedVolunteer().getUsername());
+		if (request.getDestinationShelterId() != null)
+			System.out.println("  Going to shelter: " + request.getDestinationShelterId());
 
 		//Shelter
 		System.out.println();
@@ -513,6 +515,9 @@ public class UI {
 		}
 		System.out.println("Closest suitable shelter by driving: " + shelter.getName() + ", "
 				+ shelter.getLocation().getFullAddress());
+
+		//Remember the shelter; saved when Rosa takes the request
+		request.setDestinationShelterId(shelter.getShelterId());
 
 		//Take the request
 		System.out.println();

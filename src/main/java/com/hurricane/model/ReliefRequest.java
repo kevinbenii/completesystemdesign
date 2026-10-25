@@ -13,6 +13,8 @@ public class ReliefRequest {
 	private ArrayList<Skill> requiredSkills;
 	private Victim requester;
 	private Volunteer assignedVolunteer;
+	//null until a shelter is picked
+	private String destinationShelterId;
 	private int peopleCount;
 	private boolean needsMedical;
 	private String medicalNote;
@@ -80,6 +82,16 @@ public class ReliefRequest {
 	/** Sets the volunteer */
 	public void setAssignedVolunteer(Volunteer volunteer) {
 		this.assignedVolunteer = volunteer;
+	}
+
+	/** Shelter the group is going to */
+	public String getDestinationShelterId() {
+		return destinationShelterId;
+	}
+
+	/** Sets the shelter the group is going to */
+	public void setDestinationShelterId(String shelterId) {
+		this.destinationShelterId = shelterId;
 	}
 
 	/** Prints the request */
