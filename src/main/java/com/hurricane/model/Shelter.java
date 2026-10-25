@@ -138,29 +138,32 @@ public class Shelter {
 		this.isOpen = isOpen;
 	}
 
-	// True if dogs are allowed
+	/** True if dogs are allowed */
 	public boolean acceptsDogs() {
 		return acceptsDogs;
 	}
 
+	/** Sets whether dogs are allowed */
 	public void setAcceptsDogs(boolean acceptsDogs) {
 		this.acceptsDogs = acceptsDogs;
 	}
 
-	// True if medical staff work here
+	/** True if it has medical staff */
 	public boolean hasMedicalStaff() {
 		return hasMedicalStaff;
 	}
 
+	/** Sets whether it has medical staff */
 	public void setHasMedicalStaff(boolean hasMedicalStaff) {
 		this.hasMedicalStaff = hasMedicalStaff;
 	}
 
-	// How many pets it has room for
+	/** Room for pets */
 	public int getPetCapacity() {
 		return petCapacity;
 	}
 
+	/** Sets the room for pets */
 	public void setPetCapacity(int petCapacity) {
 		this.petCapacity = petCapacity;
 	}

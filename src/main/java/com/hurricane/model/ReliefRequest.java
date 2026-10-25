@@ -115,37 +115,38 @@ public class ReliefRequest {
 		this.status = status;
 	}
 
-	// How many people need help
+	/** Number of people */
 	public int getPeopleCount() {
 		return peopleCount;
 	}
 
+	/** Sets the number of people */
 	public void setPeopleCount(int peopleCount) {
 		this.peopleCount = peopleCount;
 	}
 
-	// True if someone in the group needs medical care
+	/** True if medical care is needed */
 	public boolean needsMedical() {
 		return needsMedical;
 	}
 
-	// Describes the medical need; empty if none
+	/** Medical need, or empty if none */
 	public String getMedicalNote() {
 		return medicalNote;
 	}
 
-	// Records a medical need on the request
+	/** Sets the medical need */
 	public void setMedical(boolean needsMedical, String medicalNote) {
 		this.needsMedical = needsMedical;
 		this.medicalNote = medicalNote;
 	}
 
-	// Pets coming along with the group
+	/** Pets in the group */
 	public ArrayList<Pet> getPets() {
 		return pets;
 	}
 
-	// Adds a pet to the request
+	/** Adds a pet */
 	public void addPet(Pet pet) {
 		pets.add(pet);
 	}
