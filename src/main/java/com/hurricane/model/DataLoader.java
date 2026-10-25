@@ -2,13 +2,17 @@ package com.hurricane.model;
 
 import java.util.ArrayList;
 
-// Reads saved data (files, a database, ...) and turns it back into model objects
+/** Loads saved data */
 public interface DataLoader {
+	/** Loads users */
 	ArrayList<User> loadUsers();
 
+	/** Loads requests */
 	ArrayList<ReliefRequest> loadRequests();
 
+	/** Loads hurricanes */
 	ArrayList<Hurricane> loadHurricanes();
 
+	/** Loads shelters */
 	ArrayList<Shelter> loadShelters();
 }

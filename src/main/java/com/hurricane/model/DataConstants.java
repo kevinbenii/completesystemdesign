@@ -1,6 +1,6 @@
 package com.hurricane.model;
 
-// File names and JSON keys shared by the loader and writer
+/** File names and JSON keys */
 public final class DataConstants {
 	private DataConstants() {
 	}

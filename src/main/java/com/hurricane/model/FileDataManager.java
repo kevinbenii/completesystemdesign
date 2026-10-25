@@ -37,7 +37,7 @@ public class FileDataManager extends DataManager {
 	// Cached after the first loadUsers() so everyone shares the same User objects
 	private ArrayList<User> users;
 
-	// filePath is a folder, e.g. "../../json", not a single file
+	/** Makes a manager for that folder */
 	public FileDataManager(String filePath) {
 		super(filePath);
 	}
@@ -56,7 +56,7 @@ public class FileDataManager extends DataManager {
 
 	// ---------- loading ----------
 
-	// Reads users.json once; later calls return the same list
+	/** Loads users.json */
 	public ArrayList<User> loadUsers() {
 		if (users != null)
 			return users;
@@ -73,7 +73,7 @@ public class FileDataManager extends DataManager {
 		return users;
 	}
 
-	// Reads requests.json and links each request to its victim and volunteer objects
+	/** Loads requests.json */
 	public ArrayList<ReliefRequest> loadRequests() {
 		Map<String, User> usersByName = usersByName();
 		ArrayList<ReliefRequest> requests = new ArrayList<ReliefRequest>();
@@ -117,7 +117,7 @@ public class FileDataManager extends DataManager {
 		return requests;
 	}
 
-	// Reads hurricanes.json, restores each storm's track, and links it to affected victims
+	/** Loads hurricanes.json */
 	public ArrayList<Hurricane> loadHurricanes() {
 		Map<String, User> usersByName = usersByName();
 		ArrayList<Hurricane> hurricanes = new ArrayList<Hurricane>();
@@ -154,7 +154,7 @@ public class FileDataManager extends DataManager {
 		return hurricanes;
 	}
 
-	// Reads shelters.json and checks each listed occupant back into their shelter
+	/** Loads shelters.json */
 	public ArrayList<Shelter> loadShelters() {
 		Map<String, User> usersByName = usersByName();
 		ArrayList<Shelter> shelters = new ArrayList<Shelter>();
@@ -286,6 +286,7 @@ public class FileDataManager extends DataManager {
 	// Each save rewrites its whole file. LinkedHashMap keeps the fields in the
 	// order they're put, so the files look the same every time.
 
+	/** Saves users.json */
 	public void saveUsers(ArrayList<User> users) {
 		List<Object> out = new ArrayList<Object>();
 		for (User user : users) {
@@ -294,7 +295,7 @@ public class FileDataManager extends DataManager {
 		writeArray(USERS_FILE, out);
 	}
 
-	// The requester and volunteer are saved as usernames, not whole user objects
+	/** Saves requests.json */
 	public void saveRequests(ArrayList<ReliefRequest> requests) {
 		List<Object> out = new ArrayList<Object>();
 		for (ReliefRequest request : requests) {
@@ -316,7 +317,7 @@ public class FileDataManager extends DataManager {
 		writeArray(REQUESTS_FILE, out);
 	}
 
-	// Saves each storm's full track and its affected victims (by username)
+	/** Saves hurricanes.json */
 	public void saveHurricanes(ArrayList<Hurricane> hurricanes) {
 		List<Object> out = new ArrayList<Object>();
 		for (Hurricane hurricane : hurricanes) {
@@ -341,7 +342,7 @@ public class FileDataManager extends DataManager {
 		writeArray(HURRICANES_FILE, out);
 	}
 
-	// currentOccupancy is written for anyone reading the file; loadShelters() recalculates it
+	/** Saves shelters.json */
 	public void saveShelters(ArrayList<Shelter> shelters) {
 		List<Object> out = new ArrayList<Object>();
 		for (Shelter shelter : shelters) {
