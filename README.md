@@ -21,6 +21,11 @@ Think of it as **mission control for disaster relief**. Less panic, more coordin
 ## Project Board
 ![scrum board](docs/images/scrum.png) [Project Board](https://github.com/users/kevinbenii/projects/2)
 
+## Presentation
+
+[![Presentation Vodeo](docs/images/video.png)Presentation Video](https://youtu.be/tpC1dRwaaWc)
+
+
 ## Our Team
 
 | Team Members  | Role          |
