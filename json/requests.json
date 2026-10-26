@@ -18,6 +18,7 @@
     ],
     "requester": "victim1",
     "assignedVolunteer": "volunteer1",
+    "destinationShelterId": null,
     "peopleCount": 1,
     "needsMedical": false,
     "medicalNote": "",
@@ -41,6 +42,7 @@
     ],
     "requester": "victim2",
     "assignedVolunteer": null,
+    "destinationShelterId": null,
     "peopleCount": 1,
     "needsMedical": false,
     "medicalNote": "",
@@ -64,6 +66,7 @@
     ],
     "requester": "dthompson",
     "assignedVolunteer": null,
+    "destinationShelterId": null,
     "peopleCount": 1,
     "needsMedical": true,
     "medicalNote": "A neighbor is out of oxygen tank refills and needs medical help.",
@@ -87,6 +90,7 @@
     ],
     "requester": "bnguyen",
     "assignedVolunteer": null,
+    "destinationShelterId": null,
     "peopleCount": 2,
     "needsMedical": false,
     "medicalNote": "",
@@ -110,6 +114,7 @@
     ],
     "requester": "mpatel",
     "assignedVolunteer": null,
+    "destinationShelterId": null,
     "peopleCount": 4,
     "needsMedical": false,
     "medicalNote": "",
@@ -133,6 +138,7 @@
     ],
     "requester": "agarcia",
     "assignedVolunteer": null,
+    "destinationShelterId": null,
     "peopleCount": 3,
     "needsMedical": false,
     "medicalNote": "",
@@ -157,9 +163,40 @@
     ],
     "requester": "tjohnson",
     "assignedVolunteer": null,
+    "destinationShelterId": null,
     "peopleCount": 2,
     "needsMedical": false,
     "medicalNote": "",
     "pets": []
+  },
+  {
+    "id": "f3a69d21-aa02-4e59-b190-44f14f06ee21",
+    "location": {
+      "address": "1 Vendue Range",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29401",
+      "latitude": 32.7781,
+      "longitude": -79.925
+    },
+    "status": "COMPLETE",
+    "subject": "Carter family needs a ride to a shelter",
+    "body": "Power is out and floodwater is rising. We cannot use our car.",
+    "requiredSkills": [
+      "TRANSPORTATION",
+      "MEDICAL"
+    ],
+    "requester": "mcarter",
+    "assignedVolunteer": "rdelgado",
+    "destinationShelterId": "S006",
+    "peopleCount": 3,
+    "needsMedical": true,
+    "medicalNote": "Sophie Carter (9) has worsening asthma and needs a shelter with medical staff",
+    "pets": [
+      {
+        "name": "Buddy",
+        "type": "dog"
+      }
+    ]
   }
 ]

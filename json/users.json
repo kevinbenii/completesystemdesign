@@ -35,8 +35,7 @@
     "banned": false,
     "role": "VICTIM",
     "activeRequests": [
-      "Need evacuation assistance",
-      "Need water"
+      "Need evacuation assistance"
     ],
     "familyMembers": [],
     "pets": []
@@ -92,10 +91,13 @@
       "latitude": 32.7942,
       "longitude": -79.8626
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
       "Medical supplies needed"
-    ]
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "f448a299-6cf6-4b2a-9a0f-0a87cd950e30",
@@ -103,17 +105,20 @@
     "password": "password1",
     "phoneNumber": "843-555-0122",
     "location": {
-      "address": "200 W Carolina Avenue",
+      "address": "200 W folina Avenue",
       "city": "Summerville",
       "state": "SC",
       "zipCode": "29483",
       "latitude": 33.0185,
       "longitude": -80.1756
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
       "Need a ride to a shelter"
-    ]
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "eec2db56-f3a6-43e2-bdcf-5dc580a62de4",
@@ -128,10 +133,13 @@
       "latitude": 32.7686,
       "longitude": -80.0072
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
       "Home flooded, need shelter"
-    ]
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "4d80005d-1778-4110-b532-2470e8abaafc",
@@ -146,10 +154,13 @@
       "latitude": 32.8817,
       "longitude": -80.007
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
       "Food and baby formula"
-    ]
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "ea8db7f1-30ec-446c-8801-811657974014",
@@ -164,10 +175,13 @@
       "latitude": 32.737,
       "longitude": -79.964
     },
+    "banned": false,
     "role": "VICTIM",
     "activeRequests": [
       "Food and a place to stay"
-    ]
+    ],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "7e7dee7c-5034-4098-8ab2-1cdfe65ca430",
@@ -182,8 +196,11 @@
       "latitude": 32.8728,
       "longitude": -80.0071
     },
+    "banned": false,
     "role": "VICTIM",
-    "activeRequests": []
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "c38b334e-2623-455e-b4b9-7a5316398605",
@@ -198,8 +215,11 @@
       "latitude": 32.8728,
       "longitude": -80.0071
     },
+    "banned": false,
     "role": "VICTIM",
-    "activeRequests": []
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "d96467f9-ad32-4a12-8cc1-cfcec00474c1",
@@ -214,8 +234,11 @@
       "latitude": 32.8728,
       "longitude": -80.0071
     },
+    "banned": false,
     "role": "VICTIM",
-    "activeRequests": []
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
   },
   {
     "id": "b1c2c89a-6a15-4a29-b798-b1a2b97aab1f",
@@ -230,6 +253,7 @@
       "latitude": 32.8546,
       "longitude": -79.9748
     },
+    "banned": false,
     "role": "VOLUNTEER",
     "skills": [
       "TRANSPORTATION"
@@ -248,7 +272,48 @@
       "latitude": 32.8728,
       "longitude": -80.0071
     },
+    "banned": false,
     "role": "SHELTER_STAFF",
     "shelterId": "S006"
+  },
+  {
+    "id": "be17792c-8a8e-474b-9e9b-324023eeeaaf",
+    "username": "mcarter",
+    "password": "carter123",
+    "phoneNumber": "843-555-0142",
+    "location": {
+      "address": "1 Vendue Range",
+      "city": "Charleston",
+      "state": "SC",
+      "zipCode": "29401",
+      "latitude": 32.7781,
+      "longitude": -79.925
+    },
+    "banned": false,
+    "role": "VICTIM",
+    "activeRequests": [],
+    "familyMembers": [
+      {
+        "name": "Michael Carter",
+        "age": 42,
+        "medicalNote": ""
+      },
+      {
+        "name": "Laura Carter",
+        "age": 40,
+        "medicalNote": ""
+      },
+      {
+        "name": "Sophie Carter",
+        "age": 9,
+        "medicalNote": "Asthma"
+      }
+    ],
+    "pets": [
+      {
+        "name": "Buddy",
+        "type": "dog"
+      }
+    ]
   }
 ]

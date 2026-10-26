@@ -142,11 +142,12 @@
       "longitude": -80.0071
     },
     "capacity": 60,
-    "currentOccupancy": 3,
+    "currentOccupancy": 6,
     "occupants": [
       "ehwang",
       "rbrooks",
-      "lcole"
+      "lcole",
+      "mcarter"
     ],
     "availableSkills": [
       "FOOD",
@@ -158,7 +159,12 @@
     "acceptsDogs": true,
     "hasMedicalStaff": true,
     "petCapacity": 10,
-    "pets": []
+    "pets": [
+      {
+        "name": "Buddy",
+        "type": "dog"
+      }
+    ]
   },
   {
     "shelterId": "S007",
