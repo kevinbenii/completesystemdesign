@@ -4,6 +4,7 @@ module com.hurricane {
     requires json.simple;
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
+    requires junit;
 
     opens com.hurricane to javafx.fxml;
     exports com.hurricane;

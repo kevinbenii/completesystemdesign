@@ -315,5 +315,24 @@
         "type": "dog"
       }
     ]
+  },
+  {
+    "id": "6a5d50a3-f022-4991-a69f-5bce1415187c",
+    "username": "jmath",
+    "password": "password",
+    "phoneNumber": "803-222-3333",
+    "location": {
+      "address": "123 Test Street",
+      "city": "Columbia",
+      "state": "SC",
+      "zipCode": "29201",
+      "latitude": 34.0,
+      "longitude": -81.0
+    },
+    "banned": false,
+    "role": "VICTIM",
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
   }
 ]
