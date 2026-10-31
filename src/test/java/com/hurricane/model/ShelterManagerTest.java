@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -29,6 +30,10 @@ public class ShelterManagerTest {
 
     private Shelter testShelter(String shelterId) {
         return new Shelter(shelterId, "Shelter " + shelterId, testLocation(), 10);
+    }
+
+    private Victim testVictim(String username) {
+        return new Victim(username, "password", "803-222-3333", testLocation());
     }
 
     // Empty folder for every test, so the real json files are never read or changed
@@ -77,5 +82,43 @@ public class ShelterManagerTest {
         shelterManager.addShelter(closed);
         ArrayList<Shelter> available = shelterManager.findAvailableShelters(testLocation(), 10);
         assertFalse(available.contains(closed));
+    }
+
+    @Test
+    public void testAssignVictimToShelterWithSpaceReturnsTrue() {
+        Shelter shelter = testShelter("test-space");
+        shelterManager.addShelter(shelter);
+        boolean success = shelterManager.assignVictimToShelter(testVictim("victimone"), shelter);
+        assertTrue(success);
+    }
+
+    @Test
+    public void testAssignVictimToClosedShelterReturnsFalse() {
+        Shelter shelter = testShelter("test-closed-assign");
+        shelter.setOpen(false);
+        shelterManager.addShelter(shelter);
+        boolean success = shelterManager.assignVictimToShelter(testVictim("victimone"), shelter);
+        assertFalse(success);
+    }
+
+    @Test
+    public void testAssignVictimToFullShelterReturnsFalse() {
+        Shelter shelter = new Shelter("test-full", "Full Shelter", testLocation(), 1);
+        shelterManager.addShelter(shelter);
+        shelterManager.assignVictimToShelter(testVictim("victimone"), shelter);
+        boolean success = shelterManager.assignVictimToShelter(testVictim("victimtwo"), shelter);
+        assertFalse(success);
+    }
+
+    @Test
+    public void testAssignVictimToNewShelterLeavesOldShelter() {
+        Shelter oldShelter = testShelter("test-old");
+        Shelter newShelter = testShelter("test-new");
+        shelterManager.addShelter(oldShelter);
+        shelterManager.addShelter(newShelter);
+        Victim victim = testVictim("victimone");
+        shelterManager.assignVictimToShelter(victim, oldShelter);
+        shelterManager.assignVictimToShelter(victim, newShelter);
+        assertEquals(0, oldShelter.getCurrentOccupancy());
     }
 }
