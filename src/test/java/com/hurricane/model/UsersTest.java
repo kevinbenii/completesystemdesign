@@ -13,6 +13,11 @@ public class UsersTest {
         return new Location("123 Test Street", "Columbia", "SC", "29201", 34.0, -81.0);
     }
 
+    // Different username every run so leftover accounts in the json file never change a result
+    private String uniqueUsername(String prefix) {
+        return prefix + System.nanoTime();
+    }
+
     // Server is a singleton, so make sure nobody stays logged in between tests
     @After
     public void logoutAfterEachTest() {
@@ -99,6 +104,29 @@ public class UsersTest {
     public void testCreateVictimAccountNullPassword() {
         Server server = Server.getInstance();
         boolean success = server.createVictimAccount("newvictim", null, "803-222-3333", testLocation());
+        assertFalse(success);
+    }
+
+    @Test
+    public void testCreateVictimAccountUsernameOnlySpaces() {
+        Server server = Server.getInstance();
+        boolean success = server.createVictimAccount("   ", "password", "803-222-3333", testLocation());
+        assertFalse(success);
+    }
+
+    @Test
+    public void testCreateVictimAccountDuplicateUsernameDifferentCase() {
+        Server server = Server.getInstance();
+        String username = uniqueUsername("casecheck");
+        server.createVictimAccount(username, "password", "803-222-3333", testLocation());
+        boolean success = server.createVictimAccount(username.toUpperCase(), "password", "803-222-3333", testLocation());
+        assertFalse(success);
+    }
+
+    @Test
+    public void testRegisterNullUser() {
+        Server server = Server.getInstance();
+        boolean success = server.registerUser(null);
         assertFalse(success);
     }
 }
