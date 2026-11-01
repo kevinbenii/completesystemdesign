@@ -87,4 +87,33 @@ public class RequestManagerTest {
         requestManager.submitRequest(testRequest("Need food", Skill.FOOD));
         assertEquals(0, requestManager.filterBySkill(Skill.MEDICAL).size());
     }
+
+    @Test
+    public void testSubmitNullRequestIsNotAdded() {
+        requestManager.submitRequest(null);
+        assertEquals(0, requestManager.getAllRequests().size());
+    }
+
+    @Test
+    public void testFilterByLocationReturnsNearbyRequest() {
+        ReliefRequest nearby = testRequest("Need food", Skill.FOOD);
+        requestManager.submitRequest(nearby);
+        Location sameTown = new Location("500 Other Street", "Columbia", "SC", "29201", 34.01, -81.01);
+        assertSame(nearby, requestManager.filterByLocation(sameTown, 10).get(0));
+    }
+
+    @Test
+    public void testFilterByLocationLeavesOutFarAwayRequest() {
+        requestManager.submitRequest(testRequest("Need food", Skill.FOOD));
+        Location newYork = new Location("1 Broadway", "New York", "NY", "10004", 40.7, -74.0);
+        assertEquals(0, requestManager.filterByLocation(newYork, 10).size());
+    }
+
+    @Test
+    public void testMarkAsResolvedSetsStatusToResolved() {
+        ReliefRequest request = testRequest("Need food", Skill.FOOD);
+        requestManager.submitRequest(request);
+        requestManager.markAsResolved(request);
+        assertEquals(ReliefRequestStatus.RESOLVED, request.getStatus());
+    }
 }
