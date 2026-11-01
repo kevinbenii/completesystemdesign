@@ -121,4 +121,22 @@ public class ShelterManagerTest {
         shelterManager.assignVictimToShelter(victim, newShelter);
         assertEquals(0, oldShelter.getCurrentOccupancy());
     }
+
+    @Test
+    public void testAssignVictimToShelterWithTooLittleRoomKeepsVictimInOldShelter() {
+        Shelter oldShelter = new Shelter("test-big", "Big Shelter", testLocation(), 10);
+        Shelter smallShelter = new Shelter("test-small", "Small Shelter", testLocation(), 5);
+        shelterManager.addShelter(oldShelter);
+        shelterManager.addShelter(smallShelter);
+        // 4 of the 5 beds in the small shelter are already taken
+        for (int i = 0; i < 4; i++)
+            smallShelter.checkIn(testVictim("resident" + i));
+        // Household of 3
+        Victim victim = testVictim("victimone");
+        for (int i = 0; i < 3; i++)
+            victim.addFamilyMember(new FamilyMember("Member" + i, 20, ""));
+        shelterManager.assignVictimToShelter(victim, oldShelter);
+        shelterManager.assignVictimToShelter(victim, smallShelter);
+        assertEquals(3, oldShelter.getCurrentOccupancy());
+    }
 }
