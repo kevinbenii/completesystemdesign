@@ -8,6 +8,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for logging in, logging out and creating accounts.
+ *
+ * @author Jon Luu
+ */
 public class UsersTest {
     private Location testLocation() {
         return new Location("123 Test Street", "Columbia", "SC", "29201", 34.0, -81.0);

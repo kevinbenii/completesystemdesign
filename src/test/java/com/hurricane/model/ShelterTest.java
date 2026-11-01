@@ -7,6 +7,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for shelter check-in, check-out and space checks.
+ *
+ * @author Jon Luu
+ */
 public class ShelterTest {
     private Shelter shelter;
 
@@ -57,5 +62,25 @@ public class ShelterTest {
         shelter.checkIn(victim);
         boolean success = shelter.checkIn(victim);
         assertFalse(success);
+    }
+
+    @Test
+    public void testCheckOutLowersOccupancy() {
+        Victim victim = testVictim("victimone");
+        shelter.checkIn(victim);
+        shelter.checkOut(victim);
+        assertEquals(0, shelter.getCurrentOccupancy());
+    }
+
+    @Test
+    public void testCheckOutVictimNotInShelterKeepsOccupancy() {
+        shelter.checkIn(testVictim("victimone"));
+        shelter.checkOut(testVictim("victimtwo"));
+        assertEquals(1, shelter.getCurrentOccupancy());
+    }
+
+    @Test
+    public void testHasSpaceForTooManyPeople() {
+        assertFalse(shelter.hasSpaceFor(3, 0));
     }
 }
