@@ -41,6 +41,8 @@ public class UserManager {
 
 	/** Adds a new user */
 	public boolean registerUser(User user) {
+		if (user == null)
+			return false;
 		for (User existing : users) {
 			if (existing.getUsername().equalsIgnoreCase(user.getUsername()))
 				return false;
