@@ -308,6 +308,8 @@ public class Server {
 
 	/** True if the shelter fits the request */
 	public boolean isSuitable(Shelter shelter, ReliefRequest request) {
+		if (shelter == null || request == null)
+			return false;
 		if (hasDog(request) && !shelter.acceptsDogs())
 			return false;
 		if (request.needsMedical() && !shelter.hasMedicalStaff())
@@ -317,6 +319,8 @@ public class Server {
 
 	/** Closest suitable shelter by driving */
 	public Shelter findSuitableShelter(ReliefRequest request) {
+		if (request == null)
+			return null;
 		ArrayList<Shelter> suitable = new ArrayList<Shelter>();
 		for (Shelter shelter : getAllShelters()) {
 			if (isSuitable(shelter, request))
