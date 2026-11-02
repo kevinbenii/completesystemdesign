@@ -16,7 +16,8 @@ public class ShelterManager {
 
 	/** Adds a shelter */
 	public void addShelter(Shelter shelter) {
-		shelters.add(shelter);
+		if (shelter != null)
+			shelters.add(shelter);
 	}
 
 	/** Removes a shelter */
@@ -36,6 +37,8 @@ public class ShelterManager {
 	/** Shelters within radius miles */
 	public ArrayList<Shelter> filterByLocation(Location location, double radius) {
 		ArrayList<Shelter> matches = new ArrayList<Shelter>();
+		if (location == null)
+			return matches;
 		for (Shelter shelter : shelters) {
 			if (shelter.isNear(location, radius))
 				matches.add(shelter);
@@ -65,7 +68,7 @@ public class ShelterManager {
 
 	/** Moves a victim into a shelter */
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
-		if (!shelter.hasSpace())
+		if (victim == null || shelter == null || !shelter.hasSpace())
 			return false;
 
 		for (Shelter other : shelters) {
