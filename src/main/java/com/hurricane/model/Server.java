@@ -162,7 +162,7 @@ public class Server {
 	/** Completes a request if the role allows it */
 	public boolean completeRequest(ReliefRequest request) {
 		User user = getCurrentUser();
-		if (user == null || !user.canCompleteRequests())
+		if (user == null || !user.canCompleteRequests() || request == null)
 			return false;
 		requestManager.completeRequest(request);
 		requestManager.saveRequests();
@@ -173,7 +173,8 @@ public class Server {
 	public boolean volunteerForRequest(ReliefRequest request) {
 		if (!(getCurrentUser() instanceof Volunteer))
 			return false;
-		((Volunteer) getCurrentUser()).volunteerForRequest(request);
+		if (!((Volunteer) getCurrentUser()).volunteerForRequest(request))
+			return false;
 		requestManager.saveRequests();
 		return true;
 	}
