@@ -11,12 +11,19 @@ import static org.junit.Assert.assertThrows;
 /**
  * Tests for distances and addresses of a location.
  *
- * AI was used to write the test code. Test list and reasoning:
- * +--------------------------------+-------------------------------------------------------------------+
- * | Test                           | Reasoning                                                         |
- * +--------------------------------+-------------------------------------------------------------------+
- * |                                |                                                                   |
- * +--------------------------------+-------------------------------------------------------------------+
+ * +---------------------------+---------------------------------------------+
+ * | Test                      | Reasoning                                   |
+ * +---------------------------+---------------------------------------------+
+ * | Distance to self          | The same location should give zero          |
+ * | Distance one degree north | The distance should be about 69 miles       |
+ * | Distance both ways        | Both directions should give equal distances |
+ * | Distance to null          | Null should throw an exception              |
+ * | Full address joins parts  | The address should include all parts        |
+ * | Address keeps street      | The street should stay the same             |
+ * | Address keeps ZIP         | The ZIP should stay the same                |
+ * | Full address missing city | The address should skip missing cities      |
+ * | Address missing street    | A missing street should return empty text   |
+ * +---------------------------+---------------------------------------------+
  *
  * @author Kevin Beni
  */

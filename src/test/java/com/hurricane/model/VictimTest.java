@@ -12,12 +12,21 @@ import static org.junit.Assert.assertSame;
 /**
  * Tests for a victim's household and relief requests.
  *
- * AI was used to write the test code. Test list and reasoning:
- * +--------------------------------+-------------------------------------------------------------------+
- * | Test                           | Reasoning                                                         |
- * +--------------------------------+-------------------------------------------------------------------+
- * |                                |                                                                   |
- * +--------------------------------+-------------------------------------------------------------------+
+ * +----------------------------------------+----------------------------------------------+
+ * | Test                                   | Reasoning                                    |
+ * +----------------------------------------+----------------------------------------------+
+ * | Add family member                      | The member should join the household         |
+ * | Add null family member                 | Null should not enter the household          |
+ * | Add pet                                | The pet should enter the list                |
+ * | Add null pet                           | Null should not enter the list               |
+ * | Create request adds to active requests | New requests should be tracked               |
+ * | Create request sets requester          | The request should identify its creator      |
+ * | Create request uses victim location    | The request should use the victim's location |
+ * | Create request with empty subject      | Empty subjects should be rejected            |
+ * | View new request status                | New requests should be open                  |
+ * | View completed request status          | Finished requests should show complete       |
+ * | View null request status               | A missing request should return null         |
+ * +----------------------------------------+----------------------------------------------+
  *
  * @author Kevin Beni
  */

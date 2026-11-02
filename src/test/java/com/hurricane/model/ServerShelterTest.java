@@ -19,12 +19,44 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for the Server's shelter and hurricane methods.
  *
- * AI was used to write the test code. Test list and reasoning:
- * +--------------------------------+-------------------------------------------------------------------+
- * | Test                           | Reasoning                                                         |
- * +--------------------------------+-------------------------------------------------------------------+
- * |                                |                                                                   |
- * +--------------------------------+-------------------------------------------------------------------+
+ * +-----------------------------------------+---------------------------------------------+
+ * | Test                                    | Reasoning                                   |
+ * +-----------------------------------------+---------------------------------------------+
+ * | Add hurricane found at its location     | Added hurricanes should be found            |
+ * | Add hurricane saved for next server     | Hurricanes should stay saved after restart  |
+ * | Add null hurricane                      | Null hurricanes should be ignored           |
+ * | Filter leaves out far hurricane         | Far hurricanes should be excluded           |
+ * | Filter hurricanes with null location    | A missing location should return no results |
+ * | Add shelter to all shelters             | Added shelters should appear in the list    |
+ * | Add shelter saved for next server       | Shelters should stay saved after restart    |
+ * | Add null shelter                        | Null shelters should be ignored             |
+ * | Filter finds nearby shelter             | Nearby shelters should be found             |
+ * | Filter leaves out far shelter           | Far shelters should be excluded             |
+ * | Filter shelters with null location      | A missing location should return no results |
+ * | Find available open shelter             | Open shelters with room should appear       |
+ * | Leave out full shelter                  | Full shelters should be excluded            |
+ * | Find closest shelter while logged out   | The user should log in first                |
+ * | Suitable shelter with room              | A shelter with room should qualify          |
+ * | Dog at shelter without dogs             | The shelter should allow dogs               |
+ * | Medical need without medical staff      | Medical needs should require medical staff  |
+ * | Too many people                         | The household should fit the shelter        |
+ * | Suitable null shelter                   | A missing shelter should be rejected        |
+ * | Suitable null request                   | A missing request should be rejected        |
+ * | Find only suitable shelter              | The matching shelter should be chosen       |
+ * | Find suitable shelter when none fit     | No matching shelter should return null      |
+ * | Find suitable shelter with null request | A missing request should return null        |
+ * | Staff checks in family                  | Staff should be able to check families in   |
+ * | Check-in counts whole household         | Every family member should be counted       |
+ * | Check-in adds pet                       | The family pet should be recorded           |
+ * | Check-in while logged out               | Check-in should require login               |
+ * | Check-in without enough room            | Check-in should not exceed capacity         |
+ * | Check-in with null request              | A missing request should be rejected        |
+ * | Assign victim with room                 | Assignment should work when space exists    |
+ * | Assignment adds occupant                | The victim should become an occupant        |
+ * | Assign victim to full shelter           | Full shelters should reject assignments     |
+ * | Assign null victim                      | A missing victim should be rejected         |
+ * | Assign victim to null shelter           | A missing shelter should be rejected        |
+ * +-----------------------------------------+---------------------------------------------+
  *
  * @author Kevin Beni
  */
