@@ -65,11 +65,16 @@ public class Location {
 
 	/** Full address */
 	public String getFullAddress() {
-		return address + ", " + city + ", " + state + " " + zipCode;
+		String full = "";
+		if (address != null)
+			full += address + ", ";
+		if (city != null)
+			full += city + ", ";
+		return full + state + " " + zipCode;
 	}
 
 	/** Address for the map tools */
 	public Address toAddress() {
-		return new Address(address, city, state, zipCode);
+		return new Address(address == null ? "" : address, city, state, zipCode);
 	}
 }
