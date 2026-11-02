@@ -68,7 +68,10 @@ public class ShelterManager {
 
 	/** Moves a victim into a shelter */
 	public boolean assignVictimToShelter(Victim victim, Shelter shelter) {
-		if (victim == null || shelter == null || !shelter.hasSpace())
+		if (victim == null || shelter == null)
+			return false;
+		//Room for the whole household, or they stay where they are
+		if (!shelter.hasSpaceFor(Math.max(1, victim.getFamilyMembers().size()), 0))
 			return false;
 
 		for (Shelter other : shelters) {
