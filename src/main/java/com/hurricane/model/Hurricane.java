@@ -60,7 +60,7 @@ public class Hurricane {
 
 	/** Moves the storm */
 	public void updateData(Location newLocation, int category, double windSpeed) {
-		if (newLocation == null)
+		if (newLocation == null || category < 1 || category > 5 || windSpeed < 0)
 			return;
 		this.location = newLocation;
 		this.category = category;
