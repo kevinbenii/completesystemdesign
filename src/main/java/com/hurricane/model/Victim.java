@@ -39,7 +39,8 @@ public class Victim extends User {
 
 	/** Adds someone to the household */
 	public void addFamilyMember(FamilyMember member) {
-		familyMembers.add(member);
+		if (member != null)
+			familyMembers.add(member);
 	}
 
 	/** Household pets */
@@ -49,11 +50,14 @@ public class Victim extends User {
 
 	/** Adds a pet */
 	public void addPet(Pet pet) {
-		pets.add(pet);
+		if (pet != null)
+			pets.add(pet);
 	}
 
-	/** Makes a request */
+	/** Makes a request, or null if there's no subject */
 	public ReliefRequest createRequest(String subject, String body, ArrayList<Skill> requiredSkills) {
+		if (subject == null || subject.isEmpty())
+			return null;
 		ReliefRequest request = new ReliefRequest(location, subject, body, requiredSkills, this);
 		activeRequests.add(request);
 		return request;
@@ -61,6 +65,8 @@ public class Victim extends User {
 
 	/** Status of a request */
 	public ReliefRequestStatus viewRequestStatus(ReliefRequest request) {
+		if (request == null)
+			return null;
 		return request.getStatus();
 	}
 }

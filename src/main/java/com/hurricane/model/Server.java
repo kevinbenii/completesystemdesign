@@ -123,7 +123,10 @@ public class Server {
 		if (!(getCurrentUser() instanceof Victim))
 			return false;
 		Victim victim = (Victim) getCurrentUser();
-		submitRequest(victim.createRequest(subject, body, requiredSkills));
+		ReliefRequest request = victim.createRequest(subject, body, requiredSkills);
+		if (request == null)
+			return false;
+		submitRequest(request);
 		return true;
 	}
 
@@ -134,6 +137,8 @@ public class Server {
 			return null;
 		Victim victim = (Victim) getCurrentUser();
 		ReliefRequest request = victim.createRequest(subject, body, requiredSkills);
+		if (request == null)
+			return null;
 		request.setPeopleCount(Math.max(1, victim.getFamilyMembers().size()));
 		request.setMedical(medicalNote != null && !medicalNote.isEmpty(), medicalNote == null ? "" : medicalNote);
 		for (Pet pet : victim.getPets())
