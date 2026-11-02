@@ -69,6 +69,19 @@ public class HurricaneTrackerTest {
         assertEquals(0, tracker.filterByLocation(columbia, 100.0).size());
     }
 
+    // A null hurricane would break every later search
+    @Test
+    public void testAddNullHurricaneIsNotAdded() {
+        tracker.addHurricane(null);
+        assertEquals(0, tracker.filterByLocation(columbia, 100.0).size());
+    }
+
+    @Test
+    public void testFilterByNullLocationIsEmpty() {
+        tracker.addHurricane(new Hurricane(columbia, 2, 100.0));
+        assertEquals(0, tracker.filterByLocation(null, 100.0).size());
+    }
+
     @Test
     public void testSavedHurricaneKeepsCategoryAfterReload() {
         tracker.addHurricane(new Hurricane(columbia, 4, 140.0));

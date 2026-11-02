@@ -69,6 +69,19 @@ public class HurricaneTest {
         assertSame(start, hurricane.getLocation());
     }
 
+    // Hurricane categories only go from 1 to 5
+    @Test
+    public void testUpdateDataWithCategoryOverFiveKeepsCurrentCategory() {
+        hurricane.updateData(east, 6, 120.0);
+        assertEquals(2, hurricane.getCategory());
+    }
+
+    @Test
+    public void testUpdateDataWithNegativeWindSpeedKeepsCurrentWindSpeed() {
+        hurricane.updateData(east, 3, -10.0);
+        assertEquals(100.0, hurricane.getWindSpeed(), DELTA);
+    }
+
     @Test
     public void testCalculateDirectionBeforeMovingIsZero() {
         Vector2 direction = hurricane.calculateDirection();
