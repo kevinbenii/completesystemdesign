@@ -15,11 +15,15 @@ public class Client {
 
 	/** Tries to log in */
 	public boolean attemptLogin(String username, String password) {
-		return server.authenticateUser(username, password);
+		boolean loggedIn = server.authenticateUser(username, password);
+		if (loggedIn)
+			currentUser = server.getCurrentUser();
+		return loggedIn;
 	}
 
 	/** Logs out */
 	public void logout() {
+		server.logout();
 		currentUser = null;
 	}
 
