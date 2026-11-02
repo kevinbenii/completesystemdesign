@@ -14,6 +14,10 @@ public class Hurricane {
 
 	/** Makes a hurricane */
 	public Hurricane(Location location, int category, double windSpeed) {
+		if (category < 1 || category > 5)
+			throw new IllegalArgumentException("Category must be 1 to 5");
+		if (windSpeed < 0)
+			throw new IllegalArgumentException("Wind speed can't be negative");
 		this.id = UUID.randomUUID();
 		this.location = location;
 		this.category = category;

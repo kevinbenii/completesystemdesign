@@ -15,7 +15,8 @@ public class RequestManager {
 
 	/** Adds a request */
 	public void submitRequest(ReliefRequest request) {
-		requests.add(request);
+		if (request != null)
+			requests.add(request);
 	}
 
 	/** Removes a request */
