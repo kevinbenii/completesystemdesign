@@ -11,6 +11,30 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 // Tests for creating accounts, logging in and banning users through the Server.
+//
+// +-----------------------------------+--------------------------------------+
+// | Test                              | Reasoning                            |
+// +-----------------------------------+--------------------------------------+
+// | create victim account             | valid details should make an account |
+// | blank username                    | a username can't be blank            |
+// | null password                     | a password is required               |
+// | same username, other case         | usernames are unique ignoring case   |
+// | family account adds family        | family members have to be kept       |
+// | family account adds pets          | pets have to be kept                 |
+// | family account, blank password    | a password is required               |
+// | volunteer account keeps skills    | skills are used for recommendations  |
+// | volunteer account, blank username | a username can't be blank            |
+// | registered user is saved          | a new user has to reach the file     |
+// | nobody logged in                  | a new server starts logged out       |
+// | login sets current user           | the server has to know who logged in |
+// | login, wrong password             | a wrong password should be refused   |
+// | logout                            | logging out clears the current user  |
+// | admin bans user                   | admins are allowed to ban            |
+// | ban is saved                      | a ban has to last after a restart    |
+// | victim tries to ban               | only admins can ban                  |
+// | ban null user                     | null should fail, no crash           |
+// +-----------------------------------+--------------------------------------+
+//
 // Author: Max Vogel
 public class ServerAccountTest extends ServerTestBase {
     private User findSavedUser(String username) {

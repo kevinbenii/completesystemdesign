@@ -13,6 +13,20 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 // Tests for finding hurricanes by location and saving them.
+//
+// +-------------------------+-------------------------------------------+
+// | Test                    | Reasoning                                 |
+// +-------------------------+-------------------------------------------+
+// | filter, inside radius   | a nearby hurricane has to be found        |
+// | filter, outside radius  | a far hurricane is left out               |
+// | filter, no hurricanes   | nothing tracked returns an empty list     |
+// | add null hurricane      | null should not break later searches      |
+// | filter by null location | a null location returns nothing, no crash |
+// | reload keeps category   | saving should not change the category     |
+// | reload keeps wind speed | saving should not change the wind speed   |
+// | reload keeps history    | the whole track has to be saved           |
+// +-------------------------+-------------------------------------------+
+//
 // Author: Max Vogel
 public class HurricaneTrackerTest {
     private static final double DELTA = 0.000001;

@@ -7,6 +7,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 // Tests for an admin moderating requests and banning users.
+//
+// +-----------------------+-----------------------------------------+
+// | Test                  | Reasoning                               |
+// +-----------------------+-----------------------------------------+
+// | admin id              | the id starts as the username           |
+// | delete request        | the status changes to MODERATOR_REMOVED |
+// | mark as resolved      | the status changes to RESOLVED          |
+// | logged in admin bans  | a logged in admin can ban               |
+// | banned user logs in   | a banned user can't log in              |
+// | logged out admin bans | an admin has to be logged in to ban     |
+// | ban null user         | null should fail, no crash              |
+// | admin bans themselves | a banned admin is logged out            |
+// +-----------------------+-----------------------------------------+
+//
 // Author: Max Vogel
 public class AdminTest extends ServerTestBase {
     @Test
