@@ -18,6 +18,21 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for adding, removing and finding shelters.
  *
+ * +---------------------------------------+-----------------------------------------------------------------+
+ * | Test                                  | Reasoning                                                       |
+ * +---------------------------------------+-----------------------------------------------------------------+
+ * | add shelter                           | an added shelter has to appear in the list                      |
+ * | remove shelter                        | a removed shelter has to leave the list                         |
+ * | get shelter by id, found              | an id that exists returns that shelter                          |
+ * | get shelter by id, unknown            | an id that does not exist returns null                          |
+ * | available shelters, closed one        | closed shelters should not be offered to victims                |
+ * | assign victim with space              | a victim is placed when there is room                           |
+ * | assign victim to closed shelter       | nobody can be placed in a closed shelter                        |
+ * | assign victim to full shelter         | nobody can be placed in a full shelter                          |
+ * | assign victim to a new shelter        | moving a victim has to free their old bed                       |
+ * | assign household with too little room | a failed move should not drop the family from their old shelter |
+ * +---------------------------------------+-----------------------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class ShelterManagerTest {

@@ -12,6 +12,17 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for what each kind of user is allowed to do.
  *
+ * +-------------------------------------+-------------------------------------------------+
+ * | Test                                | Reasoning                                       |
+ * +-------------------------------------+-------------------------------------------------+
+ * | admin can complete requests         | admins are allowed to complete requests         |
+ * | shelter staff can complete requests | shelter staff are allowed to complete requests  |
+ * | volunteer cannot complete requests  | volunteers are not allowed to complete requests |
+ * | victim cannot complete requests     | victims are not allowed to complete requests    |
+ * | shelter staff keeps shelter id      | staff have to stay linked to their shelter      |
+ * | volunteer role name                 | each role has to report its own name            |
+ * +-------------------------------------+-------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class UserRoleTest {

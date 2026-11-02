@@ -11,6 +11,25 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for logging in, logging out and creating accounts.
  *
+ * +------------------------------------------------+--------------------------------------------------------------+
+ * | Test                                           | Reasoning                                                    |
+ * +------------------------------------------------+--------------------------------------------------------------+
+ * | login with valid credentials returns true      | a real user with the right password has to be able to log in |
+ * | login with valid credentials sets current user | after logging in the system has to know who is logged in     |
+ * | login with unknown username                    | a username that does not exist must not log in               |
+ * | login with wrong password                      | a wrong password must be rejected                            |
+ * | logout clears current user                     | after logging out nobody should be logged in                 |
+ * | new victim account can log in                  | a newly created account has to work right away               |
+ * | duplicate username                             | each username has to be unique                               |
+ * | blank username                                 | an account needs a username                                  |
+ * | null username                                  | a missing username must not crash or create an account       |
+ * | blank password                                 | an account needs a password                                  |
+ * | null password                                  | a missing password must not crash or create an account       |
+ * | username of only spaces                        | spaces alone are not a real username                         |
+ * | duplicate username, different case             | Sam and sam should not be two accounts                       |
+ * | register null user                             | registering nothing should return false, not crash           |
+ * +------------------------------------------------+--------------------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class UsersTest {

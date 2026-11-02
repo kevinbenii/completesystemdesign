@@ -15,6 +15,21 @@ import static org.junit.Assert.assertSame;
 /**
  * Tests for submitting, completing and filtering relief requests.
  *
+ * +-----------------------------------+----------------------------------------------------------+
+ * | Test                              | Reasoning                                                |
+ * +-----------------------------------+----------------------------------------------------------+
+ * | new manager is empty              | a new manager with no saved data starts with no requests |
+ * | submit a request                  | a submitted request has to show up in the list           |
+ * | complete a request                | completing a request changes its status to COMPLETE      |
+ * | open requests leave out completed | finished requests should not show as open                |
+ * | filter by skill, match            | only requests that need the skill come back              |
+ * | filter by skill, no match         | no match returns an empty list, not an error             |
+ * | submit null request               | null should not be added to the list                     |
+ * | filter by location, nearby        | a request close to the location is included              |
+ * | filter by location, far away      | a request far outside the radius is left out             |
+ * | mark as resolved                  | marking resolved changes the status to RESOLVED          |
+ * +-----------------------------------+----------------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class RequestManagerTest {

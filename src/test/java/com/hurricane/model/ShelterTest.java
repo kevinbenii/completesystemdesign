@@ -10,6 +10,19 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for shelter check-in, check-out and space checks.
  *
+ * +-------------------------------+-----------------------------------------------------------------+
+ * | Test                          | Reasoning                                                       |
+ * +-------------------------------+-----------------------------------------------------------------+
+ * | check in with space           | a victim should be accepted when there is room                  |
+ * | check in raises occupancy     | occupancy has to count the people who checked in                |
+ * | check in closed shelter       | a closed shelter cannot accept anyone                           |
+ * | check in full shelter         | a full shelter cannot accept anyone                             |
+ * | same victim checks in twice   | one victim should not be counted twice                          |
+ * | check out lowers occupancy    | a bed has to free up when someone leaves                        |
+ * | check out someone not there   | occupancy must not change for a person who was never checked in |
+ * | too many people for the space | a group bigger than the free beds does not fit                  |
+ * +-------------------------------+-----------------------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class ShelterTest {

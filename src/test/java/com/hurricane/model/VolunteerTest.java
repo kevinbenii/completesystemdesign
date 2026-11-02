@@ -11,6 +11,14 @@ import static org.junit.Assert.assertSame;
 /**
  * Tests for a volunteer taking and finishing relief requests.
  *
+ * +-----------------------------------+-------------------------------------------------+
+ * | Test                              | Reasoning                                       |
+ * +-----------------------------------+-------------------------------------------------+
+ * | volunteer for a request           | the volunteer has to be recorded on the request |
+ * | status becomes ASSIGNED           | taking a request should change its status       |
+ * | volunteer for a completed request | a finished request should not be reopened       |
+ * +-----------------------------------+-------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class VolunteerTest {

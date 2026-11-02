@@ -14,6 +14,18 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for logging in and banning users.
  *
+ * +-----------------------------+-----------------------------------------------+
+ * | Test                        | Reasoning                                     |
+ * +-----------------------------+-----------------------------------------------+
+ * | sample volunteer can log in | the built-in sample users have to work        |
+ * | wrong password              | a wrong password must be rejected             |
+ * | ban when not logged in      | only a logged-in person can ban someone       |
+ * | ban as volunteer            | only admins can ban, volunteers cannot        |
+ * | ban as admin                | an admin should be able to ban a user         |
+ * | banned user cannot log in   | a ban has to actually block login             |
+ * | ban null user               | banning nobody should return false, not crash |
+ * +-----------------------------+-----------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class UserManagerTest {

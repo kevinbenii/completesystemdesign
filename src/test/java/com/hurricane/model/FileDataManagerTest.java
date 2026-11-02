@@ -17,6 +17,15 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for saving data to files and loading it back.
  *
+ * +--------------------------------+--------------------------------------------------+
+ * | Test                           | Reasoning                                        |
+ * +--------------------------------+--------------------------------------------------+
+ * | saved user loads again         | saved accounts must still exist after restarting |
+ * | saved user keeps phone number  | saving must not lose a user's details            |
+ * | saved volunteer keeps skills   | a volunteer's skills have to survive saving      |
+ * | saved banned user stays banned | a ban must not disappear after restarting        |
+ * +--------------------------------+--------------------------------------------------+
+ *
  * @author Jon Luu
  */
 public class FileDataManagerTest {
