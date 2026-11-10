@@ -14,7 +14,7 @@
       "type": "java",
       "name": "Run App",
       "request": "launch",
-      "mainClass": "com.hurricane/com.hurricane.App",
+      "mainClass": "com.hurricane/com.sample.App",
       "projectName": "relief_system",
       "cwd": "${workspaceFolder}",
       "envFile": "${workspaceFolder}/.env"
