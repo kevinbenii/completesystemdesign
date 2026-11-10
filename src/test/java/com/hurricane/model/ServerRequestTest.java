@@ -9,6 +9,41 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 // Tests for submitting, completing, taking and recommending requests through the Server.
+//
+// +------------------------------+-----------------------------------------+
+// | Test                         | Reasoning                               |
+// +------------------------------+-----------------------------------------+
+// | submit, logged out           | only a logged in victim can submit      |
+// | submit as volunteer          | only a victim can submit                |
+// | submit as victim             | the request has to show up in the list  |
+// | submitted request is saved   | a new request has to reach the file     |
+// | family request, logged out   | no victim means no request              |
+// | family request counts family | the group size comes from the family    |
+// | family request, no family    | the group is at least one person        |
+// | family request copies pets   | the victim's pets join the request      |
+// | family request with note     | a note means medical care is needed     |
+// | family request, null note    | no note means no medical need           |
+// | delete request               | a deleted request leaves the list       |
+// | mark as resolved             | the status changes to RESOLVED          |
+// | filter by skill              | a matching request has to be found      |
+// | filter by location, far away | a far request is left out               |
+// | complete, logged out         | nobody is allowed to complete it        |
+// | complete as victim           | victims can't complete requests         |
+// | complete as admin            | the status changes to COMPLETE          |
+// | complete null request        | null should fail, no crash              |
+// | volunteer as victim          | only volunteers can take a request      |
+// | volunteer takes request      | the volunteer gets assigned             |
+// | volunteer for null request   | null should fail, no crash              |
+// | second volunteer             | a taken request can't be taken again    |
+// | recommend as victim          | only volunteers get recommendations     |
+// | recommend nearby skill match | the best match should come first        |
+// | recommend others by distance | closer requests should come first       |
+// | recommend leaves out taken   | only open requests are recommended      |
+// | reason names the skill       | the volunteer should see why it matched |
+// | reason, no skill match       | no match means no reason                |
+// | reason, too far away         | a far request is not recommended        |
+// +------------------------------+-----------------------------------------+
+//
 // Author: Max Vogel
 public class ServerRequestTest extends ServerTestBase {
     @Test

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 // Setup shared by the tests that need a Server: a fresh one on an empty temp folder for every test.
 // Author: Max Vogel
-abstract class ServerTestBase {
+public abstract class ServerTestBase {
     protected Path testFolder;
     protected Server server;
     protected Location location;

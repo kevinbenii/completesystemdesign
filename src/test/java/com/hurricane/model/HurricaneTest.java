@@ -11,6 +11,28 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 // Tests for moving a hurricane and working out its direction and affected area.
+//
+// +---------------------------------+----------------------------------------------+
+// | Test                            | Reasoning                                    |
+// +---------------------------------+----------------------------------------------+
+// | new hurricane history           | the track has to start at the first location |
+// | update moves hurricane          | the current location becomes the new one     |
+// | update changes category         | the new category replaces the old one        |
+// | update changes wind speed       | the new wind speed replaces the old one      |
+// | update adds to history          | each move has to be kept in the track        |
+// | update with null location       | a null location would break later calls      |
+// | update with category over 5     | categories only go from 1 to 5               |
+// | update with negative wind speed | wind speed can't be below zero               |
+// | direction before moving         | with one point there is no direction         |
+// | direction X                     | X is the change in longitude                 |
+// | direction Y                     | Y is the change in latitude                  |
+// | direction after two moves       | only the last move should count              |
+// | area includes current location  | the storm is inside its own area             |
+// | area leaves out far points      | points outside the radius are not affected   |
+// | area keeps old points in radius | old points inside the radius still count     |
+// | area with negative radius       | no point can be inside a negative radius     |
+// +---------------------------------+----------------------------------------------+
+//
 // Author: Max Vogel
 public class HurricaneTest {
     private static final double DELTA = 0.000001;

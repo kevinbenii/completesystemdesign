@@ -12,6 +12,26 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 // Tests for a relief request's starting values, location and skill checks, and display.
+//
+// +--------------------------+---------------------------------+
+// | Test                     | Reasoning                       |
+// +--------------------------+---------------------------------+
+// | new request status       | a new request starts OPEN       |
+// | new request people count | a new request is for one person |
+// | new request medical      | no medical need by default      |
+// | new request medical note | the note starts empty, not null |
+// | new request pets         | a new request has no pets       |
+// | near, inside radius      | a nearby location is near       |
+// | near, outside radius     | a far location is not near      |
+// | skill that was asked for | the required skill matches      |
+// | skill not asked for      | other skills don't match        |
+// | null skill               | null is never needed, no crash  |
+// | set medical              | the note has to be kept         |
+// | add pet                  | the pet joins the request       |
+// | display subject          | the subject has to be printed   |
+// | display body             | the body has to be printed      |
+// +--------------------------+---------------------------------+
+//
 // Author: Max Vogel
 public class ReliefRequestTest {
     private Location location;

@@ -22,10 +22,13 @@ public class Volunteer extends User {
 		skills.add(skill);
 	}
 
-	/** Takes a request */
-	public void volunteerForRequest(ReliefRequest request) {
+	/** Takes an open request, false if it can't be taken */
+	public boolean volunteerForRequest(ReliefRequest request) {
+		if (request == null || request.getStatus() != ReliefRequestStatus.OPEN)
+			return false;
 		request.setAssignedVolunteer(this);
 		request.setStatus(ReliefRequestStatus.ASSIGNED);
+		return true;
 	}
 
 	/** Marks a request resolved */

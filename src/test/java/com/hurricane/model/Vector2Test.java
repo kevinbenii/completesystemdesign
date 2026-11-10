@@ -8,12 +8,17 @@ import static org.junit.Assert.assertThrows;
 /**
  * Tests for adding vectors and their dot product.
  *
- * AI was used to write the test code. Test list and reasoning:
- * +--------------------------------+-------------------------------------------------------------------+
- * | Test                           | Reasoning                                                         |
- * +--------------------------------+-------------------------------------------------------------------+
- * |                                |                                                                   |
- * +--------------------------------+-------------------------------------------------------------------+
+ * +------------------------------+----------------------------------------+
+ * | Test                         | Reasoning                              |
+ * +------------------------------+----------------------------------------+
+ * | Add sums X                   | X values should add correctly          |
+ * | Add sums Y                   | Y values should add correctly          |
+ * | Add negative vector          | Opposite vectors should cancel         |
+ * | Add null                     | Null should throw an exception         |
+ * | Dot multiplies and sums      | The dot product should be correct      |
+ * | Dot of perpendicular vectors | Perpendicular vectors should give zero |
+ * | Dot null                     | Null should throw an exception         |
+ * +------------------------------+----------------------------------------+
  *
  * @author Kevin Beni
  */

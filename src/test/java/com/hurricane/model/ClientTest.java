@@ -9,6 +9,21 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 // Tests for the client logging in and passing requests to the Server.
+//
+// +------------------------------+--------------------------------------+
+// | Test                         | Reasoning                            |
+// +------------------------------+--------------------------------------+
+// | login, right password        | valid details should work            |
+// | login, wrong password        | a wrong password should be refused   |
+// | login sets current user      | the client has to know who logged in |
+// | logout                       | the server has to log out too        |
+// | submit request               | the request has to reach the server  |
+// | filter by skill, match       | a matching request has to be found   |
+// | filter by skill, no match    | other skills are left out            |
+// | filter by location, nearby   | a nearby request has to be found     |
+// | filter by location, far away | a far request is left out            |
+// +------------------------------+--------------------------------------+
+//
 // Author: Max Vogel
 public class ClientTest extends ServerTestBase {
     private Client client;

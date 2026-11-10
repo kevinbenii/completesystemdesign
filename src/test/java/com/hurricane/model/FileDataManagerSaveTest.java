@@ -16,6 +16,37 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 // Tests for saving shelters and requests to files and loading them back.
+//
+// +--------------------------------+------------------------------------------------+
+// | Test                           | Reasoning                                      |
+// +--------------------------------+------------------------------------------------+
+// | load shelters, no file         | a missing file means no shelters yet           |
+// | load requests, no file         | a missing file means no requests yet           |
+// | load shelters, broken file     | bad JSON should fail with a clear error        |
+// | shelter keeps name             | saving should not change the name              |
+// | shelter keeps capacity         | saving should not change the capacity          |
+// | closed shelter stays closed    | a reload should not reopen a shelter           |
+// | shelter keeps accepts dogs     | the dog setting has to be saved                |
+// | shelter keeps medical staff    | the medical setting has to be saved            |
+// | shelter keeps pet capacity     | the pet room has to be saved                   |
+// | shelter keeps pets             | pets staying there have to be saved            |
+// | shelter keeps skills           | the help offered has to be saved               |
+// | reload counts whole family     | occupancy counts everyone in the family        |
+// | closed shelter keeps occupants | closing should not remove people on reload     |
+// | occupant not in users file     | an unknown occupant is dropped, no crash       |
+// | request keeps id               | the id has to stay the same                    |
+// | request keeps subject          | saving should not change the subject           |
+// | request keeps status           | a reload should not reset the status to OPEN   |
+// | request keeps people count     | the group size has to be saved                 |
+// | request keeps medical note     | the medical need has to be saved               |
+// | request keeps pets             | pets in the group have to be saved             |
+// | request keeps destination      | the chosen shelter has to be saved             |
+// | request keeps requester        | the victim who asked has to be found again     |
+// | requester not in users file    | an unknown requester is null, no crash         |
+// | request keeps volunteer        | the assigned volunteer has to be found again   |
+// | unassigned request             | no volunteer stays no volunteer after a reload |
+// +--------------------------------+------------------------------------------------+
+//
 // Author: Max Vogel
 public class FileDataManagerSaveTest {
     private Path testFolder;
