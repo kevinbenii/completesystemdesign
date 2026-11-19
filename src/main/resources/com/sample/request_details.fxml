@@ -20,6 +20,7 @@
             <Label fx:id="helpLabel" styleClass="card-text" wrapText="true" />
             <Label fx:id="locationLabel" styleClass="card-text" wrapText="true" />
          </VBox>
+         <Button maxWidth="Infinity" onAction="#handleViewMap" styleClass="primary-button" text="View map" />
          <Button maxWidth="Infinity" onAction="#handleCancel" styleClass="danger-button" text="Cancel request" />
       </VBox>
    </content>

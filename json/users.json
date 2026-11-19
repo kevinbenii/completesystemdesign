@@ -334,5 +334,43 @@
     "activeRequests": [],
     "familyMembers": [],
     "pets": []
+  },
+  {
+    "id": "578803ac-d945-420c-aa39-5e7e245c7a4a",
+    "username": "dan",
+    "password": "password",
+    "phoneNumber": "8038049739",
+    "location": {
+      "address": "1600 park circle",
+      "city": "columbia",
+      "state": "sc",
+      "zipCode": "29707",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "banned": false,
+    "role": "VICTIM",
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
+  },
+  {
+    "id": "2b48dd74-3c7a-4a25-bbab-7b30216ca521",
+    "username": "max",
+    "password": "pass",
+    "phoneNumber": "803",
+    "location": {
+      "address": "eh",
+      "city": "eh",
+      "state": "eh",
+      "zipCode": "eh",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "banned": false,
+    "role": "VICTIM",
+    "activeRequests": [],
+    "familyMembers": [],
+    "pets": []
   }
 ]

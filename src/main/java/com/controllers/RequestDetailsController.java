@@ -47,6 +47,12 @@ public class RequestDetailsController {
         App.show("home");
     }
 
+    // Opens the map for this request
+    @FXML
+    private void handleViewMap() {
+        App.show("map");
+    }
+
     /** Goes back to the home screen */
     @FXML
     private void handleBack() {
