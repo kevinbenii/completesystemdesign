@@ -21,7 +21,7 @@ public class MapController {
     @FXML
     private WebView webView;
     @FXML
-    private Label shelterLabel;
+    private Label closestShelterLabel;
 
     private DrivingRoute route;
 
@@ -45,21 +45,34 @@ public class MapController {
 
     private void loadRoute(ReliefRequest request) {
         try {
-            Shelter shelter = Server.getInstance().findSuitableShelter(request);
+            Shelter shelter = closestSuitableShelter(request);
             if (shelter == null) {
-                Platform.runLater(() -> shelterLabel.setText("No suitable shelter found."));
+                Platform.runLater(() -> closestShelterLabel.setText("No suitable shelter found."));
                 return;
             }
             route = MapTools.getInstance().getDrivingRoute(request.getLocation().toAddress(),
                     shelter.getLocation().toAddress());
             Platform.runLater(() -> {
-                shelterLabel.setText("Shelter: " + shelter.getName());
+                closestShelterLabel.setText("Closest shelter: " + shelter.getName());
                 webView.getEngine().load(App.class.getResource("/com/sample/map.html").toExternalForm());
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Platform.runLater(() -> shelterLabel.setText("Could not load the map. Check MAP_API_KEY and the internet."));
+            Platform.runLater(() -> closestShelterLabel.setText("Could not load the map. Check MAP_API_KEY and the internet."));
         }
+    }
+
+    // Nearest suitable shelter in a straight line, so only one route has to be looked up online
+    private Shelter closestSuitableShelter(ReliefRequest request) {
+        Shelter closest = null;
+        for (Shelter shelter : Server.getInstance().getAllShelters()) {
+            if (!Server.getInstance().isSuitable(shelter, request))
+                continue;
+            if (closest == null || shelter.getLocation().distanceTo(request.getLocation())
+                    < closest.getLocation().distanceTo(request.getLocation()))
+                closest = shelter;
+        }
+        return closest;
     }
 
     // Calls the map page's JavaScript to add the two pins and the route line
